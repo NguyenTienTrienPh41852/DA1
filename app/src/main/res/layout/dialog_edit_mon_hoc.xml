@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/bgr_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:paddingBottom="8dp"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sửa Môn Học"
+        android:background="@drawable/tv_dialog"
+        android:gravity="center"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:padding="16dp"
+        android:layout_marginBottom="10dp"
+        />
+    <EditText
+        android:id="@+id/ed_ten_mon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text"
+        android:hint="Tên Môn Học"
+        android:padding="13dp"
+        android:layout_margin="13dp"
+        />
+    <EditText
+        android:id="@+id/ed_ma_mon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text"
+        android:hint="Mã môn"
+        android:padding="13dp"
+        android:layout_margin="13dp"
+        />
+
+    <EditText
+        android:id="@+id/ed_ten_lớp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text"
+        android:hint="Tên Lớp Học"
+        android:padding="13dp"
+        android:layout_margin="13dp"
+        />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#29BE38"
+        android:layout_gravity="center_horizontal"
+        android:text="Save"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+</LinearLayout>

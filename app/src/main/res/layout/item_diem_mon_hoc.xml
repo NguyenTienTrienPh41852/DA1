@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
+    >
+    <TextView
+        android:id="@+id/tv_ten_dau_diem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên đầu điểm"
+        android:textSize="17dp"
+        />
+    <TextView
+        android:id="@+id/tv_trong_so"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trọng số"
+        android:textSize="17dp"
+        android:layout_marginStart="110dp"
+        />
+    <TextView
+        android:id="@+id/tv_diem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Điểm"
+        android:textSize="17dp"
+        android:layout_marginStart="50dp"
+        />
+</LinearLayout>

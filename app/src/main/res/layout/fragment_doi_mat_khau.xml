@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/bgr_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:paddingBottom="8dp"
+    android:gravity="center_vertical"
+    >
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/img_5"
+        />
+    <EditText
+        android:id="@+id/ed_mat_khau_cu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text"
+        android:hint="Nhập mật khẩu cũ"
+        android:padding="13dp"
+        android:layout_margin="13dp"
+        />
+    <EditText
+        android:id="@+id/ed_mat_khau_moi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text"
+        android:hint="Nhập mật khẩu mới"
+        android:padding="13dp"
+        android:layout_margin="13dp"
+
+        />
+    <EditText
+        android:id="@+id/ed_nhap_lai_mat_khau"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text"
+        android:hint="Nhập lại mật khẩu"
+        android:padding="13dp"
+        android:layout_margin="13dp"
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        >
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#29BE38"
+            android:layout_gravity="center_horizontal"
+            android:text="Cancel"
+            android:textStyle="bold"
+            android:textSize="17dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+
+            />
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#29BE38"
+            android:layout_gravity="center_horizontal"
+            android:text="Save"
+            android:textStyle="bold"
+            android:textSize="17dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginStart="40dp"
+
+            />
+    </LinearLayout>
+</LinearLayout>

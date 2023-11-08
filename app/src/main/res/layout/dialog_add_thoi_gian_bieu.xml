@@ -63,7 +63,7 @@
             />
         <EditText
             android:id="@+id/ed_from_time"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="40dp"
 
@@ -85,7 +85,7 @@
             />
         <EditText
             android:id="@+id/ed_to_time"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="40dp"
 

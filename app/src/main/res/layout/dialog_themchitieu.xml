@@ -1,0 +1,158 @@
+
+<!-- res/layout/dialog_scrollable.xml -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Nội dung của dialog -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/red"
+                android:gravity="center"
+                android:text="Thêm Chi Tiêu"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <EditText
+                    android:id="@+id/add_ct_sotien"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="Số tiền"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chọn danh mục: "
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="23dp"
+                    android:layout_marginTop="11dp"
+                    android:textStyle="bold"/>
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:id="@+id/spn_add_ct_danhmuc"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Chọn khoản chi:            "
+                    android:layout_marginLeft="10dp"
+                    android:textSize="23dp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="11dp"
+                    android:textStyle="bold"/>
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:id="@+id/spn_add_ct_khoanchi"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Chọn loại ví:            "
+                    android:layout_marginLeft="10dp"
+                    android:textSize="23dp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="11dp"
+                    android:textStyle="bold"/>
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:id="@+id/spn_add_ct_loaivi"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày:            "
+                    android:layout_marginLeft="10dp"
+                    android:textSize="23dp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="11dp"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:backgroundTint="@color/white"
+                        android:src="@drawable/calendar"/>
+                    <EditText
+                        android:id="@+id/add_ct_ngay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:textSize="20dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <EditText
+                android:id="@+id/add_ct_ghichu"
+                android:layout_width="match_parent"
+                android:layout_height="104dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:hint="Ghi chú"
+                android:textSize="20sp"/>
+            <Button
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Add"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/red"
+                android:textSize="17dp"
+                android:id="@+id/btn_ct_add"/>
+        </LinearLayout>
+        <!-- Thêm các phần tử khác nếu cần -->
+    </LinearLayout>
+</ScrollView>
+

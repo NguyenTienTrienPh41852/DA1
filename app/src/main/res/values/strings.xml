@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">DA1_T6</string>
+    <string name="app_name">Quản lý ví</string>
+    <string name="open">Open nav</string>
+    <string name="close">Close nav</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

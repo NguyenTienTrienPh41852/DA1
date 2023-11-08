@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menuQLV"
+        android:title="Quản lý ví"
+        android:icon="@drawable/vi"/>
+    <item android:id="@+id/menuQLCT"
+        android:title="Quản lý chi tiêu"
+        android:icon="@drawable/chitieu"/>
+    <item android:id="@+id/menuQLTN"
+        android:title="Quản lý thu nhập"
+        android:icon="@drawable/thunhap"/>
+    <item android:id="@+id/menuQLTGB"
+        android:title="Quản lý thời gian biểu"
+        android:icon="@drawable/thoigianbieu"/>
+    <item android:title="Thống kê">
+        <menu>
+            <item android:id="@+id/menuLSBD"
+                android:title="Lịch sử biến động"
+                android:icon="@drawable/lsbd"/>
+            <item android:id="@+id/menuTK"
+                android:title="Thống kê"
+                android:icon="@drawable/thongke"/>
+        </menu>
+    </item>
+    <item android:title="Người dùng">
+        <menu>
+<!--            <item android:id="@+id/menuTND"-->
+<!--                android:title="Thêm người dùng"-->
+<!--                android:icon="@drawable/add_user"/>-->
+<!--            <item android:id="@+id/menuDMK"-->
+<!--                android:title="Đổi mật khẩu"-->
+<!--                android:icon="@drawable/change_password"/>-->
+            <item android:id="@+id/menuDX"
+                android:title="Đăng xuất"
+                android:icon="@drawable/dangxuat"/>
+        </menu>
+    </item>
+</menu>

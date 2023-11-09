@@ -92,15 +92,22 @@
             />
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/sp_status"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="13dp"
-        android:padding="10dp"
         android:background="@color/white"
+        android:layout_margin="13dp"
 
-        />
+        >
+
+        <Spinner
+            android:id="@+id/sp_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="13dp"
+            />
+    </LinearLayout>
+
 
 
 

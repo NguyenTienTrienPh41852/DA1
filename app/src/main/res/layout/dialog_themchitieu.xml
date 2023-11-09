@@ -32,16 +32,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <EditText
                     android:id="@+id/add_ct_sotien"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="30sp"
-
+                    android:layout_height="58dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:background="@color/white"
                     android:hint="Số tiền"
-                    />
+                    android:layout_marginTop="20dp"
+                    android:textSize="30sp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -51,12 +52,19 @@
                     android:textSize="23dp"
                     android:layout_marginTop="11dp"
                     android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="10dp"
+                    >
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginHorizontal="10dp"
+
                     android:id="@+id/spn_add_ct_danhmuc"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -72,12 +80,18 @@
                     android:textColor="@color/red"
                     android:layout_marginTop="11dp"
                     android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                   android:layout_margin="10dp"
+                    android:layout_marginHorizontal="10dp"
+                    >
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginHorizontal="10dp"
                     android:id="@+id/spn_add_ct_khoanchi"/>
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/add_ct_ngay"
@@ -125,13 +139,18 @@
                     android:textColor="@color/red"
                     android:layout_marginTop="11dp"
                     android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_margin="10dp"
+                    android:layout_marginHorizontal="10dp"
+                    >
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginHorizontal="10dp"
                     android:id="@+id/spn_add_ct_loaivi"/>
-
+                </LinearLayout>
 
             </LinearLayout>
             <LinearLayout
@@ -146,6 +165,7 @@
                 android:layout_height="104dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:background="@color/white"
                 android:layout_marginRight="10dp"
                 android:hint="Ghi chú"
                 android:textSize="20sp"/>

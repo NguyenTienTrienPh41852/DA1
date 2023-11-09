@@ -92,21 +92,14 @@
             />
     </LinearLayout>
 
-        <Spinner
-            android:id="@+id/sp_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="13dp"
-            android:padding="10dp"
-            android:background="@drawable/edit_text"
-
-
-            />
-
-
-
-
-
+    <Spinner
+        android:id="@+id/sp_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="13dp"
+        android:padding="10dp"
+        android:background="@color/white"
+        />
     <Button
         android:id="@+id/btn_save"
         android:layout_width="130dp"

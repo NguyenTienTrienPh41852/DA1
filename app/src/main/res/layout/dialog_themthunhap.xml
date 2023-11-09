@@ -9,8 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bgr_dialog"
         android:orientation="vertical">
-
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -20,8 +20,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:layout_marginBottom="10dp"
-                android:background="@color/green"
+                android:background="@drawable/tv_dialog"
                 android:gravity="center"
+                android:textColor="@color/white"
                 android:text="Thêm Thu Nhập"
                 android:textSize="30dp"
                 android:textStyle="bold" />
@@ -56,37 +57,37 @@
                     android:id="@+id/spn_add_tn_tengd"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/add_tn_ngay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bgr_dialogred"
+                android:orientation="horizontal">
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#F1F6F1"
+                    android:src="@drawable/calendar2" />
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ngày:            "
-                    android:layout_marginLeft="10dp"
+                    android:text="Ngày:"
                     android:textSize="23dp"
+
                     android:textColor="@color/green"
-                    android:layout_marginTop="11dp"
+                    android:layout_gravity="center"
                     android:textStyle="bold"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_add_ct_ngay"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:backgroundTint="@color/white"
-                        android:src="@drawable/calendar2"/>
-                    <EditText
-                        android:id="@+id/add_tn_ngay"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:textSize="20dp"
-                        />
-                </LinearLayout>
+                    android:text=""
+                    android:textSize="23dp"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/green"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -126,6 +127,7 @@
                 android:text="Save"
                 android:textStyle="bold"
                 android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
                 android:backgroundTint="@color/green"

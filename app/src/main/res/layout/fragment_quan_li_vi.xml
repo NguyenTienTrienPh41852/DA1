@@ -1,77 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F1F6F1"
-    android:orientation="vertical"
     >
 
-    <LinearLayout
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/linear_vi"
-        android:layout_margin="10dp"
-        android:background="@drawable/bgr_linear_vi"
+        android:layout_margin="4dp"
+        app:iconifiedByDefault="true"
+        android:background="@color/white"
+        />
 
-        >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            >
-
-            <ImageView
-                android:id="@+id/img_icon"
-                android:layout_width="50dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="9dp"
-                android:src="@drawable/img_3"
-                />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="20dp"
-                >
-                <TextView
-                    android:id="@+id/tv_ten_vi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ten vi"
-                    android:textSize="19dp"/>
-                <TextView
-                    android:id="@+id/tv_so_tien"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="So tien"
-                    android:textStyle="bold"
-                    android:textColor="@color/green"
-                    android:textSize="19dp"/>
-            </LinearLayout>
-        </LinearLayout>
-
-    </LinearLayout>
-
+    <TextView
+        android:id="@+id/tv_chon_vi"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/search_view"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:background="@color/white"
-        android:layout_margin="10dp"
+        android:id="@+id/line1"
+        android:layout_below="@id/tv_chon_vi"
         >
-        <Spinner
-            android:id="@+id/sp_chon_thang_quan_li_vi"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_chon_thang"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-
+            android:text="Tháng này"
+            android:textStyle="bold"
+            android:textColor="@color/green"
+            android:textSize="18dp"
+            />
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/img_2"
+            android:layout_marginStart="5dp"
             />
     </LinearLayout>
 
@@ -81,10 +55,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/tv_item_quan_li_vi"
         android:layout_marginTop="10dp"
-
+        android:layout_below="@+id/line1"
         />
-
     <TextView
+        android:id="@+id/tv1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Các giao dịch"
@@ -93,24 +67,29 @@
         android:textSize="18dp"
         android:layout_marginTop="40dp"
         android:gravity="center_horizontal"
+        android:layout_below="@+id/tv_thu_chi_thang"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_cac_giao_dich_thang"
+    <TextView
+        android:id="@+id/tv_giao_dich_thang"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_margin="8dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tv_item_quan_li_vi"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/tv1"
         />
+
     <ImageButton
         android:id="@+id/btn_add_vi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_margin="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="30dp"
         android:background="@drawable/image_button"
         android:padding="30dp"
         />
 
 
-</LinearLayout>
+</RelativeLayout>

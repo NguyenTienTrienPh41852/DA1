@@ -14,8 +14,8 @@
         android:icon="@drawable/thoigianbieu"/>
     <item android:title="Thống kê">
         <menu>
-            <item android:id="@+id/menuLSBD"
-                android:title="Lịch sử biến động"
+            <item android:id="@+id/menuBDTC"
+                android:title="Biến động tài chính"
                 android:icon="@drawable/lsbd"/>
             <item android:id="@+id/menuTK"
                 android:title="Thống kê"

@@ -9,6 +9,7 @@ android:layout_height="match_parent">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bgr_dialog"
     android:orientation="vertical">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,9 +21,10 @@ android:layout_height="match_parent">
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/red"
+            android:background="@drawable/tv_dialogred"
             android:gravity="center"
             android:text="Update Chi Tiêu"
+            android:textColor="@color/white"
             android:textSize="30dp"
             android:textStyle="bold" />
 
@@ -77,6 +79,39 @@ android:layout_height="match_parent">
                 android:id="@+id/spn_ud_ct_khoanchi"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ud_ct_ngay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bgr_dialogred"
+            android:orientation="horizontal">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#F1F6F1"
+                android:src="@drawable/calendar" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày:"
+                android:textSize="23dp"
+
+                android:textColor="@color/red"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tv_add_ct_ngay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="23dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/red"
+                android:layout_gravity="center"
+                android:textStyle="bold"/>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -95,41 +130,6 @@ android:layout_height="match_parent">
                 android:layout_marginTop="10dp"
                 android:layout_marginHorizontal="10dp"
                 android:id="@+id/spn_ud_ct_loaivi"/>
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ngày:            "
-                android:layout_marginLeft="10dp"
-                android:textSize="23dp"
-                android:textColor="@color/red"
-                android:layout_marginTop="11dp"
-                android:textStyle="bold"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="@color/white"
-                    android:src="@drawable/calendar"/>
-                <EditText
-                    android:id="@+id/ud_ct_ngay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:textSize="20dp"
-                    />
-            </LinearLayout>
         </LinearLayout>
         <EditText
             android:id="@+id/ud_ct_ghichu"
@@ -147,6 +147,7 @@ android:layout_height="match_parent">
             android:textStyle="bold"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginRight="10dp"
             android:backgroundTint="@color/red"
             android:textSize="17dp"

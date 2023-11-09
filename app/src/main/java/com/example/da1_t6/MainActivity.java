@@ -57,7 +57,43 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.menuQLCT){
+                    fragment_Quanlychitieu frgQLCT = new fragment_Quanlychitieu();
+                    relaceFrg(frgQLCT);
+                    toolbar.setTitle("Quản lý chi tiêu");
+                }else if(item.getItemId() == R.id.menuQLTN){
+                    fragment_Quanlythunhap frgQLTN =  new fragment_Quanlythunhap();
+                    relaceFrg(frgQLTN);
+                    toolbar.setTitle("Quản lý thu nhập");
+                }else if(item.getItemId() == R.id.menuBDTC){
+                    fragment_Biendongtaichinh frgBDTC = new fragment_Biendongtaichinh();
+                    relaceFrg(frgBDTC);
+                    toolbar.setTitle("Quản lý sách");
+                }else if(item.getItemId() == R.id.menuTK){
+                    fragment_Thongke frgTK = new fragment_Thongke();
+                    relaceFrg(frgTK);
+                    toolbar.setTitle("Quản lý thành viên");
+                }else if(item.getItemId() == R.id.menuDX){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Đăng Xuất");
+                    builder.setMessage("Bạn chắc chăn muướn đăng xuất chứ!");
+                    builder.setPositiveButton("Đăng xuất", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
+                            finish();
+                        }
+                    });
+                    builder.setNegativeButton("Hủy",null);
+                    builder.create().show();
+                }
+                drawerLayout.closeDrawer(navigationView);
+                return true;
+            }
+        });
 
 
 

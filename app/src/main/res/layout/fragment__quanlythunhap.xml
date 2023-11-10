@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bgr_dialog"
-    tools:context=".fragment_Quanlythunhap">
+    tools:context=".Fragment.fragment_QuanLyThuNhap">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -12,10 +12,11 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE VITIEN (\n" +
                 "    MAVI   INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "    MAND   TEXT    REFERENCES NGUOIDUNG (MAND),\n" +
                 "    TENVI  TEXT    NOT NULL,\n" +
                 "    SODUBD REAL    NOT NULL,\n" +
                 "    SODUHT REAL    DEFAULT (0) \n" +
-                ");\n");
+                ");");
         db.execSQL("CREATE TABLE DANHMUC (\n" +
                 "    MADANHMUC  INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "    TENDANHMUC TEXT    NOT NULL\n" +
@@ -27,7 +28,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 "    TENKC       TEXT    NOT NULL,\n" +
                 "    SOTIENCHI   REAL    NOT NULL,\n" +
                 "    THOIGIANCHI TEXT    NOT NULL,\n" +
-                "    GHICHU      TEXT\n" +
+                "    GHICHU      TEXT    NOT NULL\n" +
                 ");\n");
         db.execSQL("CREATE TABLE KHOANTHU (\n" +
                 "    MAKT     INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
@@ -36,12 +37,12 @@ public class DbHelper extends SQLiteOpenHelper {
                 "    SOTIEN   REAL    NOT NULL,\n" +
                 "    THOIGIAN TEXT    NOT NULL,\n" +
                 "    GHICHU   TEXT\n" +
-                ");\n");
+                ");");
         db.execSQL("CREATE TABLE MONHOC (\n" +
                 "    IDMONHOC  INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "    MAMON     TEXT    NOT NULL,\n" +
                 "    TENMON    TEXT    NOT NULL,\n" +
-                "    TENLOP            NOT NULL,\n" +
+                "    TENLOP    TEXT    NOT NULL,\n" +
                 "    DIEMTB    REAL    DEFAULT (0),\n" +
                 "    TRANGTHAI INTEGER DEFAULT (0) \n" +
                 ");\n");
@@ -51,9 +52,10 @@ public class DbHelper extends SQLiteOpenHelper {
                 "    TENDD      TEXT    NOT NULL,\n" +
                 "    TRONGSO    REAL    NOT NULL,\n" +
                 "    DIEM       REAL    NOT NULL\n" +
-                ");\n");
-        db.execSQL("CREATE TABLE TGIANBIEU (\n" +
-                "    ID         INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                ");");
+        db.execSQL("CREATE TABLE HOATDONG (\n" +
+                "    MAHD       INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "    MAND       TEXT    REFERENCES NGUOIDUNG (MAND),\n" +
                 "    TENHD      TEXT    NOT NULL,\n" +
                 "    MOTA       TEXT    NOT NULL,\n" +
                 "    TGBATDAU   TEXT    NOT NULL,\n" +
@@ -83,7 +85,7 @@ public class DbHelper extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS KHOANTHU");
             db.execSQL("DROP TABLE IF EXISTS MONHOC");
             db.execSQL("DROP TABLE IF EXISTS BANGDIEM");
-            db.execSQL("DROP TABLE IF EXISTS TGIANBIEU");
+            db.execSQL("DROP TABLE IF EXISTS HOATDONG");
             db.execSQL("DROP TABLE IF EXISTS NGUOIDUNG");
             onCreate(db);
         }

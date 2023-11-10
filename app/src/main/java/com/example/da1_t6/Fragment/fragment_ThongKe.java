@@ -1,4 +1,4 @@
-package com.example.da1_t6;
+package com.example.da1_t6.Fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.da1_t6.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -17,9 +18,9 @@ import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
 
-public class fragment_Thongke extends Fragment {
+public class fragment_ThongKe extends Fragment {
 
-    public fragment_Thongke() {
+    public fragment_ThongKe() {
         // Required empty public constructor
     }
 

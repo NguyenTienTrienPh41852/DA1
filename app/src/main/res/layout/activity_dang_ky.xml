@@ -9,18 +9,39 @@
     android:background="@drawable/bgr_dialog"
     tools:context=".DangKy">
 
-    <ImageView
-        android:layout_width="220dp"
-        android:layout_height="216dp"
-        android:src="@drawable/calendar" />
     <TextView
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign In"
         android:textColor="#29BE38"
         android:textSize="40sp"
         android:textStyle="bold"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Họ và tên:"
+            android:layout_marginBottom="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/green"/>
+        <EditText
+            android:id="@+id/ed_dk_tennd"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/backgroundlogin"
+            android:hint="Vui lòng nhập họ và tên bạn"
+            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,6 +117,26 @@
             android:textSize="20dp"
             android:paddingLeft="10dp"
             />
+
+        <ImageView
+            android:id="@+id/avatarImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src=""
+            android:onClick="onAvatarClick"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn ảnh đại diện"
+            android:layout_marginBottom="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/green"/>
+
         <Button
             android:id="@+id/btn_dangky"
             android:layout_width="140dp"

@@ -1,4 +1,4 @@
-package com.example.da1_t6;
+package com.example.da1_t6.Fragment;
 
 import android.os.Bundle;
 
@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.da1_t6.R;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_Quanlychitieu#newInstance} factory method to
+ * Use the {@link fragment_QuanLyChiTieu#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_Quanlychitieu extends Fragment {
+public class fragment_QuanLyChiTieu extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +26,7 @@ public class fragment_Quanlychitieu extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public fragment_Quanlychitieu() {
+    public fragment_QuanLyChiTieu() {
         // Required empty public constructor
     }
 
@@ -37,8 +39,8 @@ public class fragment_Quanlychitieu extends Fragment {
      * @return A new instance of fragment fragment_Quanlychitieu.
      */
     // TODO: Rename and change types and number of parameters
-    public static fragment_Quanlychitieu newInstance(String param1, String param2) {
-        fragment_Quanlychitieu fragment = new fragment_Quanlychitieu();
+    public static fragment_QuanLyChiTieu newInstance(String param1, String param2) {
+        fragment_QuanLyChiTieu fragment = new fragment_QuanLyChiTieu();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

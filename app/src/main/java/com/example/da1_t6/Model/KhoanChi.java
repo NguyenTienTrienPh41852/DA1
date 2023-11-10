@@ -1,33 +1,27 @@
 package com.example.da1_t6.Model;
 
 public class KhoanChi {
-    private int maKhoanChi;
+    private int maKC;
     private int maDanhMuc;
-    private int maVi;
-    private String tenKhoanChi;
-    private double soTienChi;
-    private String thoiGianChi;
-    private String ghiChu;
+    private String tenKC;
+    private String tenDanhMuc;
 
     public KhoanChi() {
     }
 
-    public KhoanChi(int maKhoanChi, int maDanhMuc, int maVi, String tenKhoanChi, double soTienChi, String thoiGianChi, String ghiChu) {
-        this.maKhoanChi = maKhoanChi;
+    public KhoanChi(int maKC, int maDanhMuc, String tenKC, String tenDanhMuc) {
+        this.maKC = maKC;
         this.maDanhMuc = maDanhMuc;
-        this.maVi = maVi;
-        this.tenKhoanChi = tenKhoanChi;
-        this.soTienChi = soTienChi;
-        this.thoiGianChi = thoiGianChi;
-        this.ghiChu = ghiChu;
+        this.tenKC = tenKC;
+        this.tenDanhMuc = tenDanhMuc;
     }
 
-    public int getMaKhoanChi() {
-        return maKhoanChi;
+    public int getMaKC() {
+        return maKC;
     }
 
-    public void setMaKhoanChi(int maKhoanChi) {
-        this.maKhoanChi = maKhoanChi;
+    public void setMaKC(int maKC) {
+        this.maKC = maKC;
     }
 
     public int getMaDanhMuc() {
@@ -38,43 +32,19 @@ public class KhoanChi {
         this.maDanhMuc = maDanhMuc;
     }
 
-    public int getMaVi() {
-        return maVi;
+    public String getTenKC() {
+        return tenKC;
     }
 
-    public void setMaVi(int maVi) {
-        this.maVi = maVi;
+    public void setTenKC(String tenKC) {
+        this.tenKC = tenKC;
     }
 
-    public String getTenKhoanChi() {
-        return tenKhoanChi;
+    public String getTenDanhMuc() {
+        return tenDanhMuc;
     }
 
-    public void setTenKhoanChi(String tenKhoanChi) {
-        this.tenKhoanChi = tenKhoanChi;
-    }
-
-    public double getSoTienChi() {
-        return soTienChi;
-    }
-
-    public void setSoTienChi(double soTienChi) {
-        this.soTienChi = soTienChi;
-    }
-
-    public String getThoiGianChi() {
-        return thoiGianChi;
-    }
-
-    public void setThoiGianChi(String thoiGianChi) {
-        this.thoiGianChi = thoiGianChi;
-    }
-
-    public String getGhiChu() {
-        return ghiChu;
-    }
-
-    public void setGhiChu(String ghiChu) {
-        this.ghiChu = ghiChu;
+    public void setTenDanhMuc(String tenDanhMuc) {
+        this.tenDanhMuc = tenDanhMuc;
     }
 }

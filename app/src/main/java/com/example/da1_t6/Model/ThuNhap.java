@@ -1,6 +1,6 @@
 package com.example.da1_t6.Model;
 
-public class KhoanThu {
+public class ThuNhap {
     private int maKhoanThu;
     private int maVi;
     private String tenKhoanThu;
@@ -8,10 +8,10 @@ public class KhoanThu {
     private String thoiGianThu;
     private String ghiChu;
 
-    public KhoanThu() {
+    public ThuNhap() {
     }
 
-    public KhoanThu(int maKhoanThu, int maVi, String tenKhoanThu, double soTienThu, String thoiGianThu, String ghiChu) {
+    public ThuNhap(int maKhoanThu, int maVi, String tenKhoanThu, double soTienThu, String thoiGianThu, String ghiChu) {
         this.maKhoanThu = maKhoanThu;
         this.maVi = maVi;
         this.tenKhoanThu = tenKhoanThu;

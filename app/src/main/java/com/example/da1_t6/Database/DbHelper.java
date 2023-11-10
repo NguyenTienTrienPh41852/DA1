@@ -21,23 +21,27 @@ public class DbHelper extends SQLiteOpenHelper {
                 "    MADANHMUC  INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "    TENDANHMUC TEXT    NOT NULL\n" +
                 ");\n");
-        db.execSQL("CREATE TABLE KHOANCHI (\n" +
-                "    MAKC        INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "    MADANHMUC   INTEGER REFERENCES DANHMUC (MADANHMUC),\n" +
+        db.execSQL("CREATE TABLE CHITIEU (\n" +
+                "    MACT        INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "    MAVI        INTEGER REFERENCES VITIEN (MAVI),\n" +
-                "    TENKC       TEXT    NOT NULL,\n" +
+                "    MAKC        INTEGER REFERENCES KHOANCHI (MAKC),\n" +
                 "    SOTIENCHI   REAL    NOT NULL,\n" +
                 "    THOIGIANCHI TEXT    NOT NULL,\n" +
                 "    GHICHU      TEXT    NOT NULL\n" +
                 ");\n");
-        db.execSQL("CREATE TABLE KHOANTHU (\n" +
-                "    MAKT     INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+        db.execSQL("CREATE TABLE KHOANCHI (\n" +
+                "    MAKC      INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "    MADANHMUC TEXT    REFERENCES DANHMUC (MADANHMUC),\n" +
+                "    TENKC     TEXT    NOT NULL\n" +
+                ");\n");
+        db.execSQL("CREATE TABLE THUNHAP (\n" +
+                "    MATN     INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "    MAVI     INTEGER REFERENCES VITIEN (MAVI),\n" +
                 "    TENKT    TEXT    NOT NULL,\n" +
                 "    SOTIEN   REAL    NOT NULL,\n" +
                 "    THOIGIAN TEXT    NOT NULL,\n" +
                 "    GHICHU   TEXT\n" +
-                ");");
+                ");\n");
         db.execSQL("CREATE TABLE MONHOC (\n" +
                 "    IDMONHOC  INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "    MAMON     TEXT    NOT NULL,\n" +

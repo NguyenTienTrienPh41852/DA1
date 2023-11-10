@@ -122,12 +122,13 @@
             android:id="@+id/avatarImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src=""
-            android:onClick="onAvatarClick"
-            android:clickable="true"
-            android:scaleType="centerCrop"
+            android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:layout_gravity="center"/>
+            android:clickable="true"
+            android:onClick="onAvatarClick"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img" />
+
         <TextView
             android:layout_gravity="center"
             android:layout_width="wrap_content"

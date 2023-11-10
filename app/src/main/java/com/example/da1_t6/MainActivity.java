@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.navigationView);
+        drawerLayout = findViewById(R.id.drawerLayout);
         fg = getSupportFragmentManager();
         fg.beginTransaction().add(R.id.frameLayout,new fragment_QuanLyVi()).commit();
         setSupportActionBar(toolbar);

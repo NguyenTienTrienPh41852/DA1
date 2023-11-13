@@ -44,7 +44,7 @@ public class ChiTieuDAO {
         return db.delete("CHITIEU", "MACT = ?", new String[]{String.valueOf(maChiTieu)});
     }
 
-    public List<ChiTieu> layDanhSachKhoanChi (){
+    public List<ChiTieu> layDanhSachChiTieu (){
         List<ChiTieu> list = new ArrayList<>();
         Cursor c =db.rawQuery("SELECT * FROM CHITIEU INNER JOIN VITIEN ON CHITIEU.MAVI = VITIEN.MAVI INNER JOIN KHOANCHI ON CHITIEU.MAKC = KHOANCHI.MAKC", null);
         if (c!=null&&c.getCount()>0){

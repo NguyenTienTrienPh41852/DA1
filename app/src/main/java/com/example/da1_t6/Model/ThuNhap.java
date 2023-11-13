@@ -3,6 +3,7 @@ package com.example.da1_t6.Model;
 public class ThuNhap {
     private int maKhoanThu;
     private int maVi;
+    private String tenVi;
     private String tenKhoanThu;
     private double soTienThu;
     private String thoiGianThu;
@@ -11,9 +12,10 @@ public class ThuNhap {
     public ThuNhap() {
     }
 
-    public ThuNhap(int maKhoanThu, int maVi, String tenKhoanThu, double soTienThu, String thoiGianThu, String ghiChu) {
+    public ThuNhap(int maKhoanThu, int maVi, String tenVi, String tenKhoanThu, double soTienThu, String thoiGianThu, String ghiChu) {
         this.maKhoanThu = maKhoanThu;
         this.maVi = maVi;
+        this.tenVi = tenVi;
         this.tenKhoanThu = tenKhoanThu;
         this.soTienThu = soTienThu;
         this.thoiGianThu = thoiGianThu;

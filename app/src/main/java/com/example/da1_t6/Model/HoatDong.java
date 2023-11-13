@@ -2,7 +2,6 @@ package com.example.da1_t6.Model;
 
 public class HoatDong {
     private int maHoatDong;
-    private String tenNguoiDung;
     private String tenHoatDong;
     private String moTa;
     private String thoiGianBatDau;
@@ -13,9 +12,8 @@ public class HoatDong {
     public HoatDong() {
     }
 
-    public HoatDong(int maHoatDong, String tenNguoiDung, String tenHoatDong, String moTa, String thoiGianBatDau, String thoiGianKetThuc, int trangThaiHoatDong, String ngay) {
+    public HoatDong(int maHoatDong, String tenHoatDong, String moTa, String thoiGianBatDau, String thoiGianKetThuc, int trangThaiHoatDong, String ngay) {
         this.maHoatDong = maHoatDong;
-        this.tenNguoiDung = tenNguoiDung;
         this.tenHoatDong = tenHoatDong;
         this.moTa = moTa;
         this.thoiGianBatDau = thoiGianBatDau;
@@ -30,14 +28,6 @@ public class HoatDong {
 
     public void setMaHoatDong(int maHoatDong) {
         this.maHoatDong = maHoatDong;
-    }
-
-    public String getTenNguoiDung() {
-        return tenNguoiDung;
-    }
-
-    public void setTenNguoiDung(String tenNguoiDung) {
-        this.tenNguoiDung = tenNguoiDung;
     }
 
     public String getTenHoatDong() {

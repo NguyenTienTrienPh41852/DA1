@@ -144,7 +144,7 @@
 
         <Button
             android:id="@+id/btn_so2"
-            android:layout_width="wrap_content"
+            android:layout_width="98dp"
             android:backgroundTint="@color/white"
             android:onClick="onButtonClick"
             android:text="2"
@@ -174,14 +174,16 @@
             android:textColor="@color/black"
             android:backgroundTint="@color/white"
             android:text="."/>
+
         <Button
 
             android:id="@+id/btn_so0"
-            android:onClick="onButtonClick"
-            android:textSize="20dp"
-            android:textColor="@color/black"
+            android:layout_width="98dp"
             android:backgroundTint="@color/white"
-            android:text="0"/>
+            android:onClick="onButtonClick"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
         <Button
             android:id="@+id/btn_3so0"
         android:onClick="onButtonClick"

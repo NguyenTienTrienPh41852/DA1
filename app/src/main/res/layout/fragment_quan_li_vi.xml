@@ -17,12 +17,43 @@
         android:background="#F1F6F1"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_chon_vi"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/white" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:background="@drawable/bgr_linear_vi"
+            >
+            <ImageView
+                android:id="@+id/img_icon"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="9dp"
+                android:src="@drawable/img_3"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                >
+                <TextView
+                    android:id="@+id/tv_ten_vi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ten vi"
+                    android:textSize="19dp"/>
+                <TextView
+                    android:id="@+id/tv_so_tien"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="So tien"
+                    android:textStyle="bold"
+                    android:textColor="@color/green"
+                    android:textSize="19dp"/>
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,12 +69,94 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_thu_chi_thang"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/tv_item_quan_li_vi" />
+            >
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bgr_linear_tong_thu_chi"
+            android:layout_marginStart="5dp"
+            android:padding="10dp"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="5dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:text="Thu nhập:"
+                    />
+                <TextView
+                    android:id="@+id/tv_thu_nhap_thang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:text="10.000.000:"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/green"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="5dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:text="Chi tiêu: "
+                    />
+                <TextView
+                    android:id="@+id/tv_chi_tieu_thang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:text="10.000.000:"
+                    android:layout_marginStart="8dp"
+                    android:textColor="#FF0000"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="5dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:text="Số dư: "
+                    />
+                <TextView
+                    android:id="@+id/tv_so_du_thang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:text="10.000.000:"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/black"
+                    />
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv1"

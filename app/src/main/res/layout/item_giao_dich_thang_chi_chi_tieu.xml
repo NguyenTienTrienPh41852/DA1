@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="15dp"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#C5ECC9"
+        android:layout_marginStart="5dp"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="8dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày: "
+                android:textSize="17dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/tv_ngay_giao_dich_thang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="26-2-2022"
+                android:textSize="17dp"
+                android:layout_marginBottom="5dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_ten_giao_dich_chi_tieu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ăn uống: "
+                android:textStyle="bold"
+                android:textSize="17dp"/>
+            <TextView
+                android:id="@+id/tv_gia_giao_dich_chi_tieu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10.000.000: "
+                android:textStyle="bold"
+                android:textSize="17dp"
+                android:textColor="#FF0101"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

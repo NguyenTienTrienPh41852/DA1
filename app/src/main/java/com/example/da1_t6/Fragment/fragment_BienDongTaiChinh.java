@@ -1,5 +1,6 @@
 package com.example.da1_t6.Fragment;
 
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.da1_t6.DAO.BienDongTaiChinhDAO;
+import com.example.da1_t6.DAO.ChiTieuDAO;
+import com.example.da1_t6.DAO.ThuNhapDAO;
+import com.example.da1_t6.Model.All_a;
+import com.example.da1_t6.Model.ChiTieu;
+import com.example.da1_t6.Model.ThuNhap;
 import com.example.da1_t6.R;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,6 +64,15 @@ public class fragment_BienDongTaiChinh extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        ChiTieuDAO tieu = new ChiTieuDAO(getContext());
+        ThuNhapDAO thu = new ThuNhapDAO(getContext());
+        List<ThuNhap> list_thu = thu.layDanhSachThuNhap();
+        List<ChiTieu> list_tieu = tieu.layDanhSachChiTieu();
+
+
+        All_a all = new All_a(list_tieu,list_thu);
+
     }
 
     @Override

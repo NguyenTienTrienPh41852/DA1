@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/bgr_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:paddingBottom="8dp"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thêm khoản chi"
+        android:background="@drawable/tv_dialogred"
+        android:gravity="center"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:padding="16dp"
+        android:layout_marginBottom="10dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chọn danh mục: "
+        android:layout_marginLeft="20dp"
+        android:textSize="25dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        >
+        <Spinner
+            android:id="@+id/add_kc_sp_chon_danhmuc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            />
+    </LinearLayout>
+    <EditText
+        android:id="@+id/ed_add_tenkhoanchi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text"
+        android:hint="Tên khoản chi"
+        android:padding="13dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#EA867E"
+        android:layout_gravity="center_horizontal"
+        android:text="Save"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+</LinearLayout>

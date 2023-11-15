@@ -1,0 +1,199 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <TextView
+        android:background="#D9D9D9"
+        android:id="@+id/tv_hienthiso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="60sp"
+        android:gravity="end"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="5"
+        android:layout_marginTop="8dp">
+
+        <!-- Buttons for digits and operators -->
+        <Button
+            android:id="@+id/btn_xoahet"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill"
+            android:onClick="onButtonClick"
+            android:textSize="20dp"
+            android:textColor="#FF5A5A"
+            android:backgroundTint="@color/white"
+            android:text="C"/>
+        <ImageButton
+            android:id="@+id/btn_xoa"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill"
+            android:onClick="onButtonClick"
+            android:src="@drawable/iconback"
+            android:backgroundTint="@color/white"
+            android:text="8"/>
+        <Button
+            android:id="@+id/btn_dauchia"
+            android:onClick="onButtonClick"
+            android:textSize="30dp"
+            android:textColor="#5ABAFF"
+            android:backgroundTint="@color/white"
+            android:text="÷"/>
+        <Button
+            android:id="@+id/btn_daunhan"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill"
+            android:onClick="onButtonClick"
+            android:textSize="20dp"
+            android:textColor="#5ABAFF"
+            android:backgroundTint="@color/white"
+            android:text="X"/>
+
+        <!-- Repeat for other buttons -->
+
+        <Button
+            android:id="@+id/btn_so7"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill"
+            android:onClick="onButtonClick"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:text="7"/>
+        <Button
+            android:id="@+id/btn_so8"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill"
+            android:onClick="onButtonClick"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:text="8"/>
+        <Button
+            android:id="@+id/btn_so9"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill"
+            android:onClick="onButtonClick"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:text="9"/>
+        <Button
+            android:id="@+id/btn_dautru"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill"
+            android:onClick="onButtonClick"
+            android:textSize="30dp"
+            android:textColor="#5ABAFF"
+            android:backgroundTint="@color/white"
+            android:text="–"/>
+        <Button
+            android:id="@+id/btn_so4"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill"
+            android:onClick="onButtonClick"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:text="4"/>
+
+        <Button
+            android:id="@+id/btn_so5"
+            android:layout_width="wrap_content"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill"
+            android:backgroundTint="@color/white"
+            android:onClick="onButtonClick"
+            android:text="5"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+        <Button
+            android:id="@+id/btn_so6"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill"
+            android:onClick="onButtonClick"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:text="6"/>
+
+        <Button
+            android:id="@+id/btn_daucong"
+            android:layout_height="wrap_content"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill"
+            android:backgroundTint="@color/white"
+            android:onClick="onButtonClick"
+            android:text="+"
+            android:textColor="#5ABAFF"
+            android:textSize="30dp" />
+        <Button
+            android:id="@+id/btn_so1"
+            android:onClick="onButtonClick"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:text="1"/>
+
+        <Button
+            android:id="@+id/btn_so2"
+            android:layout_width="98dp"
+            android:backgroundTint="@color/white"
+            android:onClick="onButtonClick"
+            android:text="2"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+        <Button
+            android:id="@+id/btn_so3"
+            android:onClick="onButtonClick"
+            android:layout_columnSpan="1"
+            android:layout_gravity="fill"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:text="3"/>
+        <ImageButton
+            android:id="@+id/btn_ok"
+            android:onClick="onButtonClick"
+            android:layout_rowSpan="2"
+            android:layout_gravity="fill"
+            android:src="@drawable/iconv"
+            android:backgroundTint="@color/white"
+            android:text="V"/>
+        <Button
+            android:id="@+id/btn_daucham"
+            android:onClick="onButtonClick"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:text="."/>
+
+        <Button
+
+            android:id="@+id/btn_so0"
+            android:layout_width="98dp"
+            android:backgroundTint="@color/white"
+            android:onClick="onButtonClick"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+        <Button
+            android:id="@+id/btn_3so0"
+        android:onClick="onButtonClick"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+        android:text="000"/>
+        <!-- Repeat for other buttons -->
+
+    </GridLayout>
+</LinearLayout>

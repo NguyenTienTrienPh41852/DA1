@@ -14,16 +14,16 @@
             android:layout_height="wrap_content"
             android:text="Chi tiêu"
             android:gravity="center"
-            
+
             android:textColor="@color/red"
             android:textSize="30dp"
             />
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barchart_chitieu"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-       android:layout_margin="20dp"
-        />
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barchart_chitieu"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_margin="20dp"
+            />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,21 +31,21 @@
             android:layout_gravity="center"
             >
             <Button
-                android:id="@+id/btn_tk_ngay"
+                android:id="@+id/btn_ct_ngay"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:backgroundTint="@color/red"
                 android:text="Ngày"
                 />
             <Button
-                android:id="@+id/btn_tk_tuan"
+                android:id="@+id/btn_ct_tuan"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:backgroundTint="@color/red"
                 android:text="Tuần"
                 />
             <Button
-                android:id="@+id/btn_tk_thang"
+                android:id="@+id/btn_ct_thang"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:backgroundTint="@color/red"
@@ -66,38 +66,38 @@
             android:textColor="@color/green"
             android:textSize="30dp"
             />
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barchart_thunhap"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_margin="20dp" />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        >
-        <Button
-            android:id="@+id/btn_tk2_ngay"
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barchart_thunhap"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_margin="20dp" />
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:backgroundTint="@color/red"
-            android:text="Ngày"
-            />
-        <Button
-            android:id="@+id/btn_tk2_tuan"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:backgroundTint="@color/red"
-            android:text="Tuần"
-            />
-        <Button
-            android:id="@+id/btn_tk2_thang"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:backgroundTint="@color/red"
-            android:text="Tháng"
-            />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            >
+            <Button
+                android:id="@+id/btn_tn_ngay"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/red"
+                android:text="Ngày"
+                />
+            <Button
+                android:id="@+id/btn_tn_tuan"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/red"
+                android:text="Tuần"
+                />
+            <Button
+                android:id="@+id/btn_tn_thang"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/red"
+                android:text="Tháng"
+                />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

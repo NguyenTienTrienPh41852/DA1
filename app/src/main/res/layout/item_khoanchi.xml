@@ -47,7 +47,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tên chi tiêu:"
+                android:text="Tên khoản chi:"
                 android:textSize="18dp"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/black"

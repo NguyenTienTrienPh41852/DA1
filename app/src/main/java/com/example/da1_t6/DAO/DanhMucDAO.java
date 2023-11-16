@@ -24,7 +24,7 @@ public class DanhMucDAO {
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
             do {
-                DanhMuc danhMuc = new DanhMuc(c.getInt(0), c.getString(2));
+                DanhMuc danhMuc = new DanhMuc(c.getInt(0), c.getString(1));
                 list.add(danhMuc);
             } while (c.moveToNext());
             c.close();

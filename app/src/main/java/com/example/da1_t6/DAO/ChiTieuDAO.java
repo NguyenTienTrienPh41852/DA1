@@ -18,15 +18,19 @@ public class ChiTieuDAO {
         DbHelper dbHelper = new DbHelper(context);
         db = dbHelper.getWritableDatabase();
     }
-    public long themChiTieu (ChiTieu chiTieu) {
+    public boolean themChiTieu (ChiTieu chiTieu) {
         ContentValues values = new ContentValues();
-        values.put("MACT", chiTieu.getMaCT());
         values.put("MAVI", chiTieu.getMaVi());
         values.put("MAKC", chiTieu.getMaKC());
         values.put("SOTIENCHI", chiTieu.getSoTienChi());
         values.put("THOIGIANCHI", chiTieu.getThoiGianChi());
         values.put("GHICHU", chiTieu.getGhiChu());
-        return db.insert("CHITIEU", null, values);
+        long check = db.insert("CHITIEU",null,values);
+        if(check == -1){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public long capNhatChiTieu (ChiTieu chiTieu) {

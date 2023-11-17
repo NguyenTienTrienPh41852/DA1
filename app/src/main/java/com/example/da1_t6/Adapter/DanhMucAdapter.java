@@ -119,6 +119,7 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
     private void showEditKhoanChiDialog(KhoanChi khoanChi) {
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_them_khoan_chi);
+        dialog.setTitle("Cập nhật khoản chi");
         EditText tenKhoanChi = dialog.findViewById(R.id.ed_ten_khoan_chi);
         Spinner spDanhMuc = dialog.findViewById(R.id.sp_chon_danh_muc);
         Button luuKhoanChi = dialog.findViewById(R.id.btn_luu_khoan_chi);

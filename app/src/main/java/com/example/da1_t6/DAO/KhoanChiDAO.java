@@ -51,4 +51,18 @@ public class KhoanChiDAO {
         }
         return list;
     }
+    public List<KhoanChi> layDanhSachKhoanChiTheoDM (String maDM){
+        List<KhoanChi> list = new ArrayList<>();
+        String[] ma = new String[]{maDM};
+        Cursor c =db.rawQuery("SELECT * FROM KHOANCHI INNER JOIN DANHMUC ON KHOANCHI.MADANHMUC = DANHMUC.MADANHMUC WHERE KHOANCHI.MADANHMUC = ?", ma);
+        if (c!=null&&c.getCount()>0){
+            c.moveToFirst();
+            do{
+                KhoanChi kc = new KhoanChi(c.getInt(0), c.getInt(3), c.getString(2), c.getString(4));
+                list.add(kc);
+            } while (c.moveToNext());
+            c.close();
+        }
+        return list;
+    }
 }

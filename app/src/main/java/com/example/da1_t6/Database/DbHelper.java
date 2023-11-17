@@ -10,6 +10,24 @@ public class DbHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE NGUOIDUNG (\n" +
+                "    MAND       TEXT PRIMARY KEY,\n" +
+                "    MATKHAU    TEXT NOT NULL,\n" +
+                "    TENND      TEXT NOT NULL,\n" +
+                "    ANHDAIDIEN BLOB\n" +
+                ");\n");
+        db.execSQL("CREATE TABLE DANHMUC (\n" +
+                "    MADANHMUC  INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "    TENDANHMUC TEXT    NOT NULL\n" +
+                ");\n");
+        db.execSQL("CREATE TABLE MONHOC (\n" +
+                "    IDMONHOC  INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "    MAMON     TEXT    NOT NULL,\n" +
+                "    TENMON    TEXT    NOT NULL,\n" +
+                "    TENLOP    TEXT    NOT NULL,\n" +
+                "    DIEMTB    REAL    DEFAULT (0),\n" +
+                "    TRANGTHAI INTEGER DEFAULT (0) \n" +
+                ");\n");
         db.execSQL("CREATE TABLE VITIEN (\n" +
                 "    MAVI   INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "    MAND   TEXT    REFERENCES NGUOIDUNG (MAND),\n" +
@@ -17,18 +35,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 "    SODUBD REAL    NOT NULL,\n" +
                 "    SODUHT REAL    DEFAULT (0) \n" +
                 ");");
-        db.execSQL("CREATE TABLE DANHMUC (\n" +
-                "    MADANHMUC  INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "    TENDANHMUC TEXT    NOT NULL\n" +
-                ");\n");
-        db.execSQL("CREATE TABLE CHITIEU (\n" +
-                "    MACT        INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "    MAVI        INTEGER REFERENCES VITIEN (MAVI),\n" +
-                "    MAKC        INTEGER REFERENCES KHOANCHI (MAKC),\n" +
-                "    SOTIENCHI   REAL    NOT NULL,\n" +
-                "    THOIGIANCHI TEXT    NOT NULL,\n" +
-                "    GHICHU      TEXT    NOT NULL\n" +
-                ");\n");
+
+
         db.execSQL("CREATE TABLE KHOANCHI (\n" +
                 "    MAKC      INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "    MADANHMUC TEXT    REFERENCES DANHMUC (MADANHMUC),\n" +
@@ -42,14 +50,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 "    THOIGIAN TEXT    NOT NULL,\n" +
                 "    GHICHU   TEXT\n" +
                 ");\n");
-        db.execSQL("CREATE TABLE MONHOC (\n" +
-                "    IDMONHOC  INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "    MAMON     TEXT    NOT NULL,\n" +
-                "    TENMON    TEXT    NOT NULL,\n" +
-                "    TENLOP    TEXT    NOT NULL,\n" +
-                "    DIEMTB    REAL    DEFAULT (0),\n" +
-                "    TRANGTHAI INTEGER DEFAULT (0) \n" +
-                ");\n");
+
         db.execSQL("CREATE TABLE BANGDIEM (\n" +
                 "    MABANGDIEM INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "    IDMONHOC   INTEGER REFERENCES MONHOC (IDMONHOC),\n" +
@@ -67,17 +68,25 @@ public class DbHelper extends SQLiteOpenHelper {
                 "    TTHOATDONG INTEGER DEFAULT (0),\n" +
                 "    NGAY       TEXT    NOT NULL\n" +
                 ");\n");
-        db.execSQL("CREATE TABLE NGUOIDUNG (\n" +
-                "    MAND       TEXT PRIMARY KEY,\n" +
-                "    MATKHAU    TEXT NOT NULL,\n" +
-                "    TENND      TEXT NOT NULL,\n" +
-                "    ANHDAIDIEN BLOB\n" +
+        db.execSQL("CREATE TABLE CHITIEU (\n" +
+                "    MACT        INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "    MAVI        INTEGER REFERENCES VITIEN (MAVI),\n" +
+                "    MAKC        INTEGER REFERENCES KHOANCHI (MAKC),\n" +
+                "    SOTIENCHI   REAL    NOT NULL,\n" +
+                "    THOIGIANCHI TEXT    NOT NULL,\n" +
+                "    GHICHU      TEXT    NOT NULL\n" +
                 ");\n");
+
         db.execSQL("INSERT INTO DANHMUC VALUES (1, 'Thiết yếu')");
         db.execSQL("INSERT INTO DANHMUC VALUES (2, 'Hưởng thụ')");
         db.execSQL("INSERT INTO DANHMUC VALUES (3, 'Biếu tặng')");
         db.execSQL("INSERT INTO DANHMUC VALUES (4, 'Sức khỏe')");
         db.execSQL("INSERT INTO DANHMUC VALUES (5, 'Chi tiêu khác')");
+        db.execSQL("insert into KHOANCHI(MAKC,MADANHMUC,TENKC) values (0,1,'Ăn uống'),(1,1,'Đổ xăng'),(2,2,'Chơi game')");
+        db.execSQL("INSERT INTO VITIEN VALUES (0,2,'Tiền Mặt',57,67),(1,2,'Chuyển khoản',57,67)");
+        db.execSQL("INSERT INTO CHITIEU\n" +
+                "VALUES (0,1,2,30000,'ngay','abc'),\n" +
+                "(1,1,2,50000,'ngay2','abcde')");
     }
 
     @Override

@@ -52,14 +52,12 @@
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/black"
                 />
+
             <ListView
                 android:id="@+id/lv_khoanchi"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                />
+                android:layout_height="327dp"
+                android:layout_marginLeft="40dp" />
         </LinearLayout>
     </LinearLayout>
-
-
 </androidx.cardview.widget.CardView>

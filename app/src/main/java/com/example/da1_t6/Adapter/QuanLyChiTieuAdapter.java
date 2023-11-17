@@ -31,6 +31,14 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
     private List<ChiTieu> list;
 
     ChiTieuDAO chiTieuDAO;
+
+
+    public QuanLyChiTieuAdapter(Context context, List<ChiTieu> list, ChiTieuDAO chiTieuDAO) {
+        this.context = context;
+        this.list = list;
+        this.chiTieuDAO = chiTieuDAO;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,6 +50,12 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.txtChiMuc.setText(String.valueOf(list.get(position).getTenKC()));
+        holder.txtSoTien.setText(String.valueOf(list.get(position).getSoTienChi()));
+        holder.txtNgay.setText(list.get(position).getThoiGianChi());
+        holder.txtLoaiVi.setText(list.get(position).getTenVi());
+        holder.txtGhiChu.setText(list.get(position).getGhiChu());
+
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -85,7 +99,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -121,6 +135,6 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
     private void loadData(){
         list.clear();
         list = chiTieuDAO.layDanhSachChiTieu();
-        notifyDataSetChanged();
+notifyDataSetChanged();
     }
 }

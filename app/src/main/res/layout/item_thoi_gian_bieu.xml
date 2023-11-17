@@ -6,91 +6,97 @@
     android:layout_margin="10dp"
     app:cardCornerRadius="15dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#C5ECC9"
-        >
+        android:background="#C5ECC9">
+
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="id"
+            android:textSize="1dp"
+            />
+        <TextView
+            android:id="@+id/tv_ten_hoat_dong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22dp"
+            android:layout_marginTop="5dp"
+            android:text="Mát sa"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_mo_ta_hoat_dong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:text="Mô tả"
+            android:layout_below="@id/tv_ten_hoat_dong"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/tv_ngay_hoat_dong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:text="Ngày: "
+            android:layout_below="@id/tv_mo_ta_hoat_dong"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/tv_thoi_gian_hoat_dong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:text="Thời gian"
+            android:layout_below="@+id/tv_ngay_hoat_dong"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="#C5ECC9"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_below="@+id/tv_thoi_gian_hoat_dong"
             >
+
             <TextView
-                android:id="@+id/tv_ten_hoat_dong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="22dp"
-                android:layout_marginTop="5dp"
-                android:text="Mát sa"
-                android:textStyle="bold"
-                android:layout_marginStart="10dp"
-                />
+                android:text="Tình trạng"
+                android:textSize="16dp"/>
+
+            <CheckBox
+                android:id="@+id/cb_status_hoat_dong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <TextView
-                android:id="@+id/tv_mo_ta_hoat_dong"
+                android:id="@+id/tv_status_hoat_dong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17dp"
-                android:text="Mô tả"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                />
-            <TextView
-                android:id="@+id/tv_thoi_gian_hoat_dong"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17dp"
-                android:text="Thời gian"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="5dp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tình trạng"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="17dp"
-                    />
-                <CheckBox
-                    android:id="@+id/cb_status_hoat_dong"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-
-                    />
-
-                <TextView
-                    android:id="@+id/tv_status_hoat_dong"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Chưa hoàn thành"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    />
-            </LinearLayout>
-
+                android:text="Chưa hoàn thành"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
         </LinearLayout>
 
         <ImageView
-        android:id="@+id/img_delete"
-        android:layout_width="40dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="20dp"
-        android:src="@drawable/img_6"
-        />
-
-    </LinearLayout>
+            android:id="@+id/img_delete"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/img_6"/>
+    </RelativeLayout>
 
 
 </androidx.cardview.widget.CardView>

@@ -4,4 +4,10 @@
     <string name="close">Close nav</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="status_array">
+        <item>Đang làm</item>
+        <item>Đã hoàn thành</item>
+    </string-array>
+
 </resources>

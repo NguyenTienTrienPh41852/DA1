@@ -18,6 +18,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/linear_item_vi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -97,16 +98,16 @@
                     android:textStyle="bold"
                     android:text="Thu nhập:"
                     />
+
                 <TextView
                     android:id="@+id/tv_thu_nhap_thang"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:text="10.000.000:"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
+                    android:text="10.000.000:"
                     android:textColor="@color/green"
-                    />
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"

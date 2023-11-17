@@ -2,6 +2,7 @@ package com.example.da1_t6.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -33,6 +35,7 @@ import com.example.da1_t6.Model.ViTien;
 import com.example.da1_t6.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,6 +45,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
     private List<DanhMuc> listDM;
     private List<KhoanChi> listKC;
     private List<ViTien> listVT;
+    DatePickerDialog datePickerDialog;
     ChiTieuDAO chiTieuDAO;
     ChiTieu chiTieu;
     DanhMucDAO danhMucDAO;
@@ -159,8 +163,9 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
         ed_ghichu.setText(chiTieu.getGhiChu());
         List<DanhMuc> listDM = danhMucDAO.layDanhSachDanhMuc();
         listVT = viTienDAO.layDanhSachViTien();
-
+        adapterSPLoaiVi spLoaiVi = new adapterSPLoaiVi(listVT,context);
         adapterSPDanhMuc spDanhMuc = new adapterSPDanhMuc(listDM, context);
+        spn_loaivi.setAdapter(spLoaiVi);
         spn_chondanhmuc.setAdapter(spDanhMuc);
         final adapterSPKhoanChi[] spKhoanChi = new adapterSPKhoanChi[1];
 
@@ -201,24 +206,71 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
             index_danhmuc++;
         }
         spn_chondanhmuc.setSelection(index_danhmuc);
-//        int index_vitien=0;
-//
-//        for(ViTien itemVT : listVT){
-//            if(itemVT.getMaVi() == chiTieu.getMaVi()){
-//                Log.e("TAG", "dialogUpdateChiTieu: "+itemVT.getMaVi());
-//                break;
-//            }
-//            index_vitien ++;
-//        }
-//        spn_loaivi.setSelection(index_vitien);
-//
 
+        li_ngay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int mYear = calendar.get(Calendar.YEAR);
+                int mMonth = calendar.get(Calendar.MONTH);
+                int mDay = calendar.get(Calendar.DAY_OF_MONTH);
+                datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        tvNgay.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                    }
+                },mYear,mMonth,mDay);
+                datePickerDialog.show();
+            }
+        });
 
-//        Log.e("TAG","index:"+index_khoanchi);
-
+        int index_vitien=0;
+        for(ViTien itemVT : listVT){
+            if(itemVT.getMaVi() == chiTieu.getMaVi()){
+                Log.e("TAG", "dialogUpdateChiTieu: "+itemVT.getMaVi());
+                break;
+            }
+            index_vitien ++;
+        }
+        spn_loaivi.setSelection(index_vitien);
 
         tvNgay.setText(chiTieu.getThoiGianChi());
 
+
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Float soTien = Float.parseFloat(ed_sotien.getText().toString());
+                String ghiChu = String.valueOf(ed_ghichu.getText());
+                int danhmuc = spn_chondanhmuc.getSelectedItemPosition()+1;
+//                Log.e("TAG","dialog:"+danhmuc);
+                if (danhmuc == 1){
+                    int chiMuc = spn_chonkhoanchi.getSelectedItemPosition()+1;
+                    chiTieu.setMaKC(chiMuc);
+                }else if(danhmuc ==2){
+                    int chiMuc = listKC.size()+(spn_chonkhoanchi.getSelectedItemPosition()+2);
+                    chiTieu.setMaKC(chiMuc);
+                }
+
+//                Log.e("TAG","dialog2:"+chiMuc);
+                String ngay = tvNgay.getText().toString();
+                int loaiVi = (spn_loaivi.getSelectedItemPosition()+1);
+                chiTieu.setSoTienChi(soTien);
+                chiTieu.setGhiChu(ghiChu);
+                chiTieu.setMaDM(danhmuc);
+
+                chiTieu.setThoiGianChi(ngay);
+                chiTieu.setMaVi(loaiVi);
+                boolean check = chiTieuDAO.capNhatChiTieu(chiTieu);
+                if(check){
+                    loadData();
+                    Toast.makeText(context, "Update thành công mục chi tiêu", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }else{
+                    Toast.makeText(context, "Update không thành công ", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 

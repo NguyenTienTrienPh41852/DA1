@@ -3,6 +3,9 @@
     <item android:id="@+id/menuQLV"
         android:title="Quản lý ví"
         android:icon="@drawable/vi"/>
+    <item android:id="@+id/menuQLKC"
+        android:title="Quản lý khoản chi"
+        android:icon="@drawable/khoanchi"/>
     <item android:id="@+id/menuQLCT"
         android:title="Quản lý chi tiêu"
         android:icon="@drawable/chitieu"/>

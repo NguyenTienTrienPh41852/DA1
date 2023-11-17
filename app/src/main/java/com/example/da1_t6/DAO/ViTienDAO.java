@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.da1_t6.Database.DbHelper;
+import com.example.da1_t6.Model.ChiTieu;
 import com.example.da1_t6.Model.ViTien;
 
 import java.util.ArrayList;
@@ -36,16 +37,17 @@ public class ViTienDAO {
     public int xoaVi (String id) {
         return db.delete("VITIEN","MAVI = ?",new String[]{String.valueOf(id)});
     }
-    public List<ViTien> layDanhSachViTien(){
+    public List<ViTien> layDanhSachViTien (){
         List<ViTien> list = new ArrayList<>();
-        Cursor c = db.rawQuery("SELECT * FROM VITIEN ",null);
+        Cursor c =db.rawQuery("SELECT * FROM VITIEN", null);
         if (c!=null&&c.getCount()>0){
             c.moveToFirst();
             do{
-                ViTien vt = new ViTien(c.getInt(0),c.getString(2),c.getDouble(3),c.getDouble(4));
-                list.add(vt);
-
-            }while (c.moveToNext());
+                ViTien ct = new ViTien(
+                        c.getInt(0),c.getString(2),c.getDouble(3),c.getDouble(4)
+                );
+                list.add(ct);
+            } while (c.moveToNext());
             c.close();
         }
         return list;

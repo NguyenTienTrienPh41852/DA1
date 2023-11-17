@@ -34,16 +34,20 @@ public class ChiTieuDAO {
         }
     }
 
-    public long capNhatChiTieu (ChiTieu chiTieu) {
+    public boolean capNhatChiTieu (ChiTieu chiTieu) {
         ContentValues values = new ContentValues();
-        values.put("MACT", chiTieu.getMaCT());
         values.put("MAVI", chiTieu.getMaVi());
         values.put("MADM",chiTieu.getMaDM());
         values.put("MAKC", chiTieu.getMaKC());
         values.put("SOTIENCHI", chiTieu.getSoTienChi());
         values.put("THOIGIANCHI", chiTieu.getThoiGianChi());
         values.put("GHICHU", chiTieu.getGhiChu());
-        return db.update("CHITIEU", values, "MACT = ?", new String[]{String.valueOf(chiTieu.getMaCT())});
+        long check = db.update("CHITIEU", values, "MACT = ?", new String[]{String.valueOf(chiTieu.getMaCT())});
+        if(check == -1){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public int xoaChiTieu (int maChiTieu) {

@@ -22,6 +22,23 @@ public class HoatDong {
         this.ngay = ngay;
     }
 
+    public HoatDong(String tenHoatDong, String moTa, String thoiGianBatDau, String thoiGianKetThuc, int trangThaiHoatDong, String ngay) {
+        this.tenHoatDong = tenHoatDong;
+        this.moTa = moTa;
+        this.thoiGianBatDau = thoiGianBatDau;
+        this.thoiGianKetThuc = thoiGianKetThuc;
+        this.trangThaiHoatDong = trangThaiHoatDong;
+        this.ngay = ngay;
+    }
+
+    public HoatDong(String tenHoatDong, String moTa, String thoiGianBatDau, String thoiGianKetThuc, String ngay) {
+        this.tenHoatDong = tenHoatDong;
+        this.moTa = moTa;
+        this.thoiGianBatDau = thoiGianBatDau;
+        this.thoiGianKetThuc = thoiGianKetThuc;
+        this.ngay = ngay;
+    }
+
     public int getMaHoatDong() {
         return maHoatDong;
     }

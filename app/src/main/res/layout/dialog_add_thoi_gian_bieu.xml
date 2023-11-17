@@ -38,20 +38,40 @@
         android:layout_margin="13dp"
 
         />
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thời gian: "
-        android:layout_marginStart="20dp"
-        android:textSize="18dp"
-        android:textStyle="bold"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thời gian: "
+            android:layout_marginStart="20dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/tv_ngay_dialog_hoat_dong"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+
+            android:paddingLeft="20dp"
+
+            android:background="@drawable/tv_chon_ngay"
         />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -61,12 +81,14 @@
             android:textColor="@color/gray"
             android:layout_marginRight="8dp"
             />
-        <EditText
-            android:id="@+id/ed_from_time"
-            android:layout_width="150dp"
+        <TextView
+            android:id="@+id/tv_from_time"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="40dp"
-
+            android:background="@drawable/tv_chon_ngay"
+            android:hint="04:00"
+            android:paddingLeft="10dp"
             />
     </LinearLayout>
     <LinearLayout
@@ -75,6 +97,7 @@
         android:orientation="horizontal"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -83,12 +106,15 @@
             android:text="Đến: "
             android:textColor="@color/gray"
             />
-        <EditText
-            android:id="@+id/ed_to_time"
-            android:layout_width="150dp"
+        <TextView
+            android:id="@+id/tv_to_time"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="40dp"
+            android:hint="20:00"
+            android:background="@drawable/tv_chon_ngay"
 
+            android:paddingLeft="10dp"
             />
     </LinearLayout>
 
@@ -99,6 +125,7 @@
         android:layout_margin="13dp"
         android:padding="10dp"
         android:background="@color/white"
+        android:entries="@array/status_array"
         />
     <Button
         android:id="@+id/btn_save"

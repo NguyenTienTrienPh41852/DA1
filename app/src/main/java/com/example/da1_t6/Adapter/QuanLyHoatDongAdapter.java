@@ -1,29 +1,63 @@
 package com.example.da1_t6.Adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.da1_t6.DAO.HoatDongDAO;
 import com.example.da1_t6.Model.HoatDong;
 import com.example.da1_t6.R;
 
 import java.util.List;
+import java.util.Stack;
 
 public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAdapter.viewHolder>{
     Context context;
     List<HoatDong> listHD;
+    HoatDongDAO hoatDongDAO;
+    private OnCheckedListener onCheckedListener;
 
-    public QuanLyHoatDongAdapter(Context context, List<HoatDong> listHD) {
+    public QuanLyHoatDongAdapter(Context context, List<HoatDong> listHD, HoatDongDAO hoatDongDAO) {
         this.context = context;
         this.listHD = listHD;
+        this.hoatDongDAO = hoatDongDAO;
+    }
+
+    public void setOnCheckedListener(OnCheckedListener listener){
+      this.onCheckedListener = listener;
+    }
+
+    public int getCountTienDoHoanThanh() {
+        int count = 0;
+        for (HoatDong hoatDong : listHD) {
+            if (hoatDong.getTrangThaiHoatDong() == 1) {
+                count++;
+            }
+        }
+        return count;
     }
 
     @NonNull
@@ -39,27 +73,72 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
 
         HoatDong hoatDong = listHD.get(position);
 
+        holder.tvIdHoatDong.setText(hoatDong.getMaHoatDong()+"");
         holder.tvTenHoatDong.setText(hoatDong.getTenHoatDong());
         holder.tvMoTa.setText("Mô tả: "+hoatDong.getMoTa());
         holder.tvThoiGian.setText("Thời gian: "+hoatDong.getThoiGianBatDau()+" đến "+hoatDong.getThoiGianKetThuc());
+        holder.tvNgayHoatDong.setText("Ngày: "+hoatDong.getNgay());
 
-        if (hoatDong.getTrangThaiHoatDong() == 1){
+
+        if (listHD.get(position).getTrangThaiHoatDong() == 1){
+            holder.cb_check_status.setChecked(true);
             holder.tvStatus.setText("Đã hoàn thành");
-            holder.tvStatus.setTextColor(Color.GREEN);
+            holder.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.green_dam));
         } else {
+            holder.cb_check_status.setChecked(false);
             holder.tvStatus.setText("Chưa hoàn thành");
             holder.tvStatus.setTextColor(Color.RED);
         }
-    }
 
+
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                openDialogEdit(hoatDong);
+                return true;
+            }
+        });
+
+        holder.imgDel.setOnClickListener(v -> openDialogDel(position));
+
+        holder.cb_check_status.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                int id = listHD.get(holder.getAdapterPosition()).getMaHoatDong();
+                boolean check = hoatDongDAO.UpdateStatus(id,holder.cb_check_status.isChecked());
+                if (check) {
+                    listHD.get(holder.getAdapterPosition()).setTrangThaiHoatDong(isChecked ? 1 : 0);
+                    if (onCheckedListener != null) {
+                        onCheckedListener.onCheckedChange(isChecked);
+                    }
+
+                    // bị lỗi khi cuộn
+                    new Handler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            listHD.clear();
+                            listHD.addAll(hoatDongDAO.layDanhSachHoatDong());
+                            notifyDataSetChanged();
+                        }
+                    });
+                } else {
+                    Toast.makeText(context, "dau don", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+    }
     @Override
     public int getItemCount() {
         return listHD.size();
     }
 
     public static class viewHolder extends RecyclerView.ViewHolder {
-        TextView tvTenHoatDong, tvMoTa, tvThoiGian, tvStatus;
+        TextView tvTenHoatDong, tvMoTa, tvThoiGian, tvStatus, tvNgayHoatDong,tvIdHoatDong;
         ImageView imgDel;
+        CheckBox cb_check_status;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             tvTenHoatDong = itemView.findViewById(R.id.tv_ten_hoat_dong);
@@ -67,6 +146,102 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
             tvThoiGian = itemView.findViewById(R.id.tv_thoi_gian_hoat_dong);
             tvStatus = itemView.findViewById(R.id.tv_status_hoat_dong);
             imgDel = itemView.findViewById(R.id.img_delete);
+            cb_check_status = itemView.findViewById(R.id.cb_status_hoat_dong);
+            tvNgayHoatDong = itemView.findViewById(R.id.tv_ngay_hoat_dong);
+            tvIdHoatDong = itemView.findViewById(R.id.tv_id);
         }
+    }
+
+    private void openDialogEdit(HoatDong hoatDong) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View v = inflater.inflate(R.layout.dialog_edit_thoi_gian_bieu,null);
+        builder.setView(v);
+
+        builder.setCancelable(true);
+
+        AlertDialog dialog = builder.create();
+
+        EditText edTenHoatDong = v.findViewById(R.id.ed_ten_hoat_dong);
+        EditText edMoTa = v.findViewById(R.id.ed_mo_ta);
+        TextView tvFromTime = v.findViewById(R.id.tv_from_time);
+        TextView tvToTime = v.findViewById(R.id.tv_to_time);
+        Button btnSave = v.findViewById(R.id.btn_save);
+        TextView tvNgayHoatDong = v.findViewById(R.id.tv_ngay_dialog_hoat_dong);
+        CheckBox cb_status = v.findViewById(R.id.cb_status);
+
+        edTenHoatDong.setText(hoatDong.getTenHoatDong());
+        edMoTa.setText(hoatDong.getMoTa());
+        tvFromTime.setText(hoatDong.getThoiGianBatDau()+"");
+        tvToTime.setText(hoatDong.getThoiGianKetThuc()+"");
+        tvNgayHoatDong.setText(hoatDong.getNgay()+"");
+        cb_status.setChecked(hoatDong.getTrangThaiHoatDong() == 1);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ten = edTenHoatDong.getText().toString();
+                String moTa = edMoTa.getText().toString();
+                String from = tvFromTime.getText().toString();
+                String to = tvToTime.getText().toString();
+                String ngay = tvNgayHoatDong.getText().toString();
+                int newStatus = cb_status.isChecked() ? 1 : 0;
+
+                HoatDongDAO hoatDongDAO1 = new HoatDongDAO(context);
+
+                HoatDong hoatDong_edit = new HoatDong(ten,moTa,from,to,newStatus,ngay);
+                hoatDong_edit.setMaHoatDong(hoatDong.getMaHoatDong());
+
+                long kq = hoatDongDAO1.capNhatHoatDong(hoatDong_edit);
+                if (kq != -1){
+                    listHD.clear();
+                    listHD.addAll(hoatDongDAO1.layDanhSachHoatDong());
+                    notifyDataSetChanged();
+                    Toast.makeText(context, "Cap nhat thanh cong", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(context, "that bai toan tap", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        dialog.show();
+    }
+
+    private void openDialogDel(final int i){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Thông báo");
+        builder.setMessage("Bạn có muốn xóa mục này không?");
+        builder.setCancelable(true);
+        builder.setIcon(R.drawable.baseline_close_24);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                int idDel = listHD.get(i).getMaHoatDong();
+                long kq = hoatDongDAO.xoaHoatDong(idDel);
+                if (kq > 0) {
+                    listHD.clear();
+                    listHD.addAll(hoatDongDAO.layDanhSachHoatDong());
+                    notifyDataSetChanged();
+                    dialog.dismiss();
+                    Toast.makeText(context, "Thành công", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(context, "Khong thanh cong", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+    public interface OnCheckedListener{
+        void onCheckedChange(boolean isChecked);
     }
 }

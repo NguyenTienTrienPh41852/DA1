@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 
 import com.example.da1_t6.Fragment.fragment_BienDongTaiChinh;
 import com.example.da1_t6.Fragment.fragment_QuanLyChiTieu;
+import com.example.da1_t6.Fragment.fragment_QuanLyKhoanChi;
 import com.example.da1_t6.Fragment.fragment_QuanLyThuNhap;
 import com.example.da1_t6.Fragment.fragment_ThongKe;
 import com.example.da1_t6.Fragment.fragment_QuanLyVi;
@@ -53,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
                     fragment_QuanLyVi frgQLV = new fragment_QuanLyVi();
                     relaceFrg(frgQLV);
                     toolbar.setTitle("Quản lý ví");
+                }else if(item.getItemId() == R.id.menuQLKC){
+                    fragment_QuanLyKhoanChi frgQLKC = new fragment_QuanLyKhoanChi();
+                    relaceFrg(frgQLKC);
+                    toolbar.setTitle("Quản lý khoản chi");
                 }else if(item.getItemId() == R.id.menuQLCT){
                     fragment_QuanLyChiTieu frgQLCT = new fragment_QuanLyChiTieu();
                     relaceFrg(frgQLCT);

@@ -63,7 +63,6 @@ public class fragment_QuanLyChiTieu extends Fragment {
     DanhMucDAO danhMucDAO;
     ViTienDAO viTienDAO;
     QuanLyChiTieuAdapter chiTieuAdapter;
-    int chiMuc=0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -140,17 +139,6 @@ public class fragment_QuanLyChiTieu extends Fragment {
                 List<KhoanChi> listKC = khoanChiDAO.layDanhSachKhoanChiTheoDM(listDM.get(position).getMaDanhMuc()+"");
                 spKhoanChi[0] = new adapterSPKhoanChi(listKC,getContext());
                 spn_khoanchi.setAdapter( spKhoanChi[0]);
-                spn_khoanchi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        chiMuc=listKC.get(position).getMaKC();
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
             }
 
             @Override
@@ -184,9 +172,9 @@ public class fragment_QuanLyChiTieu extends Fragment {
                int soTien = Integer.parseInt(String.valueOf(ed_sotien.getText()));
                String ghiChu = String.valueOf(ed_ghichu.getText());
                int danhmuc = spn_danhmuc.getSelectedItemPosition()+1;
-               Log.e("TAG","dialog:"+danhmuc);
-
-               Log.e("TAG","dialog2:"+chiMuc);
+//               Log.e("TAG","dialog:"+danhmuc);
+               int chiMuc = spn_khoanchi.getSelectedItemPosition()+1;
+//               Log.e("TAG","dialog2:"+chiMuc);
                String ngay = tvNgay.getText().toString();
                int loaiVi = spn_loaivi.getSelectedItemPosition()+1;
                ChiTieu chiTieu = new ChiTieu();
@@ -199,10 +187,10 @@ public class fragment_QuanLyChiTieu extends Fragment {
                 boolean check = chiTieuDAO.themChiTieu(chiTieu);
                 if(check){
                     loadData();
-                    Toast.makeText(getContext(), "Thêm thành công sách", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Thêm thành công mục chi tiêu", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }else{
-                    Toast.makeText(getContext(), "Thêm không thành công sách", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Thêm không thành công ", Toast.LENGTH_SHORT).show();
                 }
             }
         });

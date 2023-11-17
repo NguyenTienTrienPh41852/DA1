@@ -20,7 +20,6 @@ import java.util.List;
 public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAdapter.viewHolder>{
     Context context;
     List<HoatDong> listHD;
-
     public QuanLyHoatDongAdapter(Context context, List<HoatDong> listHD) {
         this.context = context;
         this.listHD = listHD;
@@ -36,7 +35,6 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-
         HoatDong hoatDong = listHD.get(position);
 
         holder.tvTenHoatDong.setText(hoatDong.getTenHoatDong());

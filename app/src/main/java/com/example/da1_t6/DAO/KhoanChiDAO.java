@@ -22,7 +22,6 @@ public class KhoanChiDAO {
         ContentValues values = new ContentValues();
         values.put("MADANHMUC", khoanChi.getMaDanhMuc());
         values.put("TENKC", khoanChi.getTenKC());
-
         return db.insert("KHOANCHI", null, values);
     }
 

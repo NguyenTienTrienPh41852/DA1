@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -97,7 +96,7 @@ public class fragment_QuanLyKhoanChi extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        imageButton = view.findViewById(R.id.add_QLTN);
+        imageButton = view.findViewById(R.id.add_QLKC);
         recyclerView = view.findViewById(R.id.rcvQLKC);
         danhMucDAO = new DanhMucDAO(getContext());
         khoanChiDAO = new KhoanChiDAO(getContext());
@@ -111,6 +110,7 @@ public class fragment_QuanLyKhoanChi extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog = new Dialog(getContext());
                 dialog.setContentView(R.layout.dialog_them_khoan_chi);
                 EditText tenKhoanChi = dialog.findViewById(R.id.ed_ten_khoan_chi);
                 Spinner spDanhMuc = dialog.findViewById(R.id.sp_chon_danh_muc);
@@ -135,7 +135,15 @@ public class fragment_QuanLyKhoanChi extends Fragment {
                             khoanChi = new KhoanChi();
                             khoanChi.setTenDanhMuc(spDanhMuc.getSelectedItem().toString());
                             khoanChi.setTenKC(tenKhoanChi.getText().toString());
-                            if (khoanChiDAO.themKhoanChi(khoanChi) > 0){
+                            long result = khoanChiDAO.themKhoanChi(khoanChi);
+                            if (result > 0) {
+                                // Xóa khoản chi mới từ danh sách hiện tại
+                                khoanChiList.clear();
+                                // Lấy danh sách khoản chi mới từ cơ sở dữ liệu
+                                khoanChiList.addAll(khoanChiDAO.layDanhSachKhoanChi());
+                                // Thông báo cho Adapter biết dữ liệu đã được thay đổi
+                                khoanChiAdapter.notifyDataSetChanged();
+                                dialog.dismiss();
                                 Toast.makeText(getContext(), "Thêm thành công!", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getContext(), "Thêm thất bại!", Toast.LENGTH_SHORT).show();

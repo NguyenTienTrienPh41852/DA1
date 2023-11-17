@@ -20,7 +20,7 @@
     <ImageButton
         android:layout_width="45dp"
         android:layout_height="43dp"
-        android:id="@+id/add_QLTN"
+        android:id="@+id/add_QLKC"
         android:src="@drawable/add"
         android:background="@drawable/fixtron"
         android:scaleType="centerCrop"

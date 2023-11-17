@@ -19,6 +19,12 @@ import java.util.List;
 public class QuanLyViAdapter extends RecyclerView.Adapter<QuanLyViAdapter.viewHolder>{
     Context context;
     List<ViTien> listVi;
+
+    public QuanLyViAdapter(Context context, List<ViTien> listVi) {
+        this.context = context;
+        this.listVi = listVi;
+    }
+
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

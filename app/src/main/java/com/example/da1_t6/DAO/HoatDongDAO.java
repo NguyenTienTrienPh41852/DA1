@@ -13,14 +13,15 @@ import java.util.List;
 
 public class HoatDongDAO {
     private SQLiteDatabase db;
+    DbHelper dbHelper;
 
     public HoatDongDAO (Context context) {
-        DbHelper dbHelper = new DbHelper(context);
+        dbHelper = new DbHelper(context);
         db = dbHelper.getWritableDatabase();
     }
     public long themHoatDong (HoatDong hoatDong) {
         ContentValues values = new ContentValues();
-        values.put("MAHD", hoatDong.getMaHoatDong());
+
         values.put("TENHD", hoatDong.getTenHoatDong());
         values.put("MOTA", hoatDong.getMoTa());
         values.put("TGBATDAU", hoatDong.getThoiGianBatDau());
@@ -32,7 +33,7 @@ public class HoatDongDAO {
 
     public long capNhatHoatDong (HoatDong hoatDong) {
         ContentValues values = new ContentValues();
-        values.put("MAHD", hoatDong.getMaHoatDong());
+
         values.put("TENHD", hoatDong.getTenHoatDong());
         values.put("MOTA", hoatDong.getMoTa());
         values.put("TGBATDAU", hoatDong.getThoiGianBatDau());
@@ -44,6 +45,17 @@ public class HoatDongDAO {
 
     public int xoaHoatDong (int maHoatDong) {
         return db.delete("HOATDONG", "MAHD = ?", new String[]{String.valueOf(maHoatDong)});
+    }
+
+    public boolean UpdateStatus(Integer id, boolean check){
+        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        int statusValue = check ? 1 : 0;
+        ContentValues values = new ContentValues();
+        values.put("TTHOATDONG",statusValue);
+        String[] dieukien = new  String[]{String.valueOf(id)};
+        long row = database.update("HOATDONG",values,"MAHD=?",dieukien);
+        return row != -1;
+
     }
 
     public List<HoatDong> layDanhSachHoatDong (){

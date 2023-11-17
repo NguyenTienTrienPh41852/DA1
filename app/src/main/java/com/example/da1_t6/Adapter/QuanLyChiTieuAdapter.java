@@ -171,6 +171,17 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
                    listKC = khoanChiDAO.layDanhSachKhoanChiTheoDM(listDM.get(position).getMaDanhMuc() + "");
                    spKhoanChi[0] = new adapterSPKhoanChi(listKC, context);
                    spn_chonkhoanchi.setAdapter(spKhoanChi[0]);
+                   int index_khoanchi = 0;
+                   for (KhoanChi itemKC : listKC) {
+                       if (itemKC.getMaKC() == chiTieu.getMaKC()) {
+//                Log.e("TAG","for:"+itemKC.getMaKC());
+                           break;
+                       }
+                       index_khoanchi++;
+                   }
+                   if (index_khoanchi >= 0 && index_khoanchi < listKC.size()) {
+                       spn_chonkhoanchi.setSelection(index_khoanchi);
+                   }
                }
 
 
@@ -182,7 +193,6 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
             }
         });
         int index_danhmuc = 0;
-
         for (DanhMuc itemDM : listDM) {
             if (itemDM.getMaDanhMuc() == chiTieu.getMaDM()) {
 //                Log.e("TAG", "dialogUpdateChiTieu: " + chiTieu.getMaDM());
@@ -202,21 +212,8 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
 //        }
 //        spn_loaivi.setSelection(index_vitien);
 //
-        int index_khoanchi = 0;
-        int check = 0;
-        listKC = khoanChiDAO.layDanhSachKhoanChiTheoDM(chiTieu.getMaDM()+"");
-        spKhoanChi[0] = new adapterSPKhoanChi(listKC, context);
-        spn_chonkhoanchi.setAdapter(spKhoanChi[0]);
-        for (KhoanChi itemKC : listKC) {
-            if (itemKC.getMaKC() == chiTieu.getMaKC()) {
-//                Log.e("TAG","for:"+itemKC.getMaKC());
-                break;
-            }
-            index_khoanchi++;
-        }
-        if (index_khoanchi >= 0 && index_khoanchi < listKC.size()) {
-            spn_chonkhoanchi.setSelection(index_khoanchi);
-        }
+
+
 //        Log.e("TAG","index:"+index_khoanchi);
 
 

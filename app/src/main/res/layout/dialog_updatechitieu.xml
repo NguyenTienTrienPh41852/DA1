@@ -109,7 +109,6 @@ android:layout_height="match_parent">
                 android:layout_height="wrap_content"
                 android:text="Ngày:"
                 android:textSize="23dp"
-
                 android:textColor="@color/red"
                 android:layout_gravity="center"
                 android:textStyle="bold"/>

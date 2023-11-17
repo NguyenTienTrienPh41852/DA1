@@ -22,6 +22,7 @@ public class ChiTieuDAO {
         ContentValues values = new ContentValues();
         values.put("MAVI", chiTieu.getMaVi());
         values.put("MAKC", chiTieu.getMaKC());
+        values.put("MADM",chiTieu.getMaDM());
         values.put("SOTIENCHI", chiTieu.getSoTienChi());
         values.put("THOIGIANCHI", chiTieu.getThoiGianChi());
         values.put("GHICHU", chiTieu.getGhiChu());
@@ -37,6 +38,7 @@ public class ChiTieuDAO {
         ContentValues values = new ContentValues();
         values.put("MACT", chiTieu.getMaCT());
         values.put("MAVI", chiTieu.getMaVi());
+        values.put("MADM",chiTieu.getMaDM());
         values.put("MAKC", chiTieu.getMaKC());
         values.put("SOTIENCHI", chiTieu.getSoTienChi());
         values.put("THOIGIANCHI", chiTieu.getThoiGianChi());
@@ -50,12 +52,12 @@ public class ChiTieuDAO {
 
     public List<ChiTieu> layDanhSachChiTieu (){
         List<ChiTieu> list = new ArrayList<>();
-        Cursor c =db.rawQuery("SELECT * FROM CHITIEU INNER JOIN VITIEN ON CHITIEU.MAVI = VITIEN.MAVI INNER JOIN KHOANCHI ON CHITIEU.MAKC = KHOANCHI.MAKC", null);
+        Cursor c =db.rawQuery("SELECT * FROM CHITIEU INNER JOIN VITIEN ON CHITIEU.MAVI = VITIEN.MAVI INNER JOIN KHOANCHI ON CHITIEU.MAKC = KHOANCHI.MAKC inner join DANHMUC ON CHITIEU.MADM=DANHMUC.MADANHMUC", null);
         if (c!=null&&c.getCount()>0){
             c.moveToFirst();
             do{
                 ChiTieu ct = new ChiTieu(
-                    c.getInt(0), c.getInt(1), c.getInt(2), c.getString(8), c.getString(13), c.getDouble(3), c.getString(4), c.getString(5)
+                    c.getInt(0), c.getInt(1), c.getInt(2),c.getInt(3), c.getString(9), c.getString(14), c.getDouble(4), c.getString(5), c.getString(6)
                 );
                 list.add(ct);
             } while (c.moveToNext());

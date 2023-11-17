@@ -4,6 +4,7 @@ public class ChiTieu {
     private int maCT;
     private int maVi;
     private int maKC;
+    private int maDM;
     private String tenVi;
     private String tenKC;
     private double soTienChi;
@@ -11,6 +12,18 @@ public class ChiTieu {
     private String ghiChu;
 
     public ChiTieu() {
+    }
+
+    public ChiTieu(int maCT, int maVi, int maKC, int maDM, String tenVi, String tenKC, double soTienChi, String thoiGianChi, String ghiChu) {
+        this.maCT = maCT;
+        this.maVi = maVi;
+        this.maKC = maKC;
+        this.maDM = maDM;
+        this.tenVi = tenVi;
+        this.tenKC = tenKC;
+        this.soTienChi = soTienChi;
+        this.thoiGianChi = thoiGianChi;
+        this.ghiChu = ghiChu;
     }
 
     public ChiTieu(int maCT, int maVi, int maKC, String tenVi, String tenKC, double soTienChi, String thoiGianChi, String ghiChu) {
@@ -22,6 +35,14 @@ public class ChiTieu {
         this.soTienChi = soTienChi;
         this.thoiGianChi = thoiGianChi;
         this.ghiChu = ghiChu;
+    }
+
+    public int getMaDM() {
+        return maDM;
+    }
+
+    public void setMaDM(int maDM) {
+        this.maDM = maDM;
     }
 
     public int getMaCT() {

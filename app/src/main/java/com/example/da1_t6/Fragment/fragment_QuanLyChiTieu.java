@@ -14,6 +14,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,7 @@ public class fragment_QuanLyChiTieu extends Fragment {
     DanhMucDAO danhMucDAO;
     ViTienDAO viTienDAO;
     QuanLyChiTieuAdapter chiTieuAdapter;
+    int chiMuc=0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -138,6 +140,17 @@ public class fragment_QuanLyChiTieu extends Fragment {
                 List<KhoanChi> listKC = khoanChiDAO.layDanhSachKhoanChiTheoDM(listDM.get(position).getMaDanhMuc()+"");
                 spKhoanChi[0] = new adapterSPKhoanChi(listKC,getContext());
                 spn_khoanchi.setAdapter( spKhoanChi[0]);
+                spn_khoanchi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        chiMuc=listKC.get(position).getMaKC();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
             }
 
             @Override
@@ -170,16 +183,19 @@ public class fragment_QuanLyChiTieu extends Fragment {
             public void onClick(View v) {
                int soTien = Integer.parseInt(String.valueOf(ed_sotien.getText()));
                String ghiChu = String.valueOf(ed_ghichu.getText());
-               int chiMuc = spn_khoanchi.getSelectedItemPosition();
-               String ngay = String.valueOf(tvNgay.getText());
-               int loaiVi = spn_loaivi.getSelectedItemPosition();
+               int danhmuc = spn_danhmuc.getSelectedItemPosition()+1;
+               Log.e("TAG","dialog:"+danhmuc);
 
+               Log.e("TAG","dialog2:"+chiMuc);
+               String ngay = tvNgay.getText().toString();
+               int loaiVi = spn_loaivi.getSelectedItemPosition()+1;
                ChiTieu chiTieu = new ChiTieu();
                chiTieu.setSoTienChi(soTien);
                chiTieu.setGhiChu(ghiChu);
                chiTieu.setMaKC(chiMuc);
                chiTieu.setThoiGianChi(ngay);
                chiTieu.setMaVi(loaiVi);
+               chiTieu.setMaDM(danhmuc);
                 boolean check = chiTieuDAO.themChiTieu(chiTieu);
                 if(check){
                     loadData();

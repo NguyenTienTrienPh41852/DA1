@@ -72,21 +72,22 @@ public class DbHelper extends SQLiteOpenHelper {
                 "    MACT        INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "    MAVI        INTEGER REFERENCES VITIEN (MAVI),\n" +
                 "    MAKC        INTEGER REFERENCES KHOANCHI (MAKC),\n" +
+                "    MADM        INTEGER REFERENCES DANHMUC (MADANHMUC),\n" +
                 "    SOTIENCHI   REAL    NOT NULL,\n" +
                 "    THOIGIANCHI TEXT    NOT NULL,\n" +
                 "    GHICHU      TEXT    NOT NULL\n" +
-                ");\n");
+                ");");
 
         db.execSQL("INSERT INTO DANHMUC VALUES (1, 'Thiết yếu')");
         db.execSQL("INSERT INTO DANHMUC VALUES (2, 'Hưởng thụ')");
         db.execSQL("INSERT INTO DANHMUC VALUES (3, 'Biếu tặng')");
         db.execSQL("INSERT INTO DANHMUC VALUES (4, 'Sức khỏe')");
         db.execSQL("INSERT INTO DANHMUC VALUES (5, 'Chi tiêu khác')");
-        db.execSQL("insert into KHOANCHI(MAKC,MADANHMUC,TENKC) values (0,1,'Ăn uống'),(1,1,'Đổ xăng'),(2,2,'Chơi game')");
-        db.execSQL("INSERT INTO VITIEN VALUES (0,2,'Tiền Mặt',57,67),(1,2,'Chuyển khoản',57,67)");
+        db.execSQL("insert into KHOANCHI(MAKC,MADANHMUC,TENKC) values (1,1,'Ăn uống'),(2,1,'Đổ xăng'),(3,2,'Chơi game')");
+        db.execSQL("INSERT INTO VITIEN VALUES (1,2,'Tiền Mặt',57,67),(2,2,'Chuyển khoản',57,67)");
         db.execSQL("INSERT INTO CHITIEU\n" +
-                "VALUES (0,1,2,30000,'ngay','abc'),\n" +
-                "(1,1,2,50000,'ngay2','abcde')");
+                "VALUES (1,1,2,1,30000,'ngay','abc'),\n" +
+                "(2,1,3,2,50000,'ngay2','abcde')");
     }
 
     @Override

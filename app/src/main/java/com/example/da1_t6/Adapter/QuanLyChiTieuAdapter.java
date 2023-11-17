@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,17 +22,32 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.da1_t6.DAO.ChiTieuDAO;
+import com.example.da1_t6.DAO.DanhMucDAO;
+import com.example.da1_t6.DAO.KhoanChiDAO;
+import com.example.da1_t6.DAO.ViTienDAO;
 import com.example.da1_t6.Model.ChiTieu;
+import com.example.da1_t6.Model.DanhMuc;
+import com.example.da1_t6.Model.KhoanChi;
 import com.example.da1_t6.Model.ThuNhap;
+import com.example.da1_t6.Model.ViTien;
 import com.example.da1_t6.R;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdapter.ViewHolder> {
     private Context context;
     private List<ChiTieu> list;
-
+    private List<DanhMuc> listDM;
+    private List<KhoanChi> listKC;
+    private List<ViTien> listVT;
     ChiTieuDAO chiTieuDAO;
+    ChiTieu chiTieu;
+    DanhMucDAO danhMucDAO;
+    KhoanChiDAO khoanChiDAO;
+    ViTienDAO viTienDAO;
+    QuanLyChiTieuAdapter chiTieuAdapter;
 
 
     public QuanLyChiTieuAdapter(Context context, List<ChiTieu> list, ChiTieuDAO chiTieuDAO) {
@@ -42,8 +59,8 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_chitieu,parent,false);
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.item_chitieu, parent, false);
 
         return new ViewHolder(view);
     }
@@ -55,7 +72,10 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
         holder.txtNgay.setText(list.get(position).getThoiGianChi());
         holder.txtLoaiVi.setText(list.get(position).getTenVi());
         holder.txtGhiChu.setText(list.get(position).getGhiChu());
-
+        danhMucDAO = new DanhMucDAO(context);
+        viTienDAO = new ViTienDAO(context);
+        khoanChiDAO = new KhoanChiDAO(context);
+        listKC = new ArrayList<>();
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -75,7 +95,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         int check = chiTieuDAO.xoaChiTieu(list.get(holder.getAdapterPosition()).getMaCT());
-                        switch (check){
+                        switch (check) {
                             case 1:
                                 loadData();
                                 Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
@@ -91,7 +111,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
                         }
                     }
                 });
-                builder.setNegativeButton("Hủy",null);
+                builder.setNegativeButton("Hủy", null);
                 builder.create().show();
             }
         });
@@ -102,9 +122,10 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView txtChiMuc,txtSoTien,txtNgay,txtLoaiVi,txtGhiChu;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView txtChiMuc, txtSoTien, txtNgay, txtLoaiVi, txtGhiChu;
         ImageButton btnDelete;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtChiMuc = itemView.findViewById(R.id.tv_ct_chimuc);
@@ -116,10 +137,11 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
             btnDelete = itemView.findViewById(R.id.btn_ct_delete);
         }
     }
-    private void dialogUpdateChiTieu(ChiTieu chiTieu){
+
+    private void dialogUpdateChiTieu(ChiTieu chiTieu) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_updatechitieu,null);
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_updatechitieu, null);
         builder.setView(view);
         Dialog dialog = builder.create();
         dialog.show();
@@ -129,12 +151,83 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
         Spinner spn_chondanhmuc = view.findViewById(R.id.spn_ud_ct_danhmuc);
         Spinner spn_chonkhoanchi = view.findViewById(R.id.spn_ud_ct_khoanchi);
         LinearLayout li_ngay = view.findViewById(R.id.ud_ct_ngay);
+        TextView tvNgay = view.findViewById(R.id.tv_add_ct_ngay);
         Spinner spn_loaivi = view.findViewById(R.id.spn_ud_ct_loaivi);
         Button btn_save = view.findViewById(R.id.btn_ct_update);
+
+        ed_sotien.setText(String.valueOf(chiTieu.getSoTienChi()));
+        ed_ghichu.setText(chiTieu.getGhiChu());
+        List<DanhMuc> listDM = danhMucDAO.layDanhSachDanhMuc();
+        listVT = viTienDAO.layDanhSachViTien();
+
+        adapterSPDanhMuc spDanhMuc = new adapterSPDanhMuc(listDM, context);
+        spn_chondanhmuc.setAdapter(spDanhMuc);
+        final adapterSPKhoanChi[] spKhoanChi = new adapterSPKhoanChi[1];
+
+        spn_chondanhmuc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               if (position >=0 && position <listDM.size()){
+                   listKC = khoanChiDAO.layDanhSachKhoanChiTheoDM(listDM.get(position).getMaDanhMuc() + "");
+                   spKhoanChi[0] = new adapterSPKhoanChi(listKC, context);
+                   spn_chonkhoanchi.setAdapter(spKhoanChi[0]);
+               }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        int index_danhmuc = 0;
+
+        for (DanhMuc itemDM : listDM) {
+            if (itemDM.getMaDanhMuc() == chiTieu.getMaDM()) {
+//                Log.e("TAG", "dialogUpdateChiTieu: " + chiTieu.getMaDM());
+                break;
+            }
+            index_danhmuc++;
+        }
+        spn_chondanhmuc.setSelection(index_danhmuc);
+//        int index_vitien=0;
+//
+//        for(ViTien itemVT : listVT){
+//            if(itemVT.getMaVi() == chiTieu.getMaVi()){
+//                Log.e("TAG", "dialogUpdateChiTieu: "+itemVT.getMaVi());
+//                break;
+//            }
+//            index_vitien ++;
+//        }
+//        spn_loaivi.setSelection(index_vitien);
+//
+        int index_khoanchi = 0;
+        int check = 0;
+        listKC = khoanChiDAO.layDanhSachKhoanChiTheoDM(chiTieu.getMaDM()+"");
+        spKhoanChi[0] = new adapterSPKhoanChi(listKC, context);
+        spn_chonkhoanchi.setAdapter(spKhoanChi[0]);
+        for (KhoanChi itemKC : listKC) {
+            if (itemKC.getMaKC() == chiTieu.getMaKC()) {
+//                Log.e("TAG","for:"+itemKC.getMaKC());
+                break;
+            }
+            index_khoanchi++;
+        }
+        if (index_khoanchi >= 0 && index_khoanchi < listKC.size()) {
+            spn_chonkhoanchi.setSelection(index_khoanchi);
+        }
+//        Log.e("TAG","index:"+index_khoanchi);
+
+
+        tvNgay.setText(chiTieu.getThoiGianChi());
+
+
     }
-    private void loadData(){
+
+    private void loadData() {
         list.clear();
         list = chiTieuDAO.layDanhSachChiTieu();
-notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 }

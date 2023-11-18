@@ -17,10 +17,12 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,7 +33,10 @@ import com.example.da1_t6.DAO.HoatDongDAO;
 import com.example.da1_t6.Model.HoatDong;
 import com.example.da1_t6.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Stack;
 
 public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAdapter.viewHolder>{
@@ -176,6 +181,10 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
         tvToTime.setText(hoatDong.getThoiGianKetThuc()+"");
         tvNgayHoatDong.setText(hoatDong.getNgay()+"");
         cb_status.setChecked(hoatDong.getTrangThaiHoatDong() == 1);
+
+        tvNgayHoatDong.setOnClickListener(v1 -> showDatePicker(tvNgayHoatDong));
+        tvFromTime.setOnClickListener(v1 -> showDialogTimePicker(tvFromTime));
+        tvToTime.setOnClickListener(v1 -> showDialogTimePicker(tvToTime));
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -243,5 +252,38 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
     }
     public interface OnCheckedListener{
         void onCheckedChange(boolean isChecked);
+    }
+    private void showDialogTimePicker(final TextView textView){
+        final Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(context,new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                String timeSelected = String.format("%02d:%02d",hourOfDay, minute);
+                textView.setText(timeSelected);
+            }
+        }, hour, minute, true);
+
+        timePickerDialog.show();
+    }
+
+    private void showDatePicker(final TextView textView){
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                calendar.set(year, month,dayOfMonth);
+                String selected_ngay = sdf.format(calendar.getTime());
+                textView.setText(selected_ngay);
+            }
+        },year, month, day);
+        datePickerDialog.show();
     }
 }

@@ -58,6 +58,22 @@ public class HoatDongDAO {
 
     }
 
+    public List<HoatDong> layDanhSachHoatDongTheoNgay (String ngay){
+        List<HoatDong> list = new ArrayList<>();
+
+        Cursor c =db.rawQuery("SELECT * FROM HOATDONG WHERE NGAY=?", new String[]{ngay});
+        if (c!=null&&c.getCount()>0){
+            c.moveToFirst();
+            do{
+                HoatDong hd = new HoatDong(
+                        c.getInt(0), c.getString(2), c.getString(3), c.getString(4), c.getString(5), c.getInt(6), c.getString(7)
+                );
+                list.add(hd);
+            } while (c.moveToNext());
+            c.close();
+        }
+        return list;
+    }
     public List<HoatDong> layDanhSachHoatDong (){
         List<HoatDong> list = new ArrayList<>();
         Cursor c =db.rawQuery("SELECT * FROM HOATDONG", null);

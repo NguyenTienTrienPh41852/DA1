@@ -81,9 +81,22 @@ public class fragment_QuanLyHoatDong extends Fragment {
         Calendar c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
         tvNgay.setText(sdf.format(c.getTime()));
-        tvNgay.setOnClickListener(v -> showDatePicker(tvNgay));
-        imgNgayHoatDong.setOnClickListener(v -> showDatePicker(tvNgay));
 
+
+        imgNgayHoatDong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker(tvNgay);
+
+            }
+        });
+//        tvNgay.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showDatePicker(tvNgay);
+//                showDataForDate(tvNgay.getText().toString());
+//            }
+//        });
         updateTienDo();
 
         hoatDongAdapter.setOnCheckedListener(new QuanLyHoatDongAdapter.OnCheckedListener() {
@@ -93,6 +106,12 @@ public class fragment_QuanLyHoatDong extends Fragment {
             }
         });
 
+    }
+    private void showDataForDate(String ngay){
+        listHD.clear();
+        listHD.addAll(hoatDongDAO.layDanhSachHoatDongTheoNgay(ngay));
+        updateTienDo();
+        hoatDongAdapter.notifyDataSetChanged();
     }
 
     private void openDialogAdd() {
@@ -176,6 +195,7 @@ public class fragment_QuanLyHoatDong extends Fragment {
         }, hour, minute, true);
 
         timePickerDialog.show();
+
     }
 
     private void showDatePicker(final TextView textView){
@@ -191,15 +211,17 @@ public class fragment_QuanLyHoatDong extends Fragment {
                 calendar.set(year, month,dayOfMonth);
                 String selected_ngay = sdf.format(calendar.getTime());
                 textView.setText(selected_ngay);
+                showDataForDate(selected_ngay);
             }
         },year, month, day);
         datePickerDialog.show();
+
     }
     private void updateTienDo(){
         int tienDoHoanThanh = hoatDongAdapter.getCountTienDoHoanThanh();
 
         int itemHD = hoatDongAdapter.getItemCount();
-        float progress = ((float) tienDoHoanThanh / itemHD * 100);
+        int progress = (int) ((float) tienDoHoanThanh / itemHD * 100);
 
         tvTienDo.setText(progress+" %");
     }

@@ -117,12 +117,18 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
     }
     // Hiển thị dialog chỉnh sửa khoản chi
     private void showEditKhoanChiDialog(KhoanChi khoanChi) {
-        dialog = new Dialog(context);
-        dialog.setContentView(R.layout.dialog_them_khoan_chi);
-        EditText tenKhoanChi = dialog.findViewById(R.id.ed_ten_khoan_chi);
-        Spinner spDanhMuc = dialog.findViewById(R.id.sp_chon_danh_muc);
-        Button luuKhoanChi = dialog.findViewById(R.id.btn_luu_khoan_chi);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View v = inflater.inflate(R.layout.dialog_them_khoan_chi,null);
+        builder.setView(v);
+        builder.setCancelable(true);
 
+        AlertDialog dialog = builder.create();
+        TextView tvTittle = v.findViewById(R.id.txtTittle);
+        EditText tenKhoanChi = v.findViewById(R.id.ed_ten_khoan_chi);
+        Spinner spDanhMuc = v.findViewById(R.id.sp_chon_danh_muc);
+        Button luuKhoanChi = v.findViewById(R.id.btn_luu_khoan_chi);
+        tvTittle.setText("Cập nhật khoản chi");
         // Set thông tin cho dialog từ đối tượng khoản chi
         tenKhoanChi.setText(khoanChi.getTenKC());
 

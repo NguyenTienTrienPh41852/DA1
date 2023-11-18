@@ -1,5 +1,6 @@
 package com.example.da1_t6.Fragment;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 
@@ -39,8 +40,6 @@ public class fragment_QuanLyKhoanChi extends Fragment {
     RecyclerView recyclerView;
     List<DanhMuc> danhMucList;
     List<KhoanChi> khoanChiList;
-    Dialog dialog;
-    DanhMuc danhMuc;
     KhoanChi khoanChi;
     DanhMucAdapter danhMucAdapter;
     KhoanChiAdapter khoanChiAdapter;
@@ -91,7 +90,7 @@ public class fragment_QuanLyKhoanChi extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__quanlykhoanchi, container, false);
+        return inflater.inflate(R.layout.fragment_quanlykhoanchi, container, false);
     }
 
     @Override
@@ -110,11 +109,15 @@ public class fragment_QuanLyKhoanChi extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog = new Dialog(getContext());
-                dialog.setContentView(R.layout.dialog_them_khoan_chi);
-                EditText tenKhoanChi = dialog.findViewById(R.id.ed_ten_khoan_chi);
-                Spinner spDanhMuc = dialog.findViewById(R.id.sp_chon_danh_muc);
-                Button luuKhoanChi = dialog.findViewById(R.id.btn_luu_khoan_chi);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                LayoutInflater inflater = getLayoutInflater();
+                View v = inflater.inflate(R.layout.dialog_them_khoan_chi, null);
+                builder.setView(v);
+                builder.setCancelable(true);
+                AlertDialog dialog = builder.create();
+                EditText tenKhoanChi = v.findViewById(R.id.ed_ten_khoan_chi);
+                Spinner spDanhMuc = v.findViewById(R.id.sp_chon_danh_muc);
+                Button luuKhoanChi = v.findViewById(R.id.btn_luu_khoan_chi);
                 danhMucDAO = new DanhMucDAO(requireContext());
                 danhMucList = danhMucDAO.layDanhSachDanhMuc();
                 List<String> listTenDanhMuc = new ArrayList<>();
@@ -142,7 +145,7 @@ public class fragment_QuanLyKhoanChi extends Fragment {
                                 // Lấy danh sách khoản chi mới từ cơ sở dữ liệu
                                 khoanChiList.addAll(khoanChiDAO.layDanhSachKhoanChi());
                                 // Thông báo cho Adapter biết dữ liệu đã được thay đổi
-                                khoanChiAdapter.notifyDataSetChanged();
+                                danhMucAdapter.notifyDataSetChanged();
                                 dialog.dismiss();
                                 Toast.makeText(getContext(), "Thêm thành công!", Toast.LENGTH_SHORT).show();
                             } else {
@@ -151,6 +154,7 @@ public class fragment_QuanLyKhoanChi extends Fragment {
                         }
                     }
                 });
+                dialog.show();
             }
         });
         super.onViewCreated(view, savedInstanceState);

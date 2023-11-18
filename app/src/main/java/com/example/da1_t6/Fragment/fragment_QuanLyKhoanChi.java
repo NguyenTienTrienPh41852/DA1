@@ -1,5 +1,6 @@
 package com.example.da1_t6.Fragment;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 
@@ -39,7 +40,6 @@ public class fragment_QuanLyKhoanChi extends Fragment {
     RecyclerView recyclerView;
     List<DanhMuc> danhMucList;
     List<KhoanChi> khoanChiList;
-    Dialog dialog;
     KhoanChi khoanChi;
     DanhMucAdapter danhMucAdapter;
     KhoanChiAdapter khoanChiAdapter;
@@ -109,11 +109,15 @@ public class fragment_QuanLyKhoanChi extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog = new Dialog(getContext());
-                dialog.setContentView(R.layout.dialog_them_khoan_chi);
-                EditText tenKhoanChi = dialog.findViewById(R.id.ed_ten_khoan_chi);
-                Spinner spDanhMuc = dialog.findViewById(R.id.sp_chon_danh_muc);
-                Button luuKhoanChi = dialog.findViewById(R.id.btn_luu_khoan_chi);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                LayoutInflater inflater = getLayoutInflater();
+                View v = inflater.inflate(R.layout.dialog_them_khoan_chi, null);
+                builder.setView(v);
+                builder.setCancelable(true);
+                AlertDialog dialog = builder.create();
+                EditText tenKhoanChi = v.findViewById(R.id.ed_ten_khoan_chi);
+                Spinner spDanhMuc = v.findViewById(R.id.sp_chon_danh_muc);
+                Button luuKhoanChi = v.findViewById(R.id.btn_luu_khoan_chi);
                 danhMucDAO = new DanhMucDAO(requireContext());
                 danhMucList = danhMucDAO.layDanhSachDanhMuc();
                 List<String> listTenDanhMuc = new ArrayList<>();

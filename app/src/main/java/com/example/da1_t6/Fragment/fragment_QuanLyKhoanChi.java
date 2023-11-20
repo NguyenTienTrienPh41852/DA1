@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -118,6 +119,7 @@ public class fragment_QuanLyKhoanChi extends Fragment {
                 EditText tenKhoanChi = v.findViewById(R.id.ed_ten_khoan_chi);
                 Spinner spDanhMuc = v.findViewById(R.id.sp_chon_danh_muc);
                 Button luuKhoanChi = v.findViewById(R.id.btn_luu_khoan_chi);
+                khoanChi = new KhoanChi();
                 danhMucDAO = new DanhMucDAO(requireContext());
                 danhMucList = danhMucDAO.layDanhSachDanhMuc();
                 List<String> listTenDanhMuc = new ArrayList<>();
@@ -127,6 +129,17 @@ public class fragment_QuanLyKhoanChi extends Fragment {
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, listTenDanhMuc);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spDanhMuc.setAdapter(adapter);
+                spDanhMuc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        khoanChi.setMaDanhMuc(danhMucList.get(i).getMaDanhMuc());
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
                 luuKhoanChi.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -135,7 +148,6 @@ public class fragment_QuanLyKhoanChi extends Fragment {
                         } else if (spDanhMuc.getSelectedItem() == null){
                             Toast.makeText(getContext(), "Vui lòng chọn danh mục!", Toast.LENGTH_SHORT).show();
                         } else {
-                            khoanChi = new KhoanChi();
                             khoanChi.setTenDanhMuc(spDanhMuc.getSelectedItem().toString());
                             khoanChi.setTenKC(tenKhoanChi.getText().toString());
                             long result = khoanChiDAO.themKhoanChi(khoanChi);

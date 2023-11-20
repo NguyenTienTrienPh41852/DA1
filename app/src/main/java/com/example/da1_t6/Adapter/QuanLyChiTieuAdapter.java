@@ -2,7 +2,6 @@ package com.example.da1_t6.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -35,7 +33,6 @@ import com.example.da1_t6.Model.ViTien;
 import com.example.da1_t6.R;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,19 +42,20 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
     private List<DanhMuc> listDM;
     private List<KhoanChi> listKC;
     private List<ViTien> listVT;
-    DatePickerDialog datePickerDialog;
     ChiTieuDAO chiTieuDAO;
     ChiTieu chiTieu;
     DanhMucDAO danhMucDAO;
-    KhoanChiDAO khoanChiDAO;
     ViTienDAO viTienDAO;
+    KhoanChiDAO khoanChiDAO;
     QuanLyChiTieuAdapter chiTieuAdapter;
-
 
     public QuanLyChiTieuAdapter(Context context, List<ChiTieu> list, ChiTieuDAO chiTieuDAO) {
         this.context = context;
         this.list = list;
         this.chiTieuDAO = chiTieuDAO;
+        viTienDAO = new ViTienDAO(context);
+        danhMucDAO = new DanhMucDAO(context);
+        khoanChiDAO = new KhoanChiDAO(context);
     }
 
     @NonNull
@@ -76,9 +74,6 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
         holder.txtNgay.setText(list.get(position).getThoiGianChi());
         holder.txtLoaiVi.setText(list.get(position).getTenVi());
         holder.txtGhiChu.setText(list.get(position).getGhiChu());
-        danhMucDAO = new DanhMucDAO(context);
-        viTienDAO = new ViTienDAO(context);
-        khoanChiDAO = new KhoanChiDAO(context);
         listKC = new ArrayList<>();
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -162,41 +157,16 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
         ed_sotien.setText(String.valueOf(chiTieu.getSoTienChi()));
         ed_ghichu.setText(chiTieu.getGhiChu());
         List<DanhMuc> listDM = danhMucDAO.layDanhSachDanhMuc();
+        List<ViTien> listVi = viTienDAO.layDanhSachViTien();
+
         listVT = viTienDAO.layDanhSachViTien();
-        adapterSPLoaiVi spLoaiVi = new adapterSPLoaiVi(listVT,context);
+        adapterSPLoaiVi adapterSPLoaiVi = new adapterSPLoaiVi(listVi,context);
+        spn_loaivi.setAdapter(adapterSPLoaiVi);
         adapterSPDanhMuc spDanhMuc = new adapterSPDanhMuc(listDM, context);
-        spn_loaivi.setAdapter(spLoaiVi);
         spn_chondanhmuc.setAdapter(spDanhMuc);
         final adapterSPKhoanChi[] spKhoanChi = new adapterSPKhoanChi[1];
 
-        spn_chondanhmuc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               if (position >=0 && position <listDM.size()){
-                   listKC = khoanChiDAO.layDanhSachKhoanChiTheoDM(listDM.get(position).getMaDanhMuc() + "");
-                   spKhoanChi[0] = new adapterSPKhoanChi(listKC, context);
-                   spn_chonkhoanchi.setAdapter(spKhoanChi[0]);
-                   int index_khoanchi = 0;
-                   for (KhoanChi itemKC : listKC) {
-                       if (itemKC.getMaKC() == chiTieu.getMaKC()) {
-//                Log.e("TAG","for:"+itemKC.getMaKC());
-                           break;
-                       }
-                       index_khoanchi++;
-                   }
-                   if (index_khoanchi >= 0 && index_khoanchi < listKC.size()) {
-                       spn_chonkhoanchi.setSelection(index_khoanchi);
-                   }
-               }
 
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         int index_danhmuc = 0;
         for (DanhMuc itemDM : listDM) {
             if (itemDM.getMaDanhMuc() == chiTieu.getMaDM()) {
@@ -205,70 +175,90 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
             }
             index_danhmuc++;
         }
+        // set vị trí của danh mụ để hiện lên spinner
         spn_chondanhmuc.setSelection(index_danhmuc);
-
-        li_ngay.setOnClickListener(new View.OnClickListener() {
+        spn_chonkhoanchi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                final Calendar calendar = Calendar.getInstance();
-                int mYear = calendar.get(Calendar.YEAR);
-                int mMonth = calendar.get(Calendar.MONTH);
-                int mDay = calendar.get(Calendar.DAY_OF_MONTH);
-                datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tvNgay.setText(dayOfMonth+"-"+(month+1)+"-"+year);
-                    }
-                },mYear,mMonth,mDay);
-                datePickerDialog.show();
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //set lại mã khoản chi
+                chiTieu.setMaKC(listKC.get(i).getMaKC());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        int index_khoanchi = 0;
+        int finalIndex_khoanchi = index_khoanchi;
+        spn_chondanhmuc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                chiTieu.setMaDM(listDM.get(position).getMaDanhMuc());
+                listKC = khoanChiDAO.layDanhSachKhoanChiTheoDM(listDM.get(position).getMaDanhMuc()+"");
+                spKhoanChi[0] = new adapterSPKhoanChi(listKC,context);
+                spn_chonkhoanchi.setAdapter(spKhoanChi[0]);
+                spn_chonkhoanchi.setSelection(finalIndex_khoanchi);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
-        int index_vitien=0;
-        for(ViTien itemVT : listVT){
-            if(itemVT.getMaVi() == chiTieu.getMaVi()){
-                Log.e("TAG", "dialogUpdateChiTieu: "+itemVT.getMaVi());
+        listKC = khoanChiDAO.layDanhSachKhoanChiTheoDM(chiTieu.getMaDM()+"");
+        spKhoanChi[0] = new adapterSPKhoanChi(listKC, context);
+        spn_chonkhoanchi.setAdapter(spKhoanChi[0]);
+        for (KhoanChi itemKC : listKC) {
+            if (itemKC.getMaKC() == chiTieu.getMaKC()) {
                 break;
             }
-            index_vitien ++;
+            index_khoanchi++;
         }
-        spn_loaivi.setSelection(index_vitien);
+        if (index_khoanchi >= 0 && index_khoanchi < listKC.size()) {
+            spn_chonkhoanchi.setSelection(index_khoanchi);
+        }
 
+        int indexVi = 0;
+        for (ViTien vi : listVi){
+            if (chiTieu.getMaVi()==vi.getMaVi()){
+                break;
+            }
+            indexVi++;
+        }
+        // hiển thị mã ví cũ lên spinner
+        spn_loaivi.setSelection(indexVi);
+        spn_loaivi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // set lại mã ví
+                chiTieu.setMaVi(listVi.get(i).getMaVi());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         tvNgay.setText(chiTieu.getThoiGianChi());
-
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Float soTien = Float.parseFloat(ed_sotien.getText().toString());
-                String ghiChu = String.valueOf(ed_ghichu.getText());
-                int danhmuc = spn_chondanhmuc.getSelectedItemPosition()+1;
-//                Log.e("TAG","dialog:"+danhmuc);
-                if (danhmuc == 1){
-                    int chiMuc = spn_chonkhoanchi.getSelectedItemPosition()+1;
-                    chiTieu.setMaKC(chiMuc);
-                }else if(danhmuc ==2){
-                    int chiMuc = listKC.size()+(spn_chonkhoanchi.getSelectedItemPosition()+2);
-                    chiTieu.setMaKC(chiMuc);
-                }
-
-//                Log.e("TAG","dialog2:"+chiMuc);
-                String ngay = tvNgay.getText().toString();
-                int loaiVi = (spn_loaivi.getSelectedItemPosition()+1);
-                chiTieu.setSoTienChi(soTien);
-                chiTieu.setGhiChu(ghiChu);
-                chiTieu.setMaDM(danhmuc);
-
-                chiTieu.setThoiGianChi(ngay);
-                chiTieu.setMaVi(loaiVi);
-                boolean check = chiTieuDAO.capNhatChiTieu(chiTieu);
-                if(check){
-                    loadData();
-                    Toast.makeText(context, "Update thành công mục chi tiêu", Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                // set tiền chi và ghi chú và cập nhật lên databse
+                chiTieu.setSoTienChi(Double.parseDouble(ed_sotien.getText().toString()));
+                chiTieu.setGhiChu(ed_ghichu.getText().toString());
+                if (chiTieuDAO.capNhatChiTieu(chiTieu)){
+                    Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+                    list.clear();
+                    list.addAll(chiTieuDAO.layDanhSachChiTieu());
+                    notifyDataSetChanged();
                     dialog.dismiss();
-                }else{
-                    Toast.makeText(context, "Update không thành công ", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(context, "Lỗi", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 

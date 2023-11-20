@@ -5,9 +5,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.nfc.Tag;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.da1_t6.DAO.DanhMucDAO;
@@ -32,7 +36,6 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
     Context context;
     List<DanhMuc> danhMucList;
     List<KhoanChi> khoanChiList;
-    Dialog dialog;
     public DanhMucAdapter(Context context, List<DanhMuc> danhMucList, List<KhoanChi> khoanChiList) {
         this.context = context;
         this.danhMucList = danhMucList;
@@ -56,14 +59,14 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
                 khoanChiCon.add(khoanChi);
             }
         }
-        KhoanChiAdapter khoanChiAdapter = new KhoanChiAdapter(context, khoanChiCon, new KhoanChiAdapter.OnKhoanChiLongClickListener() {
+        KhoanChiAdapter khoanChiAdapter = new KhoanChiAdapter(context, khoanChiCon, new KhoanChiAdapter.onKhoanChiLongClick() {
             @Override
             public void onKhoanChiLongClick(int position) {
                 // Xử lý sự kiện giữ vào item trong khoản chi ở đây
                 // position là vị trí của item khoản chi trong danh sách khoản chi được giữ
                 // Bạn có thể thực hiện việc chỉnh sửa hoặc xóa item khoản chi tại vị trí position ở đây
                 KhoanChiDAO khoanChiDAO = new KhoanChiDAO(context);
-                KhoanChi khoanChi = khoanChiList.get(position);
+                KhoanChi khoanChi = khoanChiCon.get(position);
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 String mang[] = new String[]{
                         "Chỉnh sửa khoản chi", "Xóa khoản chi"
@@ -114,6 +117,8 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
             }
         });
         holder.listViewKhoanChi.setAdapter(khoanChiAdapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        holder.listViewKhoanChi.setLayoutManager(linearLayoutManager);
     }
     // Hiển thị dialog chỉnh sửa khoản chi
     private void showEditKhoanChiDialog(KhoanChi khoanChi) {
@@ -128,6 +133,18 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
         EditText tenKhoanChi = v.findViewById(R.id.ed_ten_khoan_chi);
         Spinner spDanhMuc = v.findViewById(R.id.sp_chon_danh_muc);
         Button luuKhoanChi = v.findViewById(R.id.btn_luu_khoan_chi);
+        spDanhMuc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                khoanChi.setMaDanhMuc(danhMucList.get(i).getMaDanhMuc());
+                Log.e("Tag", "Chay ho");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         tvTittle.setText("Cập nhật khoản chi");
         // Set thông tin cho dialog từ đối tượng khoản chi
         tenKhoanChi.setText(khoanChi.getTenKC());
@@ -154,6 +171,7 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
         if (selectedDanhMucPosition != -1) {
             spDanhMuc.setSelection(selectedDanhMucPosition);
         }
+
         // Bắt sự kiện khi click vào nút lưu
         luuKhoanChi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,7 +208,7 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_tenDanhMuc;
-        ListView listViewKhoanChi;
+        RecyclerView listViewKhoanChi;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_tenDanhMuc = itemView.findViewById(R.id.tv_tendanhmuc);

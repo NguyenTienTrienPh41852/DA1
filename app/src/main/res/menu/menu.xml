@@ -12,9 +12,9 @@
     <item android:id="@+id/menuQLTN"
         android:title="Quản lý thu nhập"
         android:icon="@drawable/thunhap"/>
-    <item android:id="@+id/menuQLTGB"
-        android:title="Quản lý thời gian biểu"
-        android:icon="@drawable/thoigianbieu"/>
+    <item android:id="@+id/menuQLHD"
+        android:title="Quản lý hoạt động"
+        android:icon="@drawable/qlhd"/>
     <item android:title="Thống kê">
         <menu>
             <item android:id="@+id/menuBDTC"

@@ -15,6 +15,16 @@ public class ViTien {
         this.soDuBanDau = soDuBanDau;
         this.soDuHienTai = soDuHienTai;
     }
+    public ViTien(int maVi, String tenVi, double soDuBanDau) {
+        this.maVi = maVi;
+        this.tenVi = tenVi;
+        this.soDuBanDau = soDuBanDau;
+    }
+
+    public ViTien(String tenVi, double soDuBanDau) {
+        this.tenVi = tenVi;
+        this.soDuBanDau = soDuBanDau;
+    }
 
     public int getMaVi() {
         return maVi;

@@ -1,6 +1,5 @@
 package com.example.da1_t6.Fragment;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -25,22 +24,32 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.da1_t6.Adapter.CacGiaoDichViAdapter;
 import com.example.da1_t6.Adapter.QuanLyViAdapter;
 import com.example.da1_t6.DAO.ChiTieuDAO;
+import com.example.da1_t6.DAO.ThuNhapDAO;
 import com.example.da1_t6.DAO.ViTienDAO;
+import com.example.da1_t6.Model.ChiTieu;
+import com.example.da1_t6.Model.ThuNhap;
 import com.example.da1_t6.Model.ViTien;
 import com.example.da1_t6.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class fragment_QuanLyVi extends Fragment {
     LinearLayout linear_item_vi;
     QuanLyViAdapter viAdapter;
     List<ViTien> listVi;
     ViTienDAO viTienDAO;
+
+    CacGiaoDichViAdapter giaoDichViAdapter;
+    List<Object> listGD;
+    RecyclerView rcCacGiaoDich;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,12 +62,22 @@ public class fragment_QuanLyVi extends Fragment {
         ImageButton btnAddVi;
 
         btnAddVi = view.findViewById(R.id.btn_add_vi);
-
         btnAddVi.setOnClickListener(v -> openDialogAddVi(Gravity.CENTER));
 
         linear_item_vi = view.findViewById(R.id.linear_item_vi);
-
         linear_item_vi.setOnClickListener(v -> openDialogChonVi());
+
+
+        listGD = new ArrayList<>();
+        listGD.addAll(listChiTieu());
+        listGD.addAll(listThuNhap());
+
+        rcCacGiaoDich = view.findViewById(R.id.rc_cac_giao_dich_thang);
+        giaoDichViAdapter = new CacGiaoDichViAdapter(requireContext(),listGD);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        rcCacGiaoDich.setLayoutManager(manager);
+        rcCacGiaoDich.setAdapter(giaoDichViAdapter);
+
 
         viTienDAO = new ViTienDAO(getContext());
         listVi = viTienDAO.layDanhSachViTien();
@@ -82,6 +101,10 @@ public class fragment_QuanLyVi extends Fragment {
         ChiTieuDAO chiTieuDAO = new ChiTieuDAO(getContext());
         double tongChiTieu = chiTieuDAO.getTongChiTieu();
         tvTongChiTieuThang.setText(formatTienViet(tongChiTieu));
+
+        ThuNhapDAO thuNhapDAO = new ThuNhapDAO(getContext());
+        double tongThuNhap = thuNhapDAO.getTongThuNhap();
+        tvTongThuNhapThang.setText(formatTienViet(tongThuNhap));
 
 
 
@@ -181,14 +204,7 @@ public class fragment_QuanLyVi extends Fragment {
         }
     }
 
-//    private void TatCaVi(View view, int tongTien){
-//        TextView tvTenFix = view.findViewById(R.id.tv_ten_vi_fix);
-//        TextView tvSoTienFix = view.findViewById(R.id.tv_so_tien_fix);
-//
-//        tvTenFix.setText("Tất Cả");
-//
-//        tvSoTienFix.setText(formatTienViet(tongTien));
-//    }
+
     private int tinhTong(){
         int tongTien = 0;
 
@@ -202,5 +218,30 @@ public class fragment_QuanLyVi extends Fragment {
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
         return currencyFormatter.format(amount);
+    }
+
+    private List<Object> listChiTieu(){
+        List<Object> listCT = new ArrayList<>();
+        ChiTieuDAO chiTieuDAO = new ChiTieuDAO(getContext());
+
+        List<ChiTieu> list = chiTieuDAO.layDanhSachChiTieu();
+
+
+        listCT.addAll(list);
+
+        return listCT;
+
+    }
+    private List<Object> listThuNhap(){
+
+        List<Object> listTN = new ArrayList<>();
+
+        ThuNhapDAO thuNhapDAO = new ThuNhapDAO(getContext());
+
+        List<ThuNhap> list = thuNhapDAO.layDanhSachThuNhap();
+
+        listTN.addAll(list);
+
+        return listTN;
     }
 }

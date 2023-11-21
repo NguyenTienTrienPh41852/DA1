@@ -21,9 +21,9 @@ public class CacGiaoDichViAdapter extends RecyclerView.Adapter<RecyclerView.View
     static final int TYPE_CHI_TIEU = 0;
     static final int TYPE_THU_NHAP = 1;
     Context context;
-    List<Objects> list;
+    List<Object> list;
 
-    public CacGiaoDichViAdapter(Context context, List<Objects> list) {
+    public CacGiaoDichViAdapter(Context context, List<Object> list) {
         this.context = context;
         this.list = list;
     }
@@ -53,7 +53,7 @@ public class CacGiaoDichViAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             case TYPE_THU_NHAP:
                 View thuNhapView = inflater.inflate(R.layout.item_giao_dich_thang_thu_nhap,parent,false);
-                return new ChiTieuViewHolder(thuNhapView);
+                return new ThuNhapViewHolder(thuNhapView);
 
             default:
                 throw new IllegalArgumentException("Khong xac dinh");
@@ -80,27 +80,31 @@ public class CacGiaoDichViAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public static class ChiTieuViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTenGiaoDichChiTieu, tvGiaChiTieu;
+        TextView tvTenGiaoDichChiTieu, tvGiaChiTieu,tvNgayChiTieuThang;
         public ChiTieuViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvNgayChiTieuThang = itemView.findViewById(R.id.tv_ngay_giao_dich_thang);
             tvTenGiaoDichChiTieu = itemView.findViewById(R.id.tv_ten_giao_dich_chi_tieu);
             tvGiaChiTieu = itemView.findViewById(R.id.tv_gia_giao_dich_chi_tieu);
         }
         public void bindChiTieu(ChiTieu chiTieu){
-            tvTenGiaoDichChiTieu.setText(chiTieu.getTenKC());
+            tvNgayChiTieuThang.setText(chiTieu.getThoiGianChi()+"");
+            tvTenGiaoDichChiTieu.setText(chiTieu.getTenKC()+":");
             tvGiaChiTieu.setText(chiTieu.getSoTienChi()+"");
         }
     }
 
     public static class ThuNhapViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTenGiaoDichThuNhap, tvGiaThuNhap;
+        TextView tvTenGiaoDichThuNhap, tvGiaThuNhap,tvNgayGiaoDichThang;
         public ThuNhapViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTenGiaoDichThuNhap = itemView.findViewById(R.id.tv_ten_giao_dich_thu_nhap);
+            tvNgayGiaoDichThang = itemView.findViewById(R.id.tv_ngay_giao_dich_thang);
             tvGiaThuNhap = itemView.findViewById(R.id.tv_gia_giao_dich_thu_nhap);
         }
         public void bindThuNhap(ThuNhap thuNhap){
-            tvTenGiaoDichThuNhap.setText(thuNhap.getTenKhoanThu());
+            tvNgayGiaoDichThang.setText(thuNhap.getThoiGianThu()+"");
+            tvTenGiaoDichThuNhap.setText(thuNhap.getTenKhoanThu()+":");
             tvGiaThuNhap.setText(thuNhap.getSoTienThu()+"");
         }
     }

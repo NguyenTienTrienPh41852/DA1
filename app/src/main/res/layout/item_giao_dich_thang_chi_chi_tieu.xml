@@ -5,15 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp"
     app:cardCornerRadius="15dp"
-
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#C5ECC9"
-        android:layout_marginStart="5dp"
+        android:background="#EF9494"
+
         >
         <LinearLayout
             android:layout_width="wrap_content"
@@ -43,7 +42,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="2dp"
             android:layout_marginStart="8dp"
             >
 
@@ -61,7 +60,8 @@
                 android:text="10.000.000: "
                 android:textStyle="bold"
                 android:textSize="17dp"
-                android:textColor="#FF0101"
+                android:textColor="#CF0000"
+                android:layout_marginStart="6dp"
                 />
 
         </LinearLayout>

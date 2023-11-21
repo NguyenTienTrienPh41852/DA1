@@ -85,4 +85,17 @@ public class ThuNhapDAO {
         }
         return list;
     }
+
+    public double getTongThuNhap(){
+        String sql = "SELECT SUM(SOTIEN) FROM THUNHAP";
+        Cursor c = db.rawQuery(sql,null);
+
+        double tongThuNhap = 0;
+        if (c.moveToFirst()){
+            tongThuNhap = c.getDouble(0);
+        }
+        c.close();
+
+        return tongThuNhap;
+    }
 }

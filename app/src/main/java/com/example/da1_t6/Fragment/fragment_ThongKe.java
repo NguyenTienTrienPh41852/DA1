@@ -43,7 +43,7 @@ public class fragment_ThongKe extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment__thongke, container, false);
+        View view = inflater.inflate(R.layout.fragment_thongke, container, false);
 
         barChart_chitieu = view.findViewById(R.id.barchart_chitieu);
         barChart_thunhap = view.findViewById(R.id.barchart_thunhap);

@@ -70,6 +70,22 @@ public class ChiTieuDAO {
         return list;
     }
 
+    public List<ChiTieu> timKiem (String name){
+        List<ChiTieu> list = new ArrayList<>();
+        String data[] = new String[]{name};
+        Cursor c =db.rawQuery("SELECT * FROM CHITIEU INNER JOIN VITIEN ON CHITIEU.MAVI = VITIEN.MAVI INNER JOIN KHOANCHI ON CHITIEU.MAKC = KHOANCHI.MAKC INNER JOIN DANHMUC ON CHITIEU.MADM = DANHMUC.MADANHMUC WHERE KHOANCHI.TENKC LIKE ?", data);
+        if (c!=null&&c.getCount()>0){
+            c.moveToFirst();
+            do{
+                ChiTieu ct = new ChiTieu(
+                        c.getInt(0), c.getInt(1), c.getInt(2),c.getInt(3), c.getString(9), c.getString(14), c.getDouble(4), c.getString(5), c.getString(6)
+                );
+                list.add(ct);
+            } while (c.moveToNext());
+            c.close();
+        }
+        return list;
+    }
 
     public double getTongChiTieu(){
         String sql = "SELECT SUM(SOTIENCHI) FROM CHITIEU";

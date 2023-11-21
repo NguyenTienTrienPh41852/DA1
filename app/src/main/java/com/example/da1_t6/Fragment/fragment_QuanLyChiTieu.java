@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,12 +33,10 @@ import com.example.da1_t6.Adapter.adapterSPLoaiVi;
 import com.example.da1_t6.DAO.ChiTieuDAO;
 import com.example.da1_t6.DAO.DanhMucDAO;
 import com.example.da1_t6.DAO.KhoanChiDAO;
-import com.example.da1_t6.DAO.ThuNhapDAO;
 import com.example.da1_t6.DAO.ViTienDAO;
 import com.example.da1_t6.Model.ChiTieu;
 import com.example.da1_t6.Model.DanhMuc;
 import com.example.da1_t6.Model.KhoanChi;
-import com.example.da1_t6.Model.ThuNhap;
 import com.example.da1_t6.Model.ViTien;
 import com.example.da1_t6.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -67,7 +63,7 @@ public class fragment_QuanLyChiTieu extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment__quanlychitieu, container, false);
+        View view = inflater.inflate(R.layout.fragment_quanlychitieu, container, false);
         rcvQLCT = view.findViewById(R.id.rcvQLCT);
         fltAdd = view.findViewById(R.id.add_QLCT);
         search = view.findViewById(R.id.sv_qlct);
@@ -80,6 +76,24 @@ public class fragment_QuanLyChiTieu extends Fragment {
             @Override
             public void onClick(View view) {
                 dialogAddChiTieu();
+            }
+        });
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.equals("")) {
+                    loadData();
+                } else {
+                    list.clear();
+                    list.addAll(chiTieuDAO.timKiem("%" + newText + "%"));
+                    chiTieuAdapter.notifyDataSetChanged();
+                }
+                return false;
             }
         });
         return view;
@@ -126,8 +140,6 @@ public class fragment_QuanLyChiTieu extends Fragment {
                 }
             }
         });
-
-
 
         List<DanhMuc> listDM = danhMucDAO.layDanhSachDanhMuc();
         adapterSPDanhMuc spDanhMuc = new adapterSPDanhMuc(listDM,getContext());
@@ -203,6 +215,5 @@ public class fragment_QuanLyChiTieu extends Fragment {
         chiTieuAdapter = new QuanLyChiTieuAdapter(getContext(),list,chiTieuDAO);
         rcvQLCT.setAdapter(chiTieuAdapter);
         chiTieuAdapter.notifyDataSetChanged();
-
     }
 }

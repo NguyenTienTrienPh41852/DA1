@@ -1,6 +1,5 @@
 package com.example.da1_t6.Fragment;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -26,7 +25,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.da1_t6.Adapter.QuanLyChiTieuAdapter;
 import com.example.da1_t6.Adapter.QuanLyThuNhapAdapter;
 import com.example.da1_t6.Adapter.adapterSPLoaiVi;
 import com.example.da1_t6.DAO.ThuNhapDAO;
@@ -34,10 +32,8 @@ import com.example.da1_t6.DAO.ViTienDAO;
 import com.example.da1_t6.Model.ThuNhap;
 import com.example.da1_t6.Model.ViTien;
 import com.example.da1_t6.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -61,7 +57,7 @@ public class fragment_QuanLyThuNhap extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment__quanlythunhap, container, false);
+        View view = inflater.inflate(R.layout.fragment_quanlythunhap, container, false);
         rcvQLTN = view.findViewById(R.id.rcvQLTN);
         fltAdd = view.findViewById(R.id.add_QLTN);
         search = view.findViewById(R.id.sv_qltn);
@@ -72,6 +68,24 @@ public class fragment_QuanLyThuNhap extends Fragment {
             @Override
             public void onClick(View view) {
                 dialogAddThuNhap();
+            }
+        });
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.equals("")) {
+                    loadData();
+                } else {
+                    list.clear();
+                    list.addAll(thuNhapDAO.timKiem("%" + newText + "%"));
+                    thuNhapAdapter.notifyDataSetChanged();
+                }
+                return false;
             }
         });
         return view;

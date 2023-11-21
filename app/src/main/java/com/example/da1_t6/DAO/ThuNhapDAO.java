@@ -69,4 +69,20 @@ public class ThuNhapDAO {
         }
         return list;
     }
+    public List<ThuNhap> timKiem (String name){
+        List<ThuNhap> list = new ArrayList<>();
+        String data[] = new String[]{name};
+        Cursor c =db.rawQuery("SELECT * FROM THUNHAP INNER JOIN VITIEN ON THUNHAP.MAVI = VITIEN.MAVI WHERE THUNHAP.TENKT LIKE ?", data);
+        if (c!=null&&c.getCount()>0){
+            c.moveToFirst();
+            do{
+                ThuNhap tn = new ThuNhap(
+                        c.getInt(0), c.getInt(1), c.getString(8),c.getString(2), c.getDouble(3), c.getString(4), c.getString(5)
+                );
+                list.add(tn);
+            } while (c.moveToNext());
+            c.close();
+        }
+        return list;
+    }
 }

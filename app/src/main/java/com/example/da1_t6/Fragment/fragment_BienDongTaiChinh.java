@@ -1,6 +1,5 @@
 package com.example.da1_t6.Fragment;
 
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.da1_t6.DAO.BienDongTaiChinhDAO;
 import com.example.da1_t6.DAO.ChiTieuDAO;
 import com.example.da1_t6.DAO.ThuNhapDAO;
 import com.example.da1_t6.Model.All_a;
@@ -79,6 +77,6 @@ public class fragment_BienDongTaiChinh extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__biendongtaichinh, container, false);
+        return inflater.inflate(R.layout.fragment_biendongtaichinh, container, false);
     }
 }

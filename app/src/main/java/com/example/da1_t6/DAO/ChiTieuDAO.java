@@ -69,4 +69,18 @@ public class ChiTieuDAO {
         }
         return list;
     }
+
+
+    public double getTongChiTieu(){
+        String sql = "SELECT SUM(SOTIENCHI) FROM CHITIEU";
+        Cursor c = db.rawQuery(sql,null);
+
+        double tongChiTieu = 0;
+        if (c.moveToFirst()){
+            tongChiTieu = c.getDouble(0);
+        }
+        c.close();
+
+        return tongChiTieu;
+    }
 }

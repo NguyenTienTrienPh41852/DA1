@@ -37,6 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:textSize="30sp"
+                    android:padding="10dp"
                     android:background="@color/white"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -58,10 +59,16 @@
                     android:layout_margin="10dp"
                     android:layout_marginHorizontal="10dp"
                     >
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:id="@+id/spn_ud_tn_tengd"/>
+                    <EditText
+                        android:id="@+id/ud_tn_tengiaodich"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:textSize="25sp"
+                        android:background="@color/white"
+                        android:layout_marginRight="10dp"
+                        android:hint="Tên giao dịch"
+                        android:padding="10dp"
+                        />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -93,7 +100,7 @@
                     android:text=""
                     android:textSize="23dp"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@color/red"
+                    android:textColor="@color/green"
                     android:layout_gravity="center"
                     android:textStyle="bold"/>
             </LinearLayout>

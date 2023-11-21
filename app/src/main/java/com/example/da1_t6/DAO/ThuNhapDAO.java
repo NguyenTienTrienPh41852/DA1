@@ -19,18 +19,22 @@ public class ThuNhapDAO {
         DbHelper dbHelper = new DbHelper(context);
         db = dbHelper.getWritableDatabase();
     }
-    public long themThuNhap (ThuNhap thuNhap) {
+    public boolean themThuNhap (ThuNhap thuNhap) {
         ContentValues values = new ContentValues();
-        values.put("MATN", thuNhap.getMaKhoanThu());
         values.put("MAVI", thuNhap.getMaVi());
         values.put("TENKT", thuNhap.getTenKhoanThu());
         values.put("SOTIEN", thuNhap.getSoTienThu());
         values.put("THOIGIAN", thuNhap.getThoiGianThu());
         values.put("GHICHU", thuNhap.getGhiChu());
-        return db.insert("THUNHAP", null, values);
+        long check = db.insert("THUNHAP", null, values);
+        if(check == -1){
+            return false;
+        }else{
+            return true;
+        }
     }
 
-    public long capNhatThuNhap (ThuNhap thuNhap) {
+    public boolean capNhatThuNhap (ThuNhap thuNhap) {
         ContentValues values = new ContentValues();
         values.put("MATN", thuNhap.getMaKhoanThu());
         values.put("MAVI", thuNhap.getMaVi());
@@ -38,7 +42,12 @@ public class ThuNhapDAO {
         values.put("SOTIEN", thuNhap.getSoTienThu());
         values.put("THOIGIAN", thuNhap.getThoiGianThu());
         values.put("GHICHU", thuNhap.getGhiChu());
-        return db.update("THUNHAP", values, "MATN = ?", new String[]{String.valueOf(thuNhap.getMaKhoanThu())});
+        long check = db.update("THUNHAP", values, "MATN = ?", new String[]{String.valueOf(thuNhap.getMaKhoanThu())});
+        if(check == -1){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public int xoaThuNhap (int maThuNhap) {

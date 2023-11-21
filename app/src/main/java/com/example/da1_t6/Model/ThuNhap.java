@@ -34,6 +34,14 @@ public class ThuNhap {
         return maVi;
     }
 
+    public String getTenVi() {
+        return tenVi;
+    }
+
+    public void setTenVi(String tenVi) {
+        this.tenVi = tenVi;
+    }
+
     public void setMaVi(int maVi) {
         this.maVi = maVi;
     }

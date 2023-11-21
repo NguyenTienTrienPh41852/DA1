@@ -36,41 +36,86 @@
                 android:textColor="#5B5B5B"
                 android:textSize="26sp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số tiền: "
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    />
             <TextView
                 android:id="@+id/tv_tn_sotien"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Số tiền:"
+                android:layout_marginLeft="5dp"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
-
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày: "
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    />
             <TextView
                 android:id="@+id/tv_tn_ngay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Ngày:"
                 android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
                 android:textSize="18sp" />
-
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loại ví: "
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    />
             <TextView
                 android:id="@+id/tv_tn_loaivi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Loại ví:"
                 android:textColor="@color/black"
+                android:layout_marginLeft="5dp"
                 android:textSize="18sp" />
-
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ghi chú: "
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    />
             <TextView
                 android:id="@+id/tv_tn_ghichu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Ghi chú:"
+                android:layout_marginLeft="5dp"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
+            </LinearLayout>
         </LinearLayout>
         <ImageButton
             android:id="@+id/btn_tn_delete"

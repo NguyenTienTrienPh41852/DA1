@@ -2,13 +2,16 @@ package com.example.da1_t6.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -19,17 +22,30 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.da1_t6.DAO.KhoanChiDAO;
 import com.example.da1_t6.DAO.ThuNhapDAO;
+import com.example.da1_t6.DAO.ViTienDAO;
 import com.example.da1_t6.Model.ThuNhap;
+import com.example.da1_t6.Model.ViTien;
 import com.example.da1_t6.R;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdapter.ViewHolder> {
     private Context context;
     private List<ThuNhap> list;
-
+    private List<ViTien> listVT;
     ThuNhapDAO thuNhapDAO;
+    ViTienDAO viTienDAO;
+    DatePickerDialog datePickerDialog;
+
+    public QuanLyThuNhapAdapter(Context context, List<ThuNhap> list, ThuNhapDAO thuNhapDAO) {
+        this.context = context;
+        this.list = list;
+        this.thuNhapDAO = thuNhapDAO;
+    }
 
     @NonNull
     @Override
@@ -43,6 +59,13 @@ public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.txtLuong.setText(String.valueOf(list.get(position).getTenKhoanThu()));
+        holder.txtSoTien.setText(String.valueOf(list.get(position).getSoTienThu()));
+        holder.txtNgay.setText(list.get(position).getThoiGianThu());
+        holder.txtLoaiVi.setText(list.get(position).getTenVi());
+        holder.txtGhiChu.setText(list.get(position).getGhiChu());
+        viTienDAO = new ViTienDAO(context);
+
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -114,11 +137,78 @@ public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdap
 
         EditText ed_sotien = view.findViewById(R.id.ud_tn_sotien);
         EditText ed_ghichu = view.findViewById(R.id.ud_tn_ghichu);
-        Spinner spn_tenGD = view.findViewById(R.id.spn_ud_tn_tengd);
+        EditText ed_tenGD = view.findViewById(R.id.ud_tn_tengiaodich);
         LinearLayout li_ngay = view.findViewById(R.id.ud_tn_ngay);
+        TextView tv_ngay = view.findViewById(R.id.tv_add_ct_ngay);
         Spinner spn_loaivi = view.findViewById(R.id.spn_ud_tn_loaivi);
         Button btn_save = view.findViewById(R.id.btn_tn_update);
 
+        ed_sotien.setText(String.valueOf(thuNhap.getSoTienThu()));
+        ed_ghichu.setText(thuNhap.getGhiChu());
+        ed_tenGD.setText(thuNhap.getTenKhoanThu());
+        tv_ngay.setText(thuNhap.getThoiGianThu());
+
+        li_ngay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int mYear = calendar.get(Calendar.YEAR);
+                int mMonth = calendar.get(Calendar.MONTH);
+                int mDay = calendar.get(Calendar.DAY_OF_MONTH);
+                datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        tv_ngay.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                    }
+                },mYear,mMonth,mDay);
+                datePickerDialog.show();
+            }
+        });
+        List<ViTien> listVi = viTienDAO.layDanhSachViTien();
+        listVT = viTienDAO.layDanhSachViTien();
+        adapterSPLoaiVi adapterSPLoaiVi = new adapterSPLoaiVi(listVi,context);
+        spn_loaivi.setAdapter(adapterSPLoaiVi);
+        int indexVi = 0;
+        for (ViTien vi : listVi){
+            if (thuNhap.getMaVi()==vi.getMaVi()){
+                break;
+            }
+            indexVi++;
+        }
+        // hiển thị mã ví cũ lên spinner
+        spn_loaivi.setSelection(indexVi);
+        spn_loaivi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // set lại mã ví
+                thuNhap.setMaVi(listVi.get(i).getMaVi());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                thuNhap.setSoTienThu(Double.parseDouble(ed_sotien.getText().toString()));
+                thuNhap.setGhiChu(ed_ghichu.getText().toString());
+                thuNhap.setTenKhoanThu(ed_tenGD.getText().toString());
+                thuNhap.setMaVi(spn_loaivi.getSelectedItemPosition()+1);
+                thuNhap.setThoiGianThu(tv_ngay.getText().toString());
+                if (thuNhapDAO.capNhatThuNhap(thuNhap)){
+                    Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+                    list.clear();
+                    list.addAll(thuNhapDAO.layDanhSachThuNhap());
+                    notifyDataSetChanged();
+                    dialog.dismiss();
+                }else {
+                    Toast.makeText(context, "Lỗi", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
 
     }

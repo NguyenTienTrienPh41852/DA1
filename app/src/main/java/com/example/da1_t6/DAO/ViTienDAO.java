@@ -24,6 +24,7 @@ public class ViTienDAO {
         ContentValues contentValues = new ContentValues();
         contentValues.put("TENVI",obj.getTenVi());
         contentValues.put("SODUBD",obj.getSoDuBanDau());
+        contentValues.put("SODUHT",obj.getSoDuBanDau());
         return db.insert("VITIEN",null, contentValues);
     }
 
@@ -31,6 +32,7 @@ public class ViTienDAO {
         ContentValues contentValues = new ContentValues();
         contentValues.put("TENVI",obj.getTenVi());
         contentValues.put("SODUBD",obj.getSoDuBanDau());
+        contentValues.put("SODUHT",obj.getSoDuHienTai());
         return db.update("VITIEN",contentValues,"MAVI = ?",new String[]{String.valueOf(obj.getMaVi())});
     }
 
@@ -51,5 +53,16 @@ public class ViTienDAO {
             c.close();
         }
         return list;
+    }
+    public double tongSoDuHienTai() {
+        double tongSoDuHienTai = 0;
+        Cursor cursor = db.rawQuery("SELECT SUM(SODUHT) FROM VITIEN", null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            tongSoDuHienTai = cursor.getDouble(0);
+            cursor.close();
+        }
+
+        return tongSoDuHienTai;
     }
 }

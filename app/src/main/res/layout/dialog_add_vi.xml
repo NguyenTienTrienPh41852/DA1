@@ -4,7 +4,7 @@
     android:background="@drawable/bgr_dialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="20dp"
     android:paddingBottom="8dp"
     >
     <TextView
@@ -61,7 +61,7 @@
             android:id="@+id/ed_so_du"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tên ví"
+            android:hint="Số sư hiện tại"
 
             />
     </LinearLayout>

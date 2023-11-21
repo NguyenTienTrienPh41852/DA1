@@ -67,7 +67,7 @@ public class fragment_QuanLyThuNhap extends Fragment {
         search = view.findViewById(R.id.sv_qltn);
         thuNhapDAO = new ThuNhapDAO(getContext());
         viTienDAO = new ViTienDAO(getContext());
-
+        loadData();
         fltAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,6 +167,5 @@ public class fragment_QuanLyThuNhap extends Fragment {
         thuNhapAdapter = new QuanLyThuNhapAdapter(getContext(),list,thuNhapDAO);
         rcvQLTN.setAdapter(thuNhapAdapter);
         thuNhapAdapter.notifyDataSetChanged();
-
     }
 }

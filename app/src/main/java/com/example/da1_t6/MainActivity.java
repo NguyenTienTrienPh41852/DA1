@@ -66,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
                     fragment_QuanLyThuNhap frgQLTN =  new fragment_QuanLyThuNhap();
                     relaceFrg(frgQLTN);
                     toolbar.setTitle("Quản lý thu nhập");
-                }else if(item.getItemId() == R.id.menuQLTGB){
+                }else if(item.getItemId() == R.id.menuQLHD){
                     fragment_QuanLyHoatDong frgQLTGB = new fragment_QuanLyHoatDong();
                     relaceFrg(frgQLTGB);
-                    toolbar.setTitle("Thời gian biểu");
+                    toolbar.setTitle("Quản lý hoạt động");
                 }else if(item.getItemId() == R.id.menuBDTC){
                     fragment_BienDongTaiChinh frgBDTC = new fragment_BienDongTaiChinh();
                     relaceFrg(frgBDTC);
@@ -85,11 +85,16 @@ public class MainActivity extends AppCompatActivity {
                     builder.setPositiveButton("Đăng xuất", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-
+                            dialogInterface.dismiss();
                             finish();
                         }
                     });
-                    builder.setNegativeButton("Hủy",null);
+                    builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
                     builder.create().show();
                 }
                 drawerLayout.closeDrawer(navigationView);
@@ -102,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void relaceFrg(Fragment frg){
-
         fg.beginTransaction().replace(R.id.frameLayout,frg).commit();
     }
 }

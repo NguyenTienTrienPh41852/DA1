@@ -39,7 +39,6 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class fragment_QuanLyVi extends Fragment {
     LinearLayout linear_item_vi;
@@ -59,15 +58,13 @@ public class fragment_QuanLyVi extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ImageButton btnAddVi;
 
-        btnAddVi = view.findViewById(R.id.btn_add_vi);
-        btnAddVi.setOnClickListener(v -> openDialogAddVi(Gravity.CENTER));
+        ImageButton btnAddVi = view.findViewById(R.id.btn_add_vi);
 
         linear_item_vi = view.findViewById(R.id.linear_item_vi);
         linear_item_vi.setOnClickListener(v -> openDialogChonVi());
 
-
+        btnAddVi.setOnClickListener(v -> openDialogAddVi(Gravity.CENTER));
         listGD = new ArrayList<>();
         listGD.addAll(listChiTieu());
         listGD.addAll(listThuNhap());
@@ -78,21 +75,20 @@ public class fragment_QuanLyVi extends Fragment {
         rcCacGiaoDich.setLayoutManager(manager);
         rcCacGiaoDich.setAdapter(giaoDichViAdapter);
 
-
         viTienDAO = new ViTienDAO(getContext());
         listVi = viTienDAO.layDanhSachViTien();
         viAdapter = new QuanLyViAdapter(getContext(),listVi);
 
-
         int tongTien = tinhTong();
-        listVi.add(0, new ViTien("Tất cả",tongTien));
+        listVi.add(0, new ViTien("Tất cả ví", tongTien));
+        ViTien viTong = listVi.get(0);
+        updateViChon(viTong);
         viAdapter.setDefaultVi(0);
         int defaultSelectedVi = viAdapter.getDefaultSelectedVi();
         if (defaultSelectedVi != RecyclerView.NO_POSITION && defaultSelectedVi < listVi.size()) {
             ViTien defaultVi = listVi.get(defaultSelectedVi);
             updateViChon(defaultVi);
         }
-
 
         TextView tvTongChiTieuThang = view.findViewById(R.id.tv_chi_tieu_thang);
         TextView tvTongThuNhapThang = view.findViewById(R.id.tv_thu_nhap_thang);
@@ -106,9 +102,6 @@ public class fragment_QuanLyVi extends Fragment {
         double tongThuNhap = thuNhapDAO.getTongThuNhap();
         tvTongThuNhapThang.setText(formatTienViet(tongThuNhap));
 
-
-
-
     }
 
     private void openDialogChonVi(){
@@ -116,7 +109,6 @@ public class fragment_QuanLyVi extends Fragment {
         LayoutInflater inflater = getLayoutInflater();
         View v = inflater.inflate(R.layout.dialog_chon_vi,null);
         dialog.setContentView(v);
-
 
         RecyclerView rv_chon_vi = v.findViewById(R.id.rc_vi);
         viTienDAO = new ViTienDAO(getContext());
@@ -130,7 +122,7 @@ public class fragment_QuanLyVi extends Fragment {
         rv_chon_vi.setAdapter(viAdapter);
 
         int tongTien = tinhTong();
-        listVi.add(0, new ViTien(0,"Tất cả",tongTien));
+        listVi.add(0, new ViTien(0,"Tất cả ví",tongTien));
 
         viAdapter.setOnItemClickListener(new QuanLyViAdapter.OnItemClickListener() {
             @Override
@@ -138,18 +130,15 @@ public class fragment_QuanLyVi extends Fragment {
                 ViTien viTien = listVi.get(i);
                 updateViChon(viTien);
                 dialog.dismiss();
-
             }
         });
-
-
 
         dialog.show();
     }
     private void openDialogAddVi(int gravity){
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_add_vi);
+        dialog.setContentView(R.layout.dialog_them_vi);
 
         Window window = dialog.getWindow();
         if (window == null){
@@ -173,21 +162,25 @@ public class fragment_QuanLyVi extends Fragment {
             @Override
             public void onClick(View v) {
                 String tenVi = edTenVi.getText().toString();
+                int soDuBanDau = Integer.parseInt(edSoDu.getText().toString());
                 int soDuHienTai = Integer.parseInt(edSoDu.getText().toString());
-
                 viTienDAO = new ViTienDAO(getContext());
-                ViTien viTien = new ViTien(tenVi,soDuHienTai);
-
+                ViTien viTien = new ViTien(tenVi, soDuBanDau, soDuHienTai);
                 long kq = viTienDAO.themVi(viTien);
 
                 if (kq > 0){
-                    Toast.makeText(getContext(), "thanh cong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
                     listVi.clear();
                     listVi.addAll(viTienDAO.layDanhSachViTien());
                     viAdapter.notifyDataSetChanged();
+//                    linear_item_vi.notify();
+                    if (!listVi.isEmpty()) {
+                        ViTien viMoi = listVi.get(listVi.size() - 1); // Lấy ví mới thêm vào
+                        updateViChon(viMoi); // Cập nhật thông tin hiển thị
+                    }
                     dialog.dismiss();
                 } else {
-                    Toast.makeText(getContext(), "khong thanh cong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Thêm thất bại!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -200,16 +193,15 @@ public class fragment_QuanLyVi extends Fragment {
         TextView tvSoDu = getView().findViewById(R.id.tv_so_tien);
         if (tvTenVi != null && tvSoDu != null && viTien != null){
             tvTenVi.setText(viTien.getTenVi());
-            tvSoDu.setText(formatTienViet(viTien.getSoDuBanDau()));
+            tvSoDu.setText(formatTienViet(viTien.getSoDuHienTai()));
         }
     }
 
 
     private int tinhTong(){
         int tongTien = 0;
-
         for (ViTien viTien : listVi){
-            tongTien += viTien.getSoDuBanDau();
+            tongTien += viTien.getSoDuHienTai();
         }
         return tongTien;
     }
@@ -223,12 +215,8 @@ public class fragment_QuanLyVi extends Fragment {
     private List<Object> listChiTieu(){
         List<Object> listCT = new ArrayList<>();
         ChiTieuDAO chiTieuDAO = new ChiTieuDAO(getContext());
-
         List<ChiTieu> list = chiTieuDAO.layDanhSachChiTieu();
-
-
         listCT.addAll(list);
-
         return listCT;
 
     }

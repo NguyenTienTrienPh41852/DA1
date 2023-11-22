@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/img_icon"
             android:layout_width="50dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="9dp"
             />
@@ -28,13 +28,25 @@
             android:layout_marginLeft="10dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_ct_chimuc"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ăn uống"
-                android:textColor="#5B5B5B"
-                android:textSize="26sp" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Khoản chi: "
+                    android:textColor="#5B5B5B"
+                    android:textSize="26sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tv_ct_chimuc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ăn uống"
+                    android:textColor="#5B5B5B"
+                    android:textSize="26sp" />
+            </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Số tiền:"
+            android:text="Số tiền: "
             android:textColor="@color/black"
             android:textSize="18sp" />
             <TextView
@@ -63,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Ngày:"
+                    android:text="Ngày: "
                     android:textColor="@color/black"
                     android:textSize="18sp" />
             <TextView
@@ -83,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Loại ví:"
+                    android:text="Loại ví: "
                     android:textColor="@color/black"
                     android:textSize="18sp" />
             <TextView
@@ -103,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Ghi chú:"
+                    android:text="Ghi chú: "
                     android:textColor="@color/black"
                     android:textSize="18sp" />
             <TextView

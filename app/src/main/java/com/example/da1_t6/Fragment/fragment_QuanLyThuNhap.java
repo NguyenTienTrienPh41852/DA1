@@ -53,6 +53,7 @@ public class fragment_QuanLyThuNhap extends Fragment {
     DatePickerDialog datePickerDialog;
     QuanLyThuNhapAdapter thuNhapAdapter;
     ViTienDAO viTienDAO;
+    String ghiChu;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -151,24 +152,53 @@ public class fragment_QuanLyThuNhap extends Fragment {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int soTien = Integer.parseInt(String.valueOf(ed_sotien.getText()));
-                String ghiChu = String.valueOf(ed_ghichu.getText());
-                String tenGD = String.valueOf(ed_tenGD.getText());
-                String ngay = tvNgay.getText().toString();
-                int loaiVi = spn_loaivi.getSelectedItemPosition()+1;
-                ThuNhap thuNhap = new ThuNhap();
-                thuNhap.setTenKhoanThu(tenGD);
-                thuNhap.setSoTienThu(soTien);
-                thuNhap.setThoiGianThu(ngay);
-                thuNhap.setGhiChu(ghiChu);
-                thuNhap.setMaVi(loaiVi);
-                boolean check = thuNhapDAO.themThuNhap(thuNhap);
-                if(check){
-                    loadData();
-                    Toast.makeText(getContext(), "Thêm thành công mục chi tiêu", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                }else{
-                    Toast.makeText(getContext(), "Thêm không thành công ", Toast.LENGTH_SHORT).show();
+                if (ed_sotien.getText().toString().isEmpty()){
+                    Toast.makeText(getContext(), "Vui lòng điền số tiền", Toast.LENGTH_SHORT).show();
+                } else if (ed_tenGD.getText().toString().isEmpty()){
+                    Toast.makeText(getContext(), "Vui lòng điền tên giao dịch!", Toast.LENGTH_SHORT).show();
+                } else if (tvNgay.getText().toString().isEmpty()){
+                    Toast.makeText(getContext(), "Vui lòng chọn ngày giao dịch!", Toast.LENGTH_SHORT).show();
+                } else {
+                    int soTien = Integer.parseInt(String.valueOf(ed_sotien.getText()));
+                    if (ed_ghichu.getText().toString().isEmpty()){
+                        ghiChu = "Không";
+                    } else {
+                        ghiChu = String.valueOf(ed_ghichu.getText());
+                    }
+                    String tenGD = String.valueOf(ed_tenGD.getText());
+                    String ngay = tvNgay.getText().toString();
+                    int loaiVi = spn_loaivi.getSelectedItemPosition()+1;
+                    ThuNhap thuNhap = new ThuNhap();
+                    thuNhap.setTenKhoanThu(tenGD);
+                    thuNhap.setSoTienThu(soTien);
+                    thuNhap.setThoiGianThu(ngay);
+                    thuNhap.setGhiChu(ghiChu);
+                    thuNhap.setMaVi(loaiVi);
+                    boolean check = thuNhapDAO.themThuNhap(thuNhap);
+                    if(check){
+                        String tenVi = listVT.get(spn_loaivi.getSelectedItemPosition()).getTenVi();
+                        ViTien viTien = viTienDAO.layViTienTheoTen(tenVi);
+                        if (viTien != null) {
+                            // Cập nhật số tiền hiện tại sau khi thêm khoản thu nhập mới
+                            int soTienMoi = soTien; // Thay thế soTien bằng số tiền thu thực tế
+                            double soDuHienTai = viTien.getSoDuHienTai();
+                            double soDuMoi = soDuHienTai + soTienMoi;
+                            viTien.setSoDuHienTai(soDuMoi);
+                            // Cập nhật lại số dư mới vào cơ sở dữ liệu
+                            boolean updateResult = viTienDAO.capNhatSoDuViTien(viTien);
+                            if (updateResult) {
+                                loadData();
+                                Toast.makeText(getContext(), "Thêm thu nhập thành công", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            } else {
+                                Toast.makeText(getContext(), "Thêm không thành công", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(getContext(), "Ví tiền không tồn tại", Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(getContext(), "Thêm không thành công ", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

@@ -15,15 +15,19 @@ public class ViTien {
         this.soDuBanDau = soDuBanDau;
         this.soDuHienTai = soDuHienTai;
     }
-    public ViTien(int maVi, String tenVi, double soDuBanDau) {
+    public ViTien(int maVi, String tenVi, double soDuHienTai) {
         this.maVi = maVi;
         this.tenVi = tenVi;
-        this.soDuBanDau = soDuBanDau;
+        this.soDuHienTai = soDuHienTai;
     }
-
-    public ViTien(String tenVi, double soDuBanDau) {
+    public ViTien(String tenVi, double soDuHienTai) {
+        this.tenVi = tenVi;
+        this.soDuHienTai = soDuHienTai;
+    }
+    public ViTien(String tenVi, double soDuBanDau, double soDuHienTai) {
         this.tenVi = tenVi;
         this.soDuBanDau = soDuBanDau;
+        this.soDuHienTai = soDuHienTai;
     }
 
     public int getMaVi() {

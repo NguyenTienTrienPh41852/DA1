@@ -35,8 +35,6 @@ public class DbHelper extends SQLiteOpenHelper {
                 "    SODUBD REAL    NOT NULL,\n" +
                 "    SODUHT REAL    DEFAULT (0) \n" +
                 ");");
-
-
         db.execSQL("CREATE TABLE KHOANCHI (\n" +
                 "    MAKC      INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "    MADANHMUC TEXT    REFERENCES DANHMUC (MADANHMUC),\n" +

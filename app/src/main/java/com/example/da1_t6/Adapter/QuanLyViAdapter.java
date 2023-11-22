@@ -64,7 +64,7 @@ public class QuanLyViAdapter extends RecyclerView.Adapter<QuanLyViAdapter.viewHo
         ViTien viTien = listVi.get(holder.getAdapterPosition());
 
         holder.tvTenVi.setText(viTien.getTenVi());
-        holder.tvSoTien.setText(formatTienViet(viTien.getSoDuBanDau()));
+        holder.tvSoTien.setText(formatTienViet(viTien.getSoDuHienTai()));
 
         holder.imgDel.setOnClickListener(new View.OnClickListener() {
             @Override

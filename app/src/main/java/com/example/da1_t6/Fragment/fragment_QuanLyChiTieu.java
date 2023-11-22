@@ -22,6 +22,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,8 +42,10 @@ import com.example.da1_t6.Model.ViTien;
 import com.example.da1_t6.R;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class fragment_QuanLyChiTieu extends Fragment {
 
@@ -158,6 +161,9 @@ public class fragment_QuanLyChiTieu extends Fragment {
 
             }
         });
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        tvNgay.setText(sdf.format(c.getTime()));
         li_ngay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

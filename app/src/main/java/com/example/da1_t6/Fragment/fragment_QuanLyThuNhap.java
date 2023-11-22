@@ -34,8 +34,10 @@ import com.example.da1_t6.Model.ViTien;
 import com.example.da1_t6.R;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 
 public class fragment_QuanLyThuNhap extends Fragment {
@@ -130,6 +132,9 @@ public class fragment_QuanLyThuNhap extends Fragment {
                 }
             }
         });
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        tvNgay.setText(sdf.format(c.getTime()));
         li_ngay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

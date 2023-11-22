@@ -3,9 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F1F6F1"
-
-    >
+    android:background="#F1F6F1">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -146,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="17dp"
                     android:textStyle="bold"
-                    android:text="Số dư: "
+                    android:text="Số dư hiện tại: "
                     />
                 <TextView
                     android:id="@+id/tv_so_du_thang"
@@ -184,13 +182,13 @@
 
     <ImageButton
         android:id="@+id/btn_add_vi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="43dp"
         android:layout_gravity="end"
+        android:src="@drawable/add"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="15dp"
-        android:background="@drawable/image_button"
         android:padding="30dp"
         />
 

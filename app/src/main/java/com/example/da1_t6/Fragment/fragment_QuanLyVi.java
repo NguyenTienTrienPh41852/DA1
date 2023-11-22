@@ -102,6 +102,8 @@ public class fragment_QuanLyVi extends Fragment {
         double tongThuNhap = thuNhapDAO.getTongThuNhap();
         tvTongThuNhapThang.setText(formatTienViet(tongThuNhap));
 
+        double tongSoDu = viTienDAO.getTongSoDu();
+        tvSoDuThang.setText(formatTienViet(tongSoDu));
     }
 
     private void openDialogChonVi(){
@@ -196,7 +198,6 @@ public class fragment_QuanLyVi extends Fragment {
             tvSoDu.setText(formatTienViet(viTien.getSoDuHienTai()));
         }
     }
-
 
     private int tinhTong(){
         int tongTien = 0;

@@ -62,6 +62,7 @@ public class fragment_QuanLyChiTieu extends Fragment {
     DanhMucDAO danhMucDAO;
     ViTienDAO viTienDAO;
     QuanLyChiTieuAdapter chiTieuAdapter;
+    String ghiChu;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -187,28 +188,57 @@ public class fragment_QuanLyChiTieu extends Fragment {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               int soTien = Integer.parseInt(String.valueOf(ed_sotien.getText()));
-               String ghiChu = String.valueOf(ed_ghichu.getText());
-               int danhmuc = spn_danhmuc.getSelectedItemPosition()+1;
-//               Log.e("TAG","dialog:"+danhmuc);
-               int chiMuc = spn_khoanchi.getSelectedItemPosition()+1;
-//               Log.e("TAG","dialog2:"+chiMuc);
-               String ngay = tvNgay.getText().toString();
-               int loaiVi = spn_loaivi.getSelectedItemPosition()+1;
-               ChiTieu chiTieu = new ChiTieu();
-               chiTieu.setSoTienChi(soTien);
-               chiTieu.setGhiChu(ghiChu);
-               chiTieu.setMaKC(chiMuc);
-               chiTieu.setThoiGianChi(ngay);
-               chiTieu.setMaVi(loaiVi);
-               chiTieu.setMaDM(danhmuc);
-                boolean check = chiTieuDAO.themChiTieu(chiTieu);
-                if(check){
-                    loadData();
-                    Toast.makeText(getContext(), "Thêm thành công mục chi tiêu", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                }else{
-                    Toast.makeText(getContext(), "Thêm không thành công ", Toast.LENGTH_SHORT).show();
+                if (ed_sotien.getText().toString().isEmpty()){
+                    Toast.makeText(getContext(), "Vui lòng nhập số tiền chi!", Toast.LENGTH_SHORT).show();
+                } else if (tvNgay.getText().toString().isEmpty()){
+                    Toast.makeText(getContext(), "Vui lòng chọn ngày chi tiêu!", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (ed_ghichu.getText().toString().isEmpty()){
+                        ghiChu = "Không";
+                    } else {
+                        ghiChu = String.valueOf(ed_ghichu.getText());
+                    }
+                    int soTien = Integer.parseInt(String.valueOf(ed_sotien.getText()));
+                    int danhmuc = spn_danhmuc.getSelectedItemPosition()+1;
+                    //               Log.e("TAG","dialog:"+danhmuc);
+                    int chiMuc = spn_khoanchi.getSelectedItemPosition()+1;
+                    //               Log.e("TAG","dialog2:"+chiMuc);
+                    String ngay = tvNgay.getText().toString();
+                    int loaiVi = spn_loaivi.getSelectedItemPosition()+1;
+                    ChiTieu chiTieu = new ChiTieu();
+                    String tenVi = listVT.get(spn_loaivi.getSelectedItemPosition()).getTenVi();
+                    ViTien viTien = viTienDAO.layViTienTheoTen(tenVi);
+                    if (viTien != null) {
+                        int soTienChi = soTien;
+                        double soDuHT = viTien.getSoDuHienTai();
+                        if (soTienChi > soDuHT){
+                            Toast.makeText(getContext(), "Số dư trong ví không đủ để thanh toán!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            chiTieu.setSoTienChi(soTien);
+                            chiTieu.setGhiChu(ghiChu);
+                            chiTieu.setMaKC(chiMuc);
+                            chiTieu.setThoiGianChi(ngay);
+                            chiTieu.setMaVi(loaiVi);
+                            chiTieu.setMaDM(danhmuc);
+                            double soDuMoi = soDuHT - soTienChi;
+                            viTien.setSoDuHienTai(soDuMoi);
+                            boolean check = chiTieuDAO.themChiTieu(chiTieu);
+                            if(check){
+                                boolean updateResult = viTienDAO.capNhatSoDuViTien(viTien);
+                                if (updateResult) {
+                                    loadData();
+                                    Toast.makeText(getContext(), "Thêm chi tiêu thành công", Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                } else {
+                                    Toast.makeText(getContext(), "Cập nhật số dư thất bại!", Toast.LENGTH_SHORT).show();
+                                }
+                            }else{
+                                Toast.makeText(getContext(), "Thêm chi tiêu thất bại!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Ví tiền không tồn tại", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

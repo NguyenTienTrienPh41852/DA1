@@ -196,13 +196,13 @@ public class fragment_QuanLyThuNhap extends Fragment {
                                 Toast.makeText(getContext(), "Thêm thu nhập thành công", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             } else {
-                                Toast.makeText(getContext(), "Thêm không thành công", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Cập nhật số dư thất bại!", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(getContext(), "Ví tiền không tồn tại", Toast.LENGTH_SHORT).show();
                         }
                     }else{
-                        Toast.makeText(getContext(), "Thêm không thành công ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Thêm thu nhập thất bại!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

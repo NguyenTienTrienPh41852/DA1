@@ -43,7 +43,7 @@ public class fragment_QuanLyHoatDong extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_thoi_gian_bieu,container,false);
+        return inflater.inflate(R.layout.fragment_quan_li_hoat_dong,container,false);
     }
 
     @Override

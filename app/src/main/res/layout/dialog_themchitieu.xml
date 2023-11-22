@@ -118,16 +118,17 @@
                     android:textColor="@color/red"
                     android:layout_gravity="center"
                     android:textStyle="bold"/>
+
                 <TextView
                     android:id="@+id/tv_add_ct_ngay"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="23dp"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/red"
+                    android:layout_height="18dp"
                     android:layout_gravity="center"
-                    android:textStyle="bold"/>
+                    android:layout_marginLeft="10dp"
+                    android:text=""
+                    android:textColor="@color/red"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

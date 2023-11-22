@@ -76,13 +76,16 @@ public class ViTienDAO {
         return result > 0;
     }
 
-    public double tongSoDuHienTai() {
-        double tongSoDuHienTai = 0;
-        Cursor cursor = db.rawQuery("SELECT SUM(SODUHT) FROM VITIEN", null);
-        if (cursor != null && cursor.moveToFirst()) {
-            tongSoDuHienTai = cursor.getDouble(0);
-            cursor.close();
+    public double getTongSoDu(){
+        String sql = "SELECT SUM(SODUHT) FROM VITIEN";
+        Cursor c = db.rawQuery(sql,null);
+
+        double tongSoDu = 0;
+        if (c.moveToFirst()){
+            tongSoDu = c.getDouble(0);
         }
-        return tongSoDuHienTai;
+        c.close();
+
+        return tongSoDu;
     }
 }

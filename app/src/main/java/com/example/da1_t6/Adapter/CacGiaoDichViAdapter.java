@@ -36,8 +36,6 @@ public class CacGiaoDichViAdapter extends RecyclerView.Adapter<RecyclerView.View
         } else if (object instanceof ThuNhap){
             return TYPE_THU_NHAP;
         }
-
-
         return -1;
     }
 

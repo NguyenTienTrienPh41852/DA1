@@ -67,9 +67,9 @@ public class fragment_ThongKe extends Fragment {
         chiTieu = new ChiTieu();
 
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy",Locale.getDefault());
         List<Date> dates = new ArrayList<>();
-        String a = chiTieu.getThoiGianChi();
+        String a = "22/12/2022";
 
         try {
             Date date = simpleDateFormat.parse(a);
@@ -80,7 +80,7 @@ public class fragment_ThongKe extends Fragment {
 
         List<Float> values = new ArrayList<>();
         // Điền dữ liệu mẫu vào lists dates và values
-        values.add((float) chiTieu.getSoTienChi());
+        values.add(50f);
         // Khởi tạo List<BarEntry> để lưu trữ dữ liệu biểu đồ
         List<BarEntry> entries = new ArrayList<>();
         for (int i = 0; i < dates.size(); i++) {

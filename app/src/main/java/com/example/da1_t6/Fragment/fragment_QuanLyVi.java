@@ -182,19 +182,12 @@ public class fragment_QuanLyVi extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP){
+
                     openDialogMayTinh();
+                    tvResultNummber.setText(edSoDu.getText().toString());
                     return true;
                 }
                 return false;
-            }
-        });
-
-        edSoDu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isCalculator){
-                    tvResultNummber.setText(kqTinhToan);
-                }
             }
         });
         btnSave.setOnClickListener(new View.OnClickListener() {

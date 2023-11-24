@@ -84,8 +84,8 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("insert into KHOANCHI(MAKC,MADANHMUC,TENKC) values (1,1,'Ăn uống'),(2,1,'Đổ xăng'),(3,2,'Chơi game')");
         db.execSQL("INSERT INTO VITIEN VALUES (1,2,'Tiền Mặt',57,67),(2,2,'Chuyển khoản',57,67)");
         db.execSQL("INSERT INTO CHITIEU\n" +
-                "VALUES (1,1,2,1,30000,'ngay','abc'),\n" +
-                "(2,1,3,2,50000,'ngay2','abcde')");
+                "VALUES (1,1,2,1,30000,'23-11-2023','abc'),\n" +
+                "(2,1,3,2,50000,'20-10-2023','abcde')");
     }
 
     @Override

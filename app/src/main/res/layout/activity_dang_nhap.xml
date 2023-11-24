@@ -56,6 +56,15 @@
             android:textSize="20dp"
             android:paddingLeft="10dp"
             />
+        <CheckBox
+            android:id="@+id/chkSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Lưu Mật Khẩu"
+            android:textSize="15dp"
+            tools:ignore="TextSizeCheck" />
         <Button
             android:id="@+id/btn_dangnhap"
             android:layout_width="140dp"
@@ -63,34 +72,9 @@
             android:text="LOGIN"
             android:textSize="20dp"
             android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0dp"
             android:layout_gravity="center"
             android:backgroundTint="#29BE38"
             />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="chưa có tài khoản?"
-                android:textSize="17sp"
-                android:textStyle="italic"
-                />
-            <TextView
-                android:id="@+id/tv_dangky"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đăng ký"
-                android:layout_marginLeft="5dp"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                />
-
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

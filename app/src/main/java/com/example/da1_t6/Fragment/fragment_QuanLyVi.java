@@ -1,11 +1,14 @@
 package com.example.da1_t6.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,16 +43,26 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class fragment_QuanLyVi extends Fragment {
     LinearLayout linear_item_vi;
     QuanLyViAdapter viAdapter;
     List<ViTien> listVi;
     ViTienDAO viTienDAO;
+    EditText edSoDu;
 
     CacGiaoDichViAdapter giaoDichViAdapter;
     List<Object> listGD;
     RecyclerView rcCacGiaoDich;
+    private boolean isCalculator = false;
+    private StringBuilder numberBuilder = new StringBuilder();
+    private String number = null;
+    TextView tvResultNummber;
+    private String kqTinhToan = null;
+    AppCompatImageButton btnOK;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,6 +74,8 @@ public class fragment_QuanLyVi extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ImageButton btnAddVi = view.findViewById(R.id.btn_add_vi);
+
+//        btnAddVi.setOnClickListener(v -> openDialogMayTinh());
 
         linear_item_vi = view.findViewById(R.id.linear_item_vi);
         linear_item_vi.setOnClickListener(v -> openDialogChonVi());
@@ -79,7 +95,7 @@ public class fragment_QuanLyVi extends Fragment {
         listVi = viTienDAO.layDanhSachViTien();
         viAdapter = new QuanLyViAdapter(getContext(),listVi);
 
-        int tongTien = tinhTong();
+        double tongTien = tinhTong();
         listVi.add(0, new ViTien("Tất cả ví", tongTien));
         ViTien viTong = listVi.get(0);
         updateViChon(viTong);
@@ -104,6 +120,7 @@ public class fragment_QuanLyVi extends Fragment {
 
         double tongSoDu = viTienDAO.getTongSoDu();
         tvSoDuThang.setText(formatTienViet(tongSoDu));
+
     }
 
     private void openDialogChonVi(){
@@ -123,7 +140,7 @@ public class fragment_QuanLyVi extends Fragment {
 
         rv_chon_vi.setAdapter(viAdapter);
 
-        int tongTien = tinhTong();
+        double tongTien = tinhTong();
         listVi.add(0, new ViTien(0,"Tất cả ví",tongTien));
 
         viAdapter.setOnItemClickListener(new QuanLyViAdapter.OnItemClickListener() {
@@ -137,6 +154,7 @@ public class fragment_QuanLyVi extends Fragment {
 
         dialog.show();
     }
+    @SuppressLint("ClickableViewAccessibility")
     private void openDialogAddVi(int gravity){
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -156,10 +174,29 @@ public class fragment_QuanLyVi extends Fragment {
         dialog.setCancelable(true);
 
         EditText edTenVi = dialog.findViewById(R.id.ed_ten_vi);
-        EditText edSoDu = dialog.findViewById(R.id.ed_so_du);
+        edSoDu = dialog.findViewById(R.id.ed_so_du);
         Button btnSave = dialog.findViewById(R.id.btn_save);
         Spinner spChonIcon = dialog.findViewById(R.id.sp_chon_icon);
 
+        edSoDu.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP){
+                    openDialogMayTinh();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        edSoDu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isCalculator){
+                    tvResultNummber.setText(kqTinhToan);
+                }
+            }
+        });
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,18 +236,24 @@ public class fragment_QuanLyVi extends Fragment {
         }
     }
 
-    private int tinhTong(){
-        int tongTien = 0;
+    private double tinhTong(){
+        double tongTien = 0;
         for (ViTien viTien : listVi){
             tongTien += viTien.getSoDuHienTai();
         }
         return tongTien;
     }
     public static String formatTienViet(double amount) {
-        Locale locale = new Locale("vi", "VN"); // Locale cho tiền Việt Nam
+        Locale locale = new Locale("vi", "VN");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
-        return currencyFormatter.format(amount);
+        String formattedAmount = currencyFormatter.format(Math.abs(amount));
+
+        if (amount < 0) {
+            return "-" + formattedAmount;
+        } else {
+            return formattedAmount;
+        }
     }
 
     private List<Object> listChiTieu(){
@@ -233,4 +276,245 @@ public class fragment_QuanLyVi extends Fragment {
 
         return listTN;
     }
+    public void openDialogMayTinh(){
+        BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
+        View v = getLayoutInflater().inflate(R.layout.dialog_maytinh,null);
+        dialog.setContentView(v);
+
+        Button btnSo0 = dialog.findViewById(R.id.btn_so0);
+        Button btnSo1 = dialog.findViewById(R.id.btn_so1);
+        Button btnSo2 = dialog.findViewById(R.id.btn_so2);
+        Button btnSo3 = dialog.findViewById(R.id.btn_so3);
+        Button btnSo4 = dialog.findViewById(R.id.btn_so4);
+        Button btnSo5 = dialog.findViewById(R.id.btn_so5);
+        Button btnSo6 = dialog.findViewById(R.id.btn_so6);
+        Button btnSo7 = dialog.findViewById(R.id.btn_so7);
+        Button btnSo8 = dialog.findViewById(R.id.btn_so8);
+        Button btnSo9 = dialog.findViewById(R.id.btn_so9);
+        Button btnDauCham = dialog.findViewById(R.id.btn_daucham);
+
+        Button btnXoaAll = dialog.findViewById(R.id.btn_xoahet);
+        Button btn3so0 = dialog.findViewById(R.id.btn_3so0);
+        Button btnDauTru = dialog.findViewById(R.id.btn_dautru);
+        Button btnDauCong = dialog.findViewById(R.id.btn_daucong);
+        Button btnDauNhan = dialog.findViewById(R.id.btn_daunhan);
+        Button btnDauChia = dialog.findViewById(R.id.btn_dauchia);
+        ImageButton btnXoa = dialog.findViewById(R.id.btn_xoa);
+        btnOK = dialog.findViewById(R.id.btn_ok);
+
+        tvResultNummber = dialog.findViewById(R.id.tv_hienthiso);
+
+        btnXoa.setOnClickListener(v1 -> deleteButton());
+
+        btnSo0.setOnClickListener(v1 -> onNumberClick("0"));
+        btnSo1.setOnClickListener(v1 -> onNumberClick("1"));
+        btnSo2.setOnClickListener(v1 -> onNumberClick("2"));
+        btnSo3.setOnClickListener(v1 -> onNumberClick("3"));
+        btnSo4.setOnClickListener(v1 -> onNumberClick("4"));
+        btnSo5.setOnClickListener(v1 -> onNumberClick("5"));
+        btnSo6.setOnClickListener(v1 -> onNumberClick("6"));
+        btnSo7.setOnClickListener(v1 -> onNumberClick("7"));
+        btnSo8.setOnClickListener(v1 -> onNumberClick("8"));
+        btnSo9.setOnClickListener(v1 -> onNumberClick("9"));
+
+        btn3so0.setOnClickListener(v1 -> onButtonClick(v1));
+
+        btnDauCham.setOnClickListener(v1 -> onButtonClick(v1));
+        btnDauCong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("ButtonCLick","Dau Cong");
+                btnOK.setImageResource(R.drawable.img_7);
+                isCalculator = true;
+                onButtonClick(v);
+            }
+        });
+        btnDauTru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnOK.setImageResource(R.drawable.img_7);
+                isCalculator = true;
+                onButtonClick(v);
+            }
+        });
+        btnDauNhan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnOK.setImageResource(R.drawable.img_7);
+                isCalculator = true;
+                onButtonClick(v);
+            }
+        });
+        btnDauChia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnOK.setImageResource(R.drawable.img_7);
+                isCalculator = true;
+                onButtonClick(v);
+            }
+        });
+
+
+        btnXoaAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearResult();
+
+            }
+        });
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isCalculator){
+                    calculateResult();
+                    isCalculator = false;
+                    btnOK.setImageResource(R.drawable.iconv);
+
+                } else {
+                    if (edSoDu != null){
+                        edSoDu.setText(kqTinhToan);
+                        dialog.dismiss();
+                    }
+                }
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void onNumberClick(String view){
+        numberBuilder.append(view);
+        tvResultNummber.setText(numberBuilder.toString());
+        isCalculator = true;
+    }
+    private void appendResult(String value){
+        numberBuilder.append(value);
+        tvResultNummber.setText(numberBuilder.toString());
+        isCalculator = true;
+    }
+    private void onButtonClick(View view){
+        if (view instanceof ImageButton){
+            onButtonClick( (ImageButton) view) ;
+        } else if (view instanceof Button){
+
+            Button button = (Button) view;
+            String btnText = button.getText().toString();
+
+            if (isOperator(btnText)) {
+                appendResult(btnText);
+            } else {
+                switch (btnText) {
+                    case "C":
+                        clearResult();
+                        break;
+                    case "000":
+                        onNumberClick("000");
+                        break;
+                    case ".":
+                        appendResult(".");
+                        break;
+                    default:
+                        appendResult(btnText);
+                        break;
+                }
+            }
+        }
+
+
+    }
+    private boolean isOperator(String btnText){
+        return btnText.equals("+") || btnText.equals("-") || btnText.equals("X") || btnText.equals("÷") ;
+    }
+    private void deleteButton(){
+        if (isCalculator){
+            String currentExpress = tvResultNummber.getText().toString();
+            if (!currentExpress.isEmpty()){
+                String newExpress = currentExpress.substring(0,currentExpress.length() - 1);
+                tvResultNummber.setText(newExpress);
+                numberBuilder.setLength(0);
+                numberBuilder.append(newExpress);
+            }
+        }
+    }
+    private void clearResult(){
+        tvResultNummber.setText("0");
+        numberBuilder.setLength(0);
+        btnOK.setImageResource(R.drawable.iconv);
+    }
+
+
+    private void calculateResult() {
+        try {
+            String expression = numberBuilder.toString();
+
+            // Kiểm tra toán tử
+            if (expression.contains("+") || expression.contains("-") ||
+                    expression.contains("X") || expression.contains("÷")) {
+
+                isCalculator = true;
+                btnOK.setImageResource(R.drawable.img_7);
+
+                // Tách số và toán tử
+                String[] parts;
+                if (expression.contains("+")) {
+                    parts = expression.split("\\+");
+                    // Thực hiện phép cộng
+                    double result = Double.parseDouble(parts[0]) + Double.parseDouble(parts[1]);
+                    numberBuilder.setLength(0);
+                    numberBuilder.append(result);
+                    tvResultNummber.setText(String.valueOf(result));
+                } else if (expression.contains("-")) {
+                    parts = expression.split("-");
+                    // Thực hiện phép trừ
+                    if (parts.length == 2) {
+                        double firstOperand = Double.parseDouble(parts[0]);
+                        double secondOperand = Double.parseDouble(parts[1]);
+                        double result = firstOperand - secondOperand;
+                        numberBuilder.setLength(0);
+                        numberBuilder.append(result);
+                        tvResultNummber.setText(String.valueOf(result));
+                    } else {
+                        // Xử lý trường hợp không có đúng hai phần trong phép trừ
+                        clearResult();
+                    }
+                } else if (expression.contains("X")) {
+                    parts = expression.split("X");
+                    // Thực hiện phép nhân
+                    double result = Double.parseDouble(parts[0]) * Double.parseDouble(parts[1]);
+                    numberBuilder.setLength(0);
+                    numberBuilder.append(result);
+                    tvResultNummber.setText(String.valueOf(result));
+                } else if (expression.contains("÷")) {
+                    parts = expression.split("÷");
+                    // Thực hiện phép chia
+                    if (!parts[1].equals("0")) {
+                        double result = Double.parseDouble(parts[0]) / Double.parseDouble(parts[1]);
+                        numberBuilder.setLength(0);
+                        numberBuilder.append(result);
+                        tvResultNummber.setText(String.valueOf(result));
+                    } else {
+                        // Xử lý trường hợp chia cho 0
+                        clearResult();
+                    }
+                }
+            } else {
+                // Trường hợp không có toán tử
+                isCalculator = false;
+                btnOK.setImageResource(R.drawable.iconv);
+                tvResultNummber.setText(expression);
+            }
+
+            kqTinhToan = tvResultNummber.getText().toString();
+        } catch (NumberFormatException e) {
+            clearResult();
+        } catch (ArithmeticException e) {
+            clearResult();
+        } catch (Exception e) {
+            clearResult();
+        }
+
+
+
+    }
 }
+

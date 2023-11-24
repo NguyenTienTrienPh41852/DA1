@@ -106,6 +106,10 @@ public class QuanLyViAdapter extends RecyclerView.Adapter<QuanLyViAdapter.viewHo
 
         return currencyFormatter.format(amount);
     }
+
+    private void openDialogEdit(){
+
+    }
     private void openDialogDel(final int i){
 
         if (viTienDAO == null){

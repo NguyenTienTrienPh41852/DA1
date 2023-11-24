@@ -1,4 +1,4 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
             android:textSize="30dp"
             android:textColor="#5ABAFF"
             android:backgroundTint="@color/white"
-            android:text="–"/>
+            android:text="-"/>
         <Button
             android:id="@+id/btn_so4"
             android:layout_columnSpan="1"
@@ -163,6 +163,8 @@
             android:text="3"/>
         <ImageButton
             android:id="@+id/btn_ok"
+            android:layout_height="10dp"
+            android:layout_width="90dp"
             android:onClick="onButtonClick"
             android:layout_rowSpan="2"
             android:layout_gravity="fill"
@@ -178,7 +180,6 @@
             android:text="."/>
 
         <Button
-
             android:id="@+id/btn_so0"
             android:layout_width="98dp"
             android:backgroundTint="@color/white"
@@ -186,6 +187,7 @@
             android:text="0"
             android:textColor="@color/black"
             android:textSize="20dp" />
+
         <Button
             android:id="@+id/btn_3so0"
         android:onClick="onButtonClick"
@@ -193,7 +195,6 @@
             android:textColor="@color/black"
             android:backgroundTint="@color/white"
         android:text="000"/>
-        <!-- Repeat for other buttons -->
 
     </GridLayout>
 </LinearLayout>

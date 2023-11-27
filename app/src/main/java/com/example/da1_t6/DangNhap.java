@@ -1,19 +1,24 @@
 package com.example.da1_t6;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.da1_t6.DAO.NguoiDungDAO;
 import com.example.da1_t6.Fragment.fragment_QuanLyKhoanChi;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class DangNhap extends AppCompatActivity {
 
@@ -21,7 +26,8 @@ public class DangNhap extends AppCompatActivity {
     EditText ed_user;
     EditText ed_pass;
     CheckBox chkSave;
-
+    NguoiDungDAO nguoiDungDAO;
+    TextInputLayout in_User,in_Pass;
 
 
 
@@ -32,22 +38,76 @@ public class DangNhap extends AppCompatActivity {
 
         ed_user = findViewById(R.id.ed_dn_tentk);
         ed_pass = findViewById(R.id.ed_dn_pass);
+        in_User = findViewById(R.id.in_User);
+        in_Pass = findViewById(R.id.in_Pass);
         btn_login = findViewById(R.id.btn_dangnhap);
         chkSave = findViewById(R.id.chkSave);
-
-
+        nguoiDungDAO = new NguoiDungDAO(this);
         SharedPreferences pref = getSharedPreferences("User_File", MODE_PRIVATE);
         ed_user.setText(pref.getString("Username", ""));
-        ed_pass.setText(pref.getString("Password", ""));
         chkSave.setChecked(pref.getBoolean("Remember", false));
 
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Intent intent = new Intent(DangNhap.this, fragment_QuanLyKhoanChi.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        }, 1000);
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login();
+            }
+        });
+    }
+    public  void login(){
+        String user = ed_user.getText().toString();
+        String pass = ed_pass.getText().toString();
+
+        if (user.isEmpty() || pass.isEmpty()) {
+            if (user.equals("")) {
+                in_User.setError("Không được để trông tên đăng nhập");
+            } else {
+                in_User.setError(null);
+            }
+
+            if (pass.equals("")) {
+                in_Pass.setError("Không được để trống mật khẩu");
+            } else {
+                in_Pass.setError(null);
+            }
+        } else {
+            if (nguoiDungDAO.checkLogin(user, pass)) {
+                Toast.makeText(this, "Login thành công", Toast.LENGTH_SHORT).show();
+                rememberUser(user, pass, chkSave.isChecked());
+                Intent i = new Intent(DangNhap.this, MainActivity.class);
+                i.putExtra("MAND", user);
+                startActivity(i);
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                LayoutInflater inflater = getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog_saitkmk,null);
+                builder.setView(view);
+                Dialog dialog = builder.create();
+                dialog.show();
+
+                Button btn_ok = view.findViewById(R.id.btn_ok);
+                btn_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        }
+    }
+    private void rememberUser(String u, String p, boolean status) {
+        SharedPreferences pref = getSharedPreferences("User_File", MODE_PRIVATE);
+        SharedPreferences.Editor edit = pref.edit();
+        if (!status) {
+            //xóa trắng dữ liệu trước đó
+            edit.clear();
+        } else {
+            //lưu dữ liệu
+            edit.putString("Username", u);
+            edit.putString("Password", p);
+            edit.putBoolean("Remember", status);
+        }
+        //lưu lại toàn bộ
+        edit.commit();
     }
 }

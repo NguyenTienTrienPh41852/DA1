@@ -45,5 +45,13 @@ public class NguoiDungDAO {
             return true;
         }
     }
+    public boolean checkLogin(String MaND,String MK){
+        Cursor cursor = db.rawQuery("select * from NGUOIDUNG where MAND = ? and MATKHAU = ?",new String[]{MaND, MK});
+        if(cursor.getCount() != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }

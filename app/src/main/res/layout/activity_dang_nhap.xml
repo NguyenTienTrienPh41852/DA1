@@ -28,41 +28,54 @@
         android:layout_marginBottom="10dp"
         android:orientation="vertical"
         >
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/in_User"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#9E8B8A8A"
+           >
         <EditText
             android:id="@+id/ed_dn_tentk"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/backgroundlogin"
             android:hint="Tài khoản"
             android:textSize="20dp"
             android:paddingLeft="10dp"
             />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="25dp"
+
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
         android:orientation="vertical"
         >
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/in_Pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#9E8B8A8A"
+          >
         <EditText
             android:id="@+id/ed_dn_pass"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/backgroundlogin"
             android:hint="Password"
             android:textSize="20dp"
             android:paddingLeft="10dp"
             />
+        </com.google.android.material.textfield.TextInputLayout>
         <CheckBox
             android:id="@+id/chkSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:text="Lưu Mật Khẩu"
+            android:text="Lưu tài khoản"
             android:textSize="15dp"
             tools:ignore="TextSizeCheck" />
         <Button

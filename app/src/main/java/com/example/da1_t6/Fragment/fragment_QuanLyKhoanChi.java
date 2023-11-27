@@ -7,9 +7,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +20,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.da1_t6.Adapter.DanhMucAdapter;
+import com.example.da1_t6.Adapter.IconAdapter;
 import com.example.da1_t6.Adapter.KhoanChiAdapter;
 import com.example.da1_t6.DAO.DanhMucDAO;
+import com.example.da1_t6.DAO.IconDAO;
 import com.example.da1_t6.DAO.KhoanChiDAO;
 import com.example.da1_t6.Model.DanhMuc;
+import com.example.da1_t6.Model.Icon;
 import com.example.da1_t6.Model.KhoanChi;
 import com.example.da1_t6.R;
 
@@ -41,10 +47,13 @@ public class fragment_QuanLyKhoanChi extends Fragment {
     RecyclerView recyclerView;
     List<DanhMuc> danhMucList;
     List<KhoanChi> khoanChiList;
+    ImageView imgIcon;
     KhoanChi khoanChi;
     DanhMucAdapter danhMucAdapter;
     KhoanChiAdapter khoanChiAdapter;
     DanhMucDAO danhMucDAO;
+    private List<Icon> iconList;
+    IconDAO iconDAO;
     KhoanChiDAO khoanChiDAO;
     ImageButton imageButton;
     // TODO: Rename parameter arguments, choose names that match
@@ -100,6 +109,7 @@ public class fragment_QuanLyKhoanChi extends Fragment {
         recyclerView = view.findViewById(R.id.rcvQLKC);
         danhMucDAO = new DanhMucDAO(getContext());
         khoanChiDAO = new KhoanChiDAO(getContext());
+        iconDAO = new IconDAO(getContext());
         danhMucList = danhMucDAO.layDanhSachDanhMuc();
         khoanChiList = khoanChiDAO.layDanhSachKhoanChi();
         danhMucAdapter = new DanhMucAdapter(view.getContext(), danhMucList, khoanChiList);
@@ -118,6 +128,7 @@ public class fragment_QuanLyKhoanChi extends Fragment {
                 AlertDialog dialog = builder.create();
                 EditText tenKhoanChi = v.findViewById(R.id.ed_ten_khoan_chi);
                 Spinner spDanhMuc = v.findViewById(R.id.sp_chon_danh_muc);
+                 imgIcon = v.findViewById(R.id.img_icon);
                 Button luuKhoanChi = v.findViewById(R.id.btn_luu_khoan_chi);
                 khoanChi = new KhoanChi();
                 danhMucDAO = new DanhMucDAO(requireContext());
@@ -140,6 +151,18 @@ public class fragment_QuanLyKhoanChi extends Fragment {
 
                     }
                 });
+
+
+              imgIcon.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(View v) {
+                      iconList = iconDAO.layDSIcon();
+                      showDialogIcon( iconList);
+                  }
+              });
+
+
+
                 luuKhoanChi.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -148,6 +171,7 @@ public class fragment_QuanLyKhoanChi extends Fragment {
                         } else if (spDanhMuc.getSelectedItem() == null){
                             Toast.makeText(getContext(), "Vui lòng chọn danh mục!", Toast.LENGTH_SHORT).show();
                         } else {
+                            khoanChi.setMaIcon(icon.getMaIcon());
                             khoanChi.setTenDanhMuc(spDanhMuc.getSelectedItem().toString());
                             khoanChi.setTenKC(tenKhoanChi.getText().toString());
                             long result = khoanChiDAO.themKhoanChi(khoanChi);
@@ -170,5 +194,26 @@ public class fragment_QuanLyKhoanChi extends Fragment {
             }
         });
         super.onViewCreated(view, savedInstanceState);
+    }
+    public void showDialogIcon(List<Icon> iconList){
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_icon,null);
+        builder.setView(view);
+        builder.setCancelable(true);
+        Dialog dialog = builder.create();
+        dialog.show();
+
+        RecyclerView rcv = view.findViewById(R.id.rcv_icon);
+        rcv.setLayoutManager(new GridLayoutManager(getContext(),4));
+        IconAdapter adapter = new IconAdapter(getContext(), iconList,this,dialog);
+        rcv.setAdapter(adapter);
+    }
+    Icon icon;
+
+    public void setIcon(Icon icon) {
+        this.icon = icon;
+        imgIcon.setImageResource(icon.getIcon());
+
     }
 }

@@ -133,6 +133,7 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
         EditText tenKhoanChi = v.findViewById(R.id.ed_ten_khoan_chi);
         Spinner spDanhMuc = v.findViewById(R.id.sp_chon_danh_muc);
         Button luuKhoanChi = v.findViewById(R.id.btn_luu_khoan_chi);
+
         spDanhMuc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

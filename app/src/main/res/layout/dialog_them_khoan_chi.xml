@@ -33,6 +33,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="20dp"
             android:src="@drawable/img"
+            android:id="@+id/img_icon"
             />
         <EditText
             android:id="@+id/ed_ten_khoan_chi"

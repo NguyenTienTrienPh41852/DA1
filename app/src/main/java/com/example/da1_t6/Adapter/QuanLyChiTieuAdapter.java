@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.da1_t6.DAO.ChiTieuDAO;
 import com.example.da1_t6.DAO.DanhMucDAO;
+import com.example.da1_t6.DAO.IconDAO;
 import com.example.da1_t6.DAO.KhoanChiDAO;
 import com.example.da1_t6.DAO.ViTienDAO;
 import com.example.da1_t6.Model.ChiTieu;
@@ -73,6 +75,8 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        IconDAO iconDAO = new IconDAO(context);
+        holder.imgIcon.setImageResource(iconDAO.icon(khoanChiDAO.layIcon((list.get(position).getMaKC())).getMaIcon()).getIcon());
         holder.txtChiMuc.setText(String.valueOf(list.get(position).getTenKC()));
         holder.txtSoTien.setText(String.valueOf(list.get(position).getSoTienChi()));
         holder.txtNgay.setText(list.get(position).getThoiGianChi());
@@ -127,6 +131,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtChiMuc, txtSoTien, txtNgay, txtLoaiVi, txtGhiChu;
+        ImageView imgIcon;
         ImageButton btnDelete;
 
         public ViewHolder(@NonNull View itemView) {
@@ -135,6 +140,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
             txtSoTien = itemView.findViewById(R.id.tv_ct_sotien);
             txtNgay = itemView.findViewById(R.id.tv_ct_ngay);
             txtLoaiVi = itemView.findViewById(R.id.tv_ct_loaivi);
+            imgIcon = itemView.findViewById(R.id.img_icon);
             txtGhiChu = itemView.findViewById(R.id.tv_ct_ghichu);
             btnDelete = itemView.findViewById(R.id.btn_ct_delete);
             btnDelete = itemView.findViewById(R.id.btn_ct_delete);

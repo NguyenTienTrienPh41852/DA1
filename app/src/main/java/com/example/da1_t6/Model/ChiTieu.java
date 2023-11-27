@@ -5,6 +5,7 @@ public class ChiTieu {
     private int maVi;
     private int maKC;
     private int maDM;
+    private int maIcon;
     private String tenVi;
     private String tenKC;
     private double soTienChi;
@@ -14,7 +15,7 @@ public class ChiTieu {
     public ChiTieu() {
     }
 
-    public ChiTieu(int maCT, int maVi, int maKC, int maDM, String tenVi, String tenKC, double soTienChi, String thoiGianChi, String ghiChu) {
+    public ChiTieu(int maCT, int maVi, int maKC, int maDM, String tenVi, String tenKC, double soTienChi, String thoiGianChi, String ghiChu,int maIcon) {
         this.maCT = maCT;
         this.maVi = maVi;
         this.maKC = maKC;
@@ -24,6 +25,7 @@ public class ChiTieu {
         this.soTienChi = soTienChi;
         this.thoiGianChi = thoiGianChi;
         this.ghiChu = ghiChu;
+        this.maIcon = maIcon;
     }
 
     public ChiTieu(int maCT, int maVi, int maKC, String tenVi, String tenKC, double soTienChi, String thoiGianChi, String ghiChu) {
@@ -35,6 +37,14 @@ public class ChiTieu {
         this.soTienChi = soTienChi;
         this.thoiGianChi = thoiGianChi;
         this.ghiChu = ghiChu;
+    }
+
+    public int getMaIcon() {
+        return maIcon;
+    }
+
+    public void setMaIcon(int maIcon) {
+        this.maIcon = maIcon;
     }
 
     public int getMaDM() {

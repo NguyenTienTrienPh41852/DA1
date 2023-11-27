@@ -107,6 +107,7 @@ public class fragment_QuanLyChiTieu extends Fragment {
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_themchitieu,null);
         builder.setView(view);
+        builder.setCancelable(true);
         Dialog dialog = builder.create();
         dialog.show();
 

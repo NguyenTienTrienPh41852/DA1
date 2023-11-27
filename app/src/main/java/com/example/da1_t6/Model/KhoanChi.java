@@ -3,10 +3,25 @@ package com.example.da1_t6.Model;
 public class KhoanChi {
     private int maKC;
     private int maDanhMuc;
+
+    private int maIcon;
     private String tenKC;
     private String tenDanhMuc;
 
     public KhoanChi() {
+    }
+
+    public KhoanChi(int maKC, int maIcon) {
+        this.maKC = maKC;
+        this.maIcon = maIcon;
+    }
+
+    public KhoanChi(int maKC, int maDanhMuc, int maIcon, String tenKC, String tenDanhMuc) {
+        this.maKC = maKC;
+        this.maDanhMuc = maDanhMuc;
+        this.maIcon = maIcon;
+        this.tenKC = tenKC;
+        this.tenDanhMuc = tenDanhMuc;
     }
 
     public KhoanChi(int maKC, int maDanhMuc, String tenKC, String tenDanhMuc) {
@@ -14,6 +29,14 @@ public class KhoanChi {
         this.maDanhMuc = maDanhMuc;
         this.tenKC = tenKC;
         this.tenDanhMuc = tenDanhMuc;
+    }
+
+    public int getMaIcon() {
+        return maIcon;
+    }
+
+    public void setMaIcon(int maIcon) {
+        this.maIcon = maIcon;
     }
 
     public int getMaKC() {

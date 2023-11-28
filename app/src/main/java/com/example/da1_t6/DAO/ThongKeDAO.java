@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.da1_t6.Database.DbHelper;
 
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,7 +30,7 @@ public class ThongKeDAO {
 
         try {
             // Chuyển đổi selectedDate về định dạng ngày/tháng/năm để so sánh với cột THOIGIANCHI trong database
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String formattedDate = dateFormat.format(selectedDate);
 
             // Truy vấn để lấy tổng chi tiêu của ngày được chọn từ bảng CHITIEU
@@ -35,7 +39,7 @@ public class ThongKeDAO {
 
             if (cursor != null && cursor.moveToFirst()) {
                 // Lấy giá trị tổng chi tiêu từ cột TongChiTieu
-                tongChiTieu = cursor.getFloat(cursor.getColumnIndexOrThrow("TongChiTieu"));
+                tongChiTieu = cursor.getFloat(0);
             }
 
             if (cursor != null) {
@@ -48,32 +52,17 @@ public class ThongKeDAO {
         return tongChiTieu;
     }
 
-    public float getTongChiTieuTheoTuan(Date startDate) {
+    public float tinhTongChiTieu (String monday, String sunday) {
         float tongChiTieu = 0.0f;
 
         try {
-            // Chuyển đổi startDate về định dạng ngày/tháng/năm để so sánh với cột THOIGIANCHI trong database
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-
-            // Lấy ngày đầu tiên của tuần từ ngày được chọn
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(startDate);
-            calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY); // Chuyển về thứ 2 của tuần
-            Date mondayDate = calendar.getTime();
-            String formattedStartDate = dateFormat.format(mondayDate);
-
-            // Lấy ngày cuối cùng của tuần từ ngày được chọn
-            calendar.add(Calendar.DATE, 6); // Thêm 6 ngày để đến Chủ Nhật
-            Date sundayDate = calendar.getTime();
-            String formattedEndDate = dateFormat.format(sundayDate);
-
-            // Truy vấn để lấy tổng chi tiêu của tuần được chọn từ bảng CHITIEU
+            // Truy vấn để lấy tổng chi tiêu từ ngày thứ 2 đến ngày chủ nhật trong bảng CHITIEU
             String query = "SELECT SUM(SOTIENCHI) AS TongChiTieu FROM CHITIEU WHERE THOIGIANCHI BETWEEN ? AND ?";
-            Cursor cursor = db.rawQuery(query, new String[]{formattedStartDate, formattedEndDate});
+            Cursor cursor = db.rawQuery(query, new String[]{monday, sunday});
 
             if (cursor != null && cursor.moveToFirst()) {
                 // Lấy giá trị tổng chi tiêu từ cột TongChiTieu
-                tongChiTieu = cursor.getFloat(cursor.getColumnIndexOrThrow("TongChiTieu"));
+                tongChiTieu = cursor.getFloat(0);
             }
 
             if (cursor != null) {
@@ -86,40 +75,21 @@ public class ThongKeDAO {
         return tongChiTieu;
     }
 
-    public float getTongChiTieuCua6ThangGanNhat() {
-        float tongChiTieu = 0.0f;
+    public float getTongThuNhapTheoNgay(Date selectedDate) {
+        float tongThuNhap = 0.0f;
 
         try {
-            // Lấy ngày hiện tại
-            Calendar calendar = Calendar.getInstance();
-            Date currentDate = calendar.getTime();
+            // Chuyển đổi selectedDate về định dạng ngày/tháng/năm để so sánh với cột THOIGIANCHI trong database
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String formattedDate = dateFormat.format(selectedDate);
 
-            // Tạo danh sách 6 tháng gần nhất tính từ tháng hiện tại
-            List<Date> recentMonths = new ArrayList<>();
-
-            // Lấy ngày đầu tiên của tháng hiện tại
-            calendar.set(Calendar.DAY_OF_MONTH, 1);
-
-            for (int i = 0; i < 6; i++) {
-                recentMonths.add(calendar.getTime());
-                calendar.add(Calendar.MONTH, -1); // Lùi về tháng trước đó
-            }
-
-            // Lấy tổng chi tiêu của 6 tháng gần nhất
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy", Locale.getDefault());
-            String[] formattedMonths = new String[6];
-
-            for (int i = 0; i < recentMonths.size(); i++) {
-                formattedMonths[i] = dateFormat.format(recentMonths.get(i));
-            }
-
-            // Truy vấn để lấy tổng chi tiêu của 6 tháng gần nhất từ bảng CHITIEU
-            String query = "SELECT SUM(SOTIENCHI) AS TongChiTieu FROM CHITIEU WHERE strftime('%m/%Y', THOIGIANCHI) IN (?, ?, ?, ?, ?, ?)";
-            Cursor cursor = db.rawQuery(query, formattedMonths);
+            // Truy vấn để lấy tổng chi tiêu của ngày được chọn từ bảng CHITIEU
+            String query = "SELECT SUM(SOTIEN) AS TongThuNhap FROM THUNHAP WHERE THOIGIAN = ?";
+            Cursor cursor = db.rawQuery(query, new String[]{formattedDate});
 
             if (cursor != null && cursor.moveToFirst()) {
-                // Lấy giá trị tổng chi tiêu từ cột TongChiTieu
-                tongChiTieu = cursor.getFloat(cursor.getColumnIndexOrThrow("TongChiTieu"));
+                // Lấy giá trị tổng chi tiêu từ cột TongThuNhap
+                tongThuNhap = cursor.getFloat(0);
             }
 
             if (cursor != null) {
@@ -129,6 +99,37 @@ public class ThongKeDAO {
             e.printStackTrace();
         }
 
-        return tongChiTieu;
+        return tongThuNhap;
+    }
+
+    public float tinhTongThuNhap (String monday, String sunday) {
+        float tongThuNhap = 0.0f;
+
+        try {
+            // Truy vấn để lấy tổng chi tiêu từ ngày thứ 2 đến ngày chủ nhật trong bảng CHITIEU
+            String query = "SELECT SUM(SOTIEN) AS TongThuNhap FROM THUNHAP WHERE THOIGIAN BETWEEN ? AND ?";
+            Cursor cursor = db.rawQuery(query, new String[]{monday, sunday});
+
+            if (cursor != null && cursor.moveToFirst()) {
+                // Lấy giá trị tổng chi tiêu từ cột TongThuNhap
+                tongThuNhap = cursor.getFloat(0);
+            }
+
+            if (cursor != null) {
+                cursor.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return tongThuNhap;
+    }
+
+    public String chuyenDoiDMY(String ngayXuatStr) {
+        String[] ngayThangNam = ngayXuatStr.split("-");
+        String nam = ngayThangNam[0];
+        String thang = ngayThangNam[1];
+        String ngay = ngayThangNam[2];
+        return ngay + "-" + thang + "-" + nam;
     }
 }

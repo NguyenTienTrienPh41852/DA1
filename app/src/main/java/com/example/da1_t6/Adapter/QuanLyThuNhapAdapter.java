@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.da1_t6.DAO.KhoanChiDAO;
+import com.example.da1_t6.DAO.ThongKeDAO;
 import com.example.da1_t6.DAO.ThuNhapDAO;
 import com.example.da1_t6.DAO.ViTienDAO;
 import com.example.da1_t6.Model.ThuNhap;
@@ -32,6 +33,7 @@ import com.example.da1_t6.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdapter.ViewHolder> {
     private Context context;
@@ -39,12 +41,14 @@ public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdap
     private List<ViTien> listVT;
     ThuNhapDAO thuNhapDAO;
     ViTienDAO viTienDAO;
+    ThongKeDAO thongKeDAO;
     DatePickerDialog datePickerDialog;
 
     public QuanLyThuNhapAdapter(Context context, List<ThuNhap> list, ThuNhapDAO thuNhapDAO) {
         this.context = context;
         this.list = list;
         this.thuNhapDAO = thuNhapDAO;
+        thongKeDAO = new ThongKeDAO(context);
     }
 
     @NonNull
@@ -61,7 +65,7 @@ public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.txtLuong.setText(String.valueOf(list.get(position).getTenKhoanThu()));
         holder.txtSoTien.setText(String.valueOf(list.get(position).getSoTienThu()));
-        holder.txtNgay.setText(list.get(position).getThoiGianThu());
+        holder.txtNgay.setText(thongKeDAO.chuyenDoiDMY(list.get(position).getThoiGianThu()));
         holder.txtLoaiVi.setText(list.get(position).getTenVi());
         holder.txtGhiChu.setText(list.get(position).getGhiChu());
         viTienDAO = new ViTienDAO(context);
@@ -158,7 +162,9 @@ public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdap
                 datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tv_ngay.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                        String formattedDay = String.format(Locale.getDefault(), "%02d", dayOfMonth);
+                        String formattedMonth = String.format(Locale.getDefault(), "%02d", (month + 1));
+                        tv_ngay.setText(formattedDay + "-" + formattedMonth + "-" + year);
                     }
                 },mYear,mMonth,mDay);
                 datePickerDialog.show();

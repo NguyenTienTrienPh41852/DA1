@@ -28,6 +28,7 @@ import com.example.da1_t6.DAO.ChiTieuDAO;
 import com.example.da1_t6.DAO.DanhMucDAO;
 import com.example.da1_t6.DAO.IconDAO;
 import com.example.da1_t6.DAO.KhoanChiDAO;
+import com.example.da1_t6.DAO.ThongKeDAO;
 import com.example.da1_t6.DAO.ViTienDAO;
 import com.example.da1_t6.Model.ChiTieu;
 import com.example.da1_t6.Model.DanhMuc;
@@ -40,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdapter.ViewHolder> {
     private Context context;
@@ -52,6 +54,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
     DanhMucDAO danhMucDAO;
     ViTienDAO viTienDAO;
     KhoanChiDAO khoanChiDAO;
+    ThongKeDAO thongKeDAO;
     DatePickerDialog datePickerDialog;
     QuanLyChiTieuAdapter chiTieuAdapter;
 
@@ -62,6 +65,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
         viTienDAO = new ViTienDAO(context);
         danhMucDAO = new DanhMucDAO(context);
         khoanChiDAO = new KhoanChiDAO(context);
+        thongKeDAO = new ThongKeDAO(context);
     }
 
     @NonNull
@@ -79,7 +83,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
         holder.imgIcon.setImageResource(iconDAO.icon(khoanChiDAO.layIcon((list.get(position).getMaKC())).getMaIcon()).getIcon());
         holder.txtChiMuc.setText(String.valueOf(list.get(position).getTenKC()));
         holder.txtSoTien.setText(String.valueOf(list.get(position).getSoTienChi()));
-        holder.txtNgay.setText(list.get(position).getThoiGianChi());
+        holder.txtNgay.setText(thongKeDAO.chuyenDoiDMY(list.get(position).getThoiGianChi()));
         holder.txtLoaiVi.setText(list.get(position).getTenVi());
         holder.txtGhiChu.setText(list.get(position).getGhiChu());
         listKC = new ArrayList<>();
@@ -261,7 +265,9 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
                 datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tvNgay.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                        String formattedDay = String.format(Locale.getDefault(), "%02d", dayOfMonth);
+                        String formattedMonth = String.format(Locale.getDefault(), "%02d", (month + 1));
+                        tvNgay.setText(formattedDay + "-" + formattedMonth + "-" + year);
                     }
                 },mYear,mMonth,mDay);
                 datePickerDialog.show();

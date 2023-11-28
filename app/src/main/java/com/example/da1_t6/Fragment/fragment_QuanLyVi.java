@@ -413,7 +413,6 @@ public class fragment_QuanLyVi extends Fragment {
             }
         }
 
-
     }
     private boolean isOperator(String btnText){
         return btnText.equals("+") || btnText.equals("-") || btnText.equals("X") || btnText.equals("÷") ;
@@ -434,7 +433,6 @@ public class fragment_QuanLyVi extends Fragment {
         numberBuilder.setLength(0);
         btnOK.setImageResource(R.drawable.iconv);
     }
-
 
     private void calculateResult() {
         try {
@@ -505,8 +503,6 @@ public class fragment_QuanLyVi extends Fragment {
         } catch (Exception e) {
             clearResult();
         }
-
-
 
     }
 }

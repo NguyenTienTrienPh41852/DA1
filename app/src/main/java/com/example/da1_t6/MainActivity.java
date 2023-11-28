@@ -20,10 +20,10 @@ import com.example.da1_t6.Fragment.fragment_QuanLyChiTieu;
 import com.example.da1_t6.Fragment.fragment_QuanLyHocTap;
 import com.example.da1_t6.Fragment.fragment_QuanLyKhoanChi;
 import com.example.da1_t6.Fragment.fragment_QuanLyThuNhap;
-import com.example.da1_t6.Fragment.fragment_ThongKe;
 import com.example.da1_t6.Fragment.fragment_QuanLyVi;
 import com.example.da1_t6.Fragment.fragment_QuanLyHoatDong;
 
+import com.example.da1_t6.Fragment.fragment_ThongKe;
 import com.google.android.material.navigation.NavigationView;
 
 

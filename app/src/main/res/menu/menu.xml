@@ -15,6 +15,10 @@
     <item android:id="@+id/menuQLHD"
         android:title="Quản lý hoạt động"
         android:icon="@drawable/qlhd"/>
+
+    <item android:id="@+id/menuQLHT"
+        android:title="Quản lý học tập"
+        android:icon="@drawable/qlhd"/>
     <item android:title="Thống kê">
         <menu>
             <item android:id="@+id/menuBDTC"

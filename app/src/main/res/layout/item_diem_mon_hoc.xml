@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:text="Trọng số"
         android:textSize="17dp"
-        android:layout_marginStart="110dp"
+        android:layout_marginStart="210dp"
+
         />
     <TextView
         android:id="@+id/tv_diem"
@@ -29,6 +30,6 @@
         android:layout_height="wrap_content"
         android:text="Điểm"
         android:textSize="17dp"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="260dp"
         />
-</LinearLayout>
+</RelativeLayout>

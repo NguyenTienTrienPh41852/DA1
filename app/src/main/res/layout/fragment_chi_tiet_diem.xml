@@ -6,10 +6,24 @@
     android:layout_margin="6dp"
     android:background="#F1F6F1"
     >
+
+    <TextView
+        android:id="@+id/tv_ten_mon_hoc_chi_tiet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tên môn học:"
+        android:gravity="center_horizontal"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="9dp"
+        android:layout_marginTop="10dp"
+
+        />
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/tv_ten_mon_hoc_chi_tiet"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Trọng số"
-                android:layout_marginStart="110dp"
+                android:layout_marginStart="90dp"
                 android:textStyle="bold"
                 android:textSize="16dp"
                 android:textColor="@color/black"
@@ -43,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Điểm"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="40dp"
                 android:textStyle="bold"
                 android:textSize="16dp"
                 android:textColor="@color/black"

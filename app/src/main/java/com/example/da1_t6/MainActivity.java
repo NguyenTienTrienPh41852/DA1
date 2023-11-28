@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 
 import com.example.da1_t6.Fragment.fragment_BienDongTaiChinh;
 import com.example.da1_t6.Fragment.fragment_QuanLyChiTieu;
+import com.example.da1_t6.Fragment.fragment_QuanLyHocTap;
 import com.example.da1_t6.Fragment.fragment_QuanLyKhoanChi;
 import com.example.da1_t6.Fragment.fragment_QuanLyThuNhap;
 import com.example.da1_t6.Fragment.fragment_ThongKe;
@@ -70,7 +71,13 @@ public class MainActivity extends AppCompatActivity {
                     fragment_QuanLyHoatDong frgQLTGB = new fragment_QuanLyHoatDong();
                     relaceFrg(frgQLTGB);
                     toolbar.setTitle("Quản lý hoạt động");
-                }else if(item.getItemId() == R.id.menuBDTC){
+
+                }else if (item.getItemId() == R.id.menuQLHT){
+                    fragment_QuanLyHocTap fragmentQuanLyHocTap = new fragment_QuanLyHocTap();
+                    relaceFrg(fragmentQuanLyHocTap);
+                    toolbar.setTitle("Quản lý học tập");
+                }
+                else if(item.getItemId() == R.id.menuBDTC){
                     fragment_BienDongTaiChinh frgBDTC = new fragment_BienDongTaiChinh();
                     relaceFrg(frgBDTC);
                     toolbar.setTitle("Biến động tài chính");

@@ -29,8 +29,6 @@ public class DangNhap extends AppCompatActivity {
     NguoiDungDAO nguoiDungDAO;
     TextInputLayout in_User,in_Pass;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

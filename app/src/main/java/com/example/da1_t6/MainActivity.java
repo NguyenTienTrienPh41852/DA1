@@ -12,9 +12,15 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.example.da1_t6.DAO.NguoiDungDAO;
 import com.example.da1_t6.Fragment.fragment_BienDongTaiChinh;
 import com.example.da1_t6.Fragment.fragment_QuanLyChiTieu;
 import com.example.da1_t6.Fragment.fragment_QuanLyHocTap;
@@ -24,7 +30,13 @@ import com.example.da1_t6.Fragment.fragment_QuanLyVi;
 import com.example.da1_t6.Fragment.fragment_QuanLyHoatDong;
 
 import com.example.da1_t6.Fragment.fragment_ThongKe;
+import com.example.da1_t6.Model.NguoiDung;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     Context context = this;
     FrameLayout frameLayout ;
+    View header;
+    List<NguoiDung> list;
+    NguoiDungDAO nguoiDungDAO;
+    CircleImageView avatar;
+    TextView tenND;
+    LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.navigationView);
         drawerLayout = findViewById(R.id.drawerLayout);
+        list = new ArrayList<>();
         fg = getSupportFragmentManager();
         fg.beginTransaction().add(R.id.frameLayout,new fragment_QuanLyVi()).commit();
         setSupportActionBar(toolbar);
@@ -48,6 +67,16 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        header = navigationView.getHeaderView(0);
+        nguoiDungDAO = new NguoiDungDAO(MainActivity.this);
+        list = nguoiDungDAO.layDanhSachNguoiDung();
+        Log.e("Tag", ""+list);
+        avatar = header.findViewById(R.id.headerImage);
+        tenND = header.findViewById(R.id.header_name);
+        avatar.setImageURI(list.get(0).hienthi(MainActivity.this));
+        tenND.setText(list.get(0).getHoTen());
+        linearLayout = header.findViewById(R.id.editThongTin);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -108,8 +137,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-
 
 
     }

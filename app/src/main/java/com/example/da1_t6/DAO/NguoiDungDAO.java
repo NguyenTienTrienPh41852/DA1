@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.da1_t6.Database.DbHelper;
 import com.example.da1_t6.Model.NguoiDung;
+import com.example.da1_t6.Model.ViTien;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class NguoiDungDAO {
@@ -25,7 +29,7 @@ public class NguoiDungDAO {
         contentValues.put("TENND",obj.getHoTen());
         contentValues.put("ANHDAIDIEN",obj.getAnhDaiDien());
         long check = db.insert("NGUOIDUNG",null,contentValues);
-        if(check == -1){
+        if(check < 0){
             return false;
         }else{
             return true;
@@ -46,12 +50,27 @@ public class NguoiDungDAO {
         }
     }
     public boolean checkLogin(String MaND,String MK){
-        Cursor cursor = db.rawQuery("select * from NGUOIDUNG where MAND = ? and MATKHAU = ?",new String[]{MaND, MK});
+        Cursor cursor = db.rawQuery("SELECT * FROM NGUOIDUNG WHERE MAND = ? AND MATKHAU = ?",new String[]{MaND, MK});
         if(cursor.getCount() != 0){
             return true;
         }else{
             return false;
         }
+    }
+    public List<NguoiDung> layDanhSachNguoiDung (){
+        List<NguoiDung> list = new ArrayList<>();
+        Cursor c =db.rawQuery("SELECT * FROM NGUOIDUNG", null);
+        if (c!=null&&c.getCount()>0){
+            c.moveToFirst();
+            do{
+                NguoiDung nguoiDung = new NguoiDung(
+                        c.getString(0),c.getString(1),c.getString(2),c.getBlob(3)
+                );
+                list.add(nguoiDung);
+            } while (c.moveToNext());
+            c.close();
+        }
+        return list;
     }
 
 }

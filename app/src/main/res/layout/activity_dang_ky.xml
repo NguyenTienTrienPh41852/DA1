@@ -18,7 +18,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign In"
+        android:text="Đăng ký tài khoản"
         android:textColor="#29BE38"
         android:textSize="35sp"
         android:textStyle="bold"/>
@@ -152,7 +152,7 @@
             android:clickable="true"
             android:onClick="onAvatarClick"
             android:scaleType="centerCrop"
-            android:src="@drawable/img" />
+            android:src="@drawable/imageht" />
 
         <TextView
             android:layout_gravity="center"

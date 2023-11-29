@@ -22,6 +22,7 @@ public class IconAdapter extends RecyclerView.Adapter<IconAdapter.IconViewHolder
     private List<Icon> iconList;
 
     fragment_QuanLyKhoanChi fragmentQuanLyKhoanChi;
+    DanhMucAdapter danhMucAdapter;
     Dialog dialog;
 
     public IconAdapter(Context context, List<Icon> iconList, fragment_QuanLyKhoanChi fragmentQuanLyKhoanChi, Dialog dialog) {
@@ -30,6 +31,15 @@ public class IconAdapter extends RecyclerView.Adapter<IconAdapter.IconViewHolder
         this.fragmentQuanLyKhoanChi = fragmentQuanLyKhoanChi;
         this.dialog = dialog;
     }
+
+    public IconAdapter(Context context, List<Icon> iconList, Dialog dialog, DanhMucAdapter danhMucAdapte) {
+        this.context = context;
+        this.iconList = iconList;
+        this.dialog = dialog;
+        this.danhMucAdapter = danhMucAdapte;
+    }
+
+
 
     @NonNull
     @Override
@@ -41,7 +51,6 @@ public class IconAdapter extends RecyclerView.Adapter<IconAdapter.IconViewHolder
     @Override
     public void onBindViewHolder(@NonNull IconViewHolder holder, int position) {
         Icon iconResId = iconList.get(position);
-        Log.e("TAG","icon: "+iconResId);
         holder.iconImageView.setImageResource(iconResId.getIcon());
     }
 
@@ -63,8 +72,13 @@ public class IconAdapter extends RecyclerView.Adapter<IconAdapter.IconViewHolder
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         // Handle item click, e.g., show dialog or perform an action
-                        fragmentQuanLyKhoanChi.setIcon(iconList.get(position));
                         dialog.dismiss();
+                        if (fragmentQuanLyKhoanChi == null){
+                            danhMucAdapter.setIcon(iconList.get(position));
+                            return;
+                        }
+                        fragmentQuanLyKhoanChi.setIcon(iconList.get(position));
+                       ;
                     }
                 }
             });

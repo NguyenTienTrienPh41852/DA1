@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.nfc.Tag;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,18 +13,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.da1_t6.DAO.DanhMucDAO;
+import com.example.da1_t6.DAO.IconDAO;
 import com.example.da1_t6.DAO.KhoanChiDAO;
+import com.example.da1_t6.Fragment.fragment_QuanLyKhoanChi;
 import com.example.da1_t6.Model.DanhMuc;
+import com.example.da1_t6.Model.Icon;
 import com.example.da1_t6.Model.KhoanChi;
 import com.example.da1_t6.R;
 
@@ -35,11 +38,17 @@ import java.util.List;
 public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHolder> {
     Context context;
     List<DanhMuc> danhMucList;
+    ImageView imgIcon;
+    private List<Icon> iconList;
+    IconDAO iconDAO;
+    KhoanChiDAO khoanChiDAO;
     List<KhoanChi> khoanChiList;
-    public DanhMucAdapter(Context context, List<DanhMuc> danhMucList, List<KhoanChi> khoanChiList) {
+    fragment_QuanLyKhoanChi fragmentQuanLyKhoanChi;
+    public DanhMucAdapter(Context context, List<DanhMuc> danhMucList, List<KhoanChi> khoanChiList, fragment_QuanLyKhoanChi fragmentQuanLyKhoanChi) {
         this.context = context;
         this.danhMucList = danhMucList;
         this.khoanChiList = khoanChiList;
+        this.fragmentQuanLyKhoanChi = fragmentQuanLyKhoanChi;
     }
     @NonNull
     @Override
@@ -133,7 +142,9 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
         EditText tenKhoanChi = v.findViewById(R.id.ed_ten_khoan_chi);
         Spinner spDanhMuc = v.findViewById(R.id.sp_chon_danh_muc);
         Button luuKhoanChi = v.findViewById(R.id.btn_luu_khoan_chi);
-
+        iconDAO = new IconDAO(context);
+        imgIcon = v.findViewById(R.id.img_icon);
+        imgIcon.setImageResource(iconDAO.icon(khoanChi.getMaIcon()).getIcon());
         spDanhMuc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -146,6 +157,17 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
 
             }
         });
+        //icon
+        iconDAO = new IconDAO(context);
+        icon = iconDAO.icon(khoanChi.getMaIcon());
+        imgIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iconList = iconDAO.layDSIcon();
+                showDialogIcon( iconList);
+            }
+        });
+
         tvTittle.setText("Cập nhật khoản chi");
         // Set thông tin cho dialog từ đối tượng khoản chi
         tenKhoanChi.setText(khoanChi.getTenKC());
@@ -183,6 +205,7 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
                 } else if (spDanhMuc.getSelectedItem() == null){
                     Toast.makeText(context, "Vui lòng chọn danh mục!", Toast.LENGTH_SHORT).show();
                 } else {
+                    khoanChi.setMaIcon(icon.getMaIcon());
                     khoanChi.setTenDanhMuc(spDanhMuc.getSelectedItem().toString());
                     khoanChi.setTenKC(tenKhoanChi.getText().toString());
                     long result = khoanChiDAO.capNhatKhoanChi(khoanChi);
@@ -201,6 +224,28 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
 
         dialog.show();
     }
+    public void showDialogIcon(List<Icon> iconList){
+       AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_icon,null);
+        builder.setView(view);
+        builder.setCancelable(true);
+        Dialog dialog = builder.create();
+        dialog.show();
+
+        RecyclerView rcv = view.findViewById(R.id.rcv_icon);
+        rcv.setLayoutManager(new GridLayoutManager(context,4));
+        IconAdapter adapter = new IconAdapter(context, iconList,dialog,this);
+        rcv.setAdapter(adapter);
+    }
+    Icon icon;
+
+
+    public void setIcon(Icon icon) {
+        this.icon = icon;
+        imgIcon.setImageResource(icon.getIcon());
+    }
+
 
     @Override
     public int getItemCount() {

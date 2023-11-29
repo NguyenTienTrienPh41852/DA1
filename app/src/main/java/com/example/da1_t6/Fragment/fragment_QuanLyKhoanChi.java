@@ -112,7 +112,7 @@ public class fragment_QuanLyKhoanChi extends Fragment {
         iconDAO = new IconDAO(getContext());
         danhMucList = danhMucDAO.layDanhSachDanhMuc();
         khoanChiList = khoanChiDAO.layDanhSachKhoanChi();
-        danhMucAdapter = new DanhMucAdapter(view.getContext(), danhMucList, khoanChiList);
+        danhMucAdapter = new DanhMucAdapter(view.getContext(), danhMucList, khoanChiList, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(danhMucAdapter);

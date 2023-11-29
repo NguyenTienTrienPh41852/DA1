@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Chọn icon"
+    android:textColor="#FF9800"
+    android:background="@drawable/bgr_7mau"
+    android:textSize="30dp"
+  android:paddingVertical="10dp"
+   android:gravity="center_horizontal"
+    android:textStyle="bold"
+    />
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rcv_icon"
         />
-</RelativeLayout>
+</LinearLayout>

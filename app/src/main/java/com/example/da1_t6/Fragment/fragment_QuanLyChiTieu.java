@@ -152,7 +152,7 @@ public class fragment_QuanLyChiTieu extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 List<KhoanChi> listKC = khoanChiDAO.layDanhSachKhoanChiTheoDM(listDM.get(position).getMaDanhMuc()+"");
                 spKhoanChi[0] = new adapterSPKhoanChi(listKC,getContext());
-                spn_khoanchi.setAdapter( spKhoanChi[0]);
+                spn_khoanchi.setAdapter(spKhoanChi[0]);
             }
 
             @Override

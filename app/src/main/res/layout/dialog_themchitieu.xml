@@ -182,7 +182,7 @@
             <Button
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:text="Add"
+                android:text="Lưu chi tiêu"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
@@ -192,7 +192,6 @@
                 android:textSize="17dp"
                 android:id="@+id/btn_ct_add"/>
         </LinearLayout>
-        <!-- Thêm các phần tử khác nếu cần -->
     </LinearLayout>
 </ScrollView>
 

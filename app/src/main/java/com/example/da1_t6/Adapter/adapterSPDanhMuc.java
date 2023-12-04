@@ -33,7 +33,7 @@ public class adapterSPDanhMuc extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return listDM.get(position).getMaDanhMuc();
     }
 
     @Override

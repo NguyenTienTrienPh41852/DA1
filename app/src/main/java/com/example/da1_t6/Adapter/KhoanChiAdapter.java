@@ -56,8 +56,6 @@ public class KhoanChiAdapter extends RecyclerView.Adapter<KhoanChiAdapter.ViewHo
         });
     }
 
-
-
     @Override
     public int getItemCount() {
         return list.size();

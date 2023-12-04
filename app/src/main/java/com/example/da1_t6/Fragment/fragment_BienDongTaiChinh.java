@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.example.da1_t6.DAO.ChiTieuDAO;
 import com.example.da1_t6.DAO.ThuNhapDAO;
-import com.example.da1_t6.Model.All_a;
 import com.example.da1_t6.Model.ChiTieu;
 import com.example.da1_t6.Model.ThuNhap;
 import com.example.da1_t6.R;
@@ -69,7 +68,6 @@ public class fragment_BienDongTaiChinh extends Fragment {
         List<ChiTieu> list_tieu = tieu.layDanhSachChiTieu();
 
 
-        All_a all = new All_a(list_tieu,list_thu);
 
     }
 

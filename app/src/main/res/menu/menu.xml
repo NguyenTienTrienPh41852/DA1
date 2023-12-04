@@ -21,9 +21,6 @@
         android:icon="@drawable/img_8"/>
     <item android:title="Thống kê">
         <menu>
-            <item android:id="@+id/menuBDTC"
-                android:title="Biến động tài chính"
-                android:icon="@drawable/lsbd"/>
             <item android:id="@+id/menuTK"
                 android:title="Thống kê"
                 android:icon="@drawable/thongke"/>
@@ -31,12 +28,10 @@
     </item>
     <item android:title="Người dùng">
         <menu>
-<!--            <item android:id="@+id/menuTND"-->
-<!--                android:title="Thêm người dùng"-->
-<!--                android:icon="@drawable/add_user"/>-->
-<!--            <item android:id="@+id/menuDMK"-->
-<!--                android:title="Đổi mật khẩu"-->
-<!--                android:icon="@drawable/change_password"/>-->
+            <item
+                android:id="@+id/menuDMK"
+                android:icon="@drawable/doipw"
+                android:title="Đổi mật khẩu" />
             <item android:id="@+id/menuDX"
                 android:title="Đăng xuất"
                 android:icon="@drawable/dangxuat"/>

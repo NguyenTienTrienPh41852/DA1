@@ -131,14 +131,13 @@ public class fragment_ThongKe extends Fragment {
                     currentCalendar.setTime(sundayCalendar.getTime());
                     currentCalendar.add(Calendar.DAY_OF_WEEK, -7);
                 }
+                // Xóa ngày dư
+                listMonday.remove(0);
+                listSunday.remove(0);
 
                 // Đảo ngược danh sách
                 Collections.reverse(listMonday);
                 Collections.reverse(listSunday);
-
-                // Xóa ngày dư
-                listMonday.remove(0);
-                listSunday.remove(0);
 
                 // Mảng để lưu trữ tổng chi tiêu của từng tuần
                 float[] mangChiTieuTuan = new float[6];
@@ -261,14 +260,13 @@ public class fragment_ThongKe extends Fragment {
                     currentCalendar.setTime(sundayCalendar.getTime());
                     currentCalendar.add(Calendar.DAY_OF_WEEK, -7);
                 }
+                // Xóa ngày dư
+                listMonday.remove(0);
+                listSunday.remove(0);
 
                 // Đảo ngược danh sách
                 Collections.reverse(listMonday);
                 Collections.reverse(listSunday);
-
-                // Xóa ngày dư
-                listMonday.remove(0);
-                listSunday.remove(0);
 
                 // Mảng để lưu trữ tổng chi tiêu của từng tuần
                 float[] mangThuNhapTuan = new float[6];

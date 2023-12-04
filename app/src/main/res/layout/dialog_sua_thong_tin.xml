@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/bgr_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_margin="10dp"
+    android:paddingBottom="8dp"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/tv_dialog"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Cập nhật thông tin cá nhân"
+        android:textColor="@color/white"
+        android:textSize="23dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên hiển thị"
+        android:textSize="22dp"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/txtTenHienThi"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/khung_edittext"
+        android:hint="Nhập họ tên nhân sự"
+        android:paddingHorizontal="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ảnh hiển thị"
+        android:textSize="22dp"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:id="@+id/avatarImageViewCNTT"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:onClick="onAvatarClick"
+        android:scaleType="centerCrop"
+        android:src="@drawable/imageht" />
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn ảnh đại diện"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:textColor="@color/green"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/btnHuyCNTT"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
+            android:layout_margin="10dp"
+            android:backgroundTint="#29BE38"
+            android:text="Hủy"
+            android:textColor="@color/white" />
+        <Button
+            android:id="@+id/btnSaveCNTT"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
+            android:layout_margin="10dp"
+            android:backgroundTint="#29BE38"
+            android:text="Lưu"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</LinearLayout>

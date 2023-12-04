@@ -63,21 +63,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
             android:layout_below="@+id/tv_thoi_gian_hoat_dong"
             >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tình trạng"
+                android:text="Tình trạng: "
                 android:textSize="16dp"/>
 
             <CheckBox
                 android:id="@+id/cb_status_hoat_dong"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_width="35dp"
+                android:layout_height="35dp"/>
 
             <TextView
                 android:id="@+id/tv_status_hoat_dong"

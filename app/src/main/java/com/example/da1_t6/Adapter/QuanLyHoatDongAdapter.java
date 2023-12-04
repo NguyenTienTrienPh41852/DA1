@@ -3,24 +3,20 @@ package com.example.da1_t6.Adapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -37,7 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Stack;
 
 public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAdapter.viewHolder>{
     Context context;
@@ -79,7 +74,7 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View v = inflater.inflate(R.layout.item_thoi_gian_bieu,parent,false);
+        View v = inflater.inflate(R.layout.item_quan_ly_hoat_dong,parent,false);
         return new viewHolder(v);
     }
 
@@ -89,9 +84,9 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
         HoatDong hoatDong = listHD.get(position);
 
         holder.tvIdHoatDong.setText(hoatDong.getMaHoatDong()+"");
-        holder.tvTenHoatDong.setText(hoatDong.getTenHoatDong());
+        holder.tvTenHoatDong.setText("Hoạt động: "+hoatDong.getTenHoatDong());
         holder.tvMoTa.setText("Mô tả: "+hoatDong.getMoTa());
-        holder.tvThoiGian.setText("Thời gian: "+hoatDong.getThoiGianBatDau()+" đến "+hoatDong.getThoiGianKetThuc());
+        holder.tvThoiGian.setText("Thời gian: Từ "+hoatDong.getThoiGianBatDau()+" đến "+hoatDong.getThoiGianKetThuc());
         holder.tvNgayHoatDong.setText("Ngày: "+hoatDong.getNgay());
 
 

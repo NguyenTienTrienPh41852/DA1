@@ -149,7 +149,6 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 khoanChi.setMaDanhMuc(danhMucList.get(i).getMaDanhMuc());
-                Log.e("Tag", "Chay ho");
             }
 
             @Override
@@ -164,7 +163,7 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 iconList = iconDAO.layDSIcon();
-                showDialogIcon( iconList);
+                showDialogIcon(iconList);
             }
         });
 

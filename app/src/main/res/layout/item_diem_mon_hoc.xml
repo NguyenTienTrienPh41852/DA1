@@ -30,6 +30,6 @@
         android:layout_height="wrap_content"
         android:text="Điểm"
         android:textSize="17dp"
-        android:layout_marginStart="260dp"
+        android:layout_marginStart="340dp"
         />
 </RelativeLayout>

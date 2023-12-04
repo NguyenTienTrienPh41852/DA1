@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             app:iconifiedByDefault="true"
-            android:background="@color/white"
-            />
+            android:background="@color/white" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rc_hoc_tap"
             android:layout_width="match_parent"
@@ -31,17 +31,15 @@
 
     </LinearLayout>
 
-
     <ImageButton
         android:id="@+id/btn_add_mon_hoc"
-        android:layout_width="45dp"
-        android:layout_height="43dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="end"
         android:layout_margin="15dp"
-        android:src="@drawable/add"
+        android:background="@drawable/add"
         android:padding="30dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/fixtron"
-        />
+    />
 </RelativeLayout>

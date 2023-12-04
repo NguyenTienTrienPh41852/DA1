@@ -19,8 +19,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 "    ANHDAIDIEN BLOB\n" +
                 ");\n");
         db.execSQL("CREATE TABLE ICON(\n" +
-                "MAICON integer primary key,\n" +
-                "ANH text unique\n" +
+                "MAICON INTEGER PRIMARY KEY,\n" +
+                "ANH TEXT UNIQUE\n" +
                 ")");
         db.execSQL("CREATE TABLE DANHMUC (\n" +
                 "    MADANHMUC  INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
@@ -88,7 +88,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO DANHMUC VALUES (3, 'Biếu tặng')");
         db.execSQL("INSERT INTO DANHMUC VALUES (4, 'Sức khỏe')");
         db.execSQL("INSERT INTO DANHMUC VALUES (5, 'Chi tiêu khác')");
-        db.execSQL("INSERT INTO VITIEN VALUES (1,2,'Tiền Mặt',57,67),(2,2,'Chuyển khoản',57,67)");
+        db.execSQL("INSERT INTO VITIEN VALUES (1, 1, 'Ví tiền mặt', 0, 0), (2, 1, 'Chuyển khoản', 0, 0)");
 
         String anh1 = (R.drawable.sandwich)+"";
         String anh2 = (R.drawable.bill)+"";
@@ -114,7 +114,10 @@ public class DbHelper extends SQLiteOpenHelper {
         String anh22 = (R.drawable.comment)+"";
         String [] listanh = new String[]{anh1,anh2,anh3,anh4,anh5,anh6,anh7,anh8,anh9,anh10,anh11,anh12,anh13,anh14,anh15,anh16,anh17,anh18,anh19,anh20,anh21,anh22};
         db.execSQL("INSERT INTO ICON VALUES (1,?),(2,?),(3,?),(4,?),(5,?),(6,?),(7,?),(8,?),(9,?),(10,?),(11,?),(12,?),(13,?),(14,?),(15,?),(16,?),(17,?),(18,?),(19,?),(20,?),(21,?),(22,?);",listanh);
-
+        db.execSQL("INSERT INTO KHOANCHI VALUES (1, 1, 1, 'Ăn uống'), (2, 1, 2, 'Hóa đơn'), (3, 1, 3, 'Đi lại'), (4, 1, 4, 'Thuê nhà')" +
+                ", (5, 1, 6, 'Bảo trì và Sửa chữa'), (6, 1, 5, 'Đi chợ & Siêu thị'), (7, 2, 7, 'Giải trí'), (8, 2, 8, 'Thời trang'), (9, 2, 9, 'Du lịch')" +
+                ", (10, 2, 10, 'Làm đẹp'), (11, 2, 12, 'Liên Hoan'), (12, 3, 1, 'Quà tặng'), (13, 3, 13, 'Từ thiện'), (14, 4, 14, 'Bác sĩ'), (15, 4, 15, 'Thể thao')" +
+                ", (16, 4, 17, 'Bảo hiểm'), (17, 5, 20, 'Bị mất'), (18, 5, 21, 'Phí & Lệ phí')");
     }
 
     @Override

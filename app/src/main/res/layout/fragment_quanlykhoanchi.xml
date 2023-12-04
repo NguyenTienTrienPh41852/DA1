@@ -17,14 +17,15 @@
             android:background="@color/white"
             android:id="@+id/rcvQLKC"/>
     </LinearLayout>
+
     <ImageButton
-        android:layout_width="45dp"
-        android:layout_height="43dp"
         android:id="@+id/add_QLKC"
-        android:src="@drawable/add"
-        android:background="@drawable/fixtron"
-        android:scaleType="centerCrop"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/fixtron"
+        android:scaleType="centerCrop"
+        android:src="@drawable/add" />
 </FrameLayout>

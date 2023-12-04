@@ -18,7 +18,7 @@
 
     <item android:id="@+id/menuQLHT"
         android:title="Quản lý học tập"
-        android:icon="@drawable/qlhd"/>
+        android:icon="@drawable/img_8"/>
     <item android:title="Thống kê">
         <menu>
             <item android:id="@+id/menuBDTC"

@@ -44,6 +44,7 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
     List<HoatDong> listHD;
     HoatDongDAO hoatDongDAO;
     private OnCheckedListener onCheckedListener;
+    List<HoatDong> listFilter;
 
     public QuanLyHoatDongAdapter(Context context, List<HoatDong> listHD, HoatDongDAO hoatDongDAO) {
         this.context = context;
@@ -58,6 +59,15 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
     public int getCountTienDoHoanThanh() {
         int count = 0;
         for (HoatDong hoatDong : listHD) {
+            if (hoatDong.getTrangThaiHoatDong() == 1) {
+                count++;
+            }
+        }
+        return count;
+    }
+    public int getCountTienDoHoanThanhTheoNgay(List<HoatDong> hoatDongs) {
+        int count = 0;
+        for (HoatDong hoatDong : hoatDongs) {
             if (hoatDong.getTrangThaiHoatDong() == 1) {
                 count++;
             }
@@ -129,7 +139,7 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
                         }
                     });
                 } else {
-                    Toast.makeText(context, "dau don", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "zzzz", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -208,7 +218,7 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
                     Toast.makeText(context, "Cap nhat thanh cong", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 } else {
-                    Toast.makeText(context, "that bai toan tap", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Cap nhat that bai", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -278,7 +288,7 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
         DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                 calendar.set(year, month,dayOfMonth);
                 String selected_ngay = sdf.format(calendar.getTime());
                 textView.setText(selected_ngay);

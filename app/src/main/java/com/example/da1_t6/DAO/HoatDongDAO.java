@@ -17,9 +17,11 @@ public class HoatDongDAO {
 
     public HoatDongDAO (Context context) {
         dbHelper = new DbHelper(context);
+
         db = dbHelper.getWritableDatabase();
     }
     public long themHoatDong (HoatDong hoatDong) {
+        db = dbHelper.getReadableDatabase();
         ContentValues values = new ContentValues();
 
         values.put("TENHD", hoatDong.getTenHoatDong());
@@ -28,10 +30,13 @@ public class HoatDongDAO {
         values.put("TGKETTHUC", hoatDong.getThoiGianKetThuc());
         values.put("TTHOATDONG", hoatDong.getTrangThaiHoatDong());
         values.put("NGAY", hoatDong.getNgay());
-        return db.insert("HOATDONG", null, values);
+        long result = db.insert("HOATDONG", null, values);
+        db.close();
+        return result;
     }
 
     public long capNhatHoatDong (HoatDong hoatDong) {
+        db = dbHelper.getReadableDatabase();
         ContentValues values = new ContentValues();
 
         values.put("TENHD", hoatDong.getTenHoatDong());
@@ -40,20 +45,26 @@ public class HoatDongDAO {
         values.put("TGKETTHUC", hoatDong.getThoiGianKetThuc());
         values.put("TTHOATDONG", hoatDong.getTrangThaiHoatDong());
         values.put("NGAY", hoatDong.getNgay());
-        return db.update("HOATDONG", values, "MAHD = ?", new String[]{String.valueOf(hoatDong.getMaHoatDong())});
+        long result = db.update("HOATDONG", values, "MAHD = ?", new String[]{String.valueOf(hoatDong.getMaHoatDong())});
+        db.close();
+        return result;
     }
 
     public int xoaHoatDong (int maHoatDong) {
-        return db.delete("HOATDONG", "MAHD = ?", new String[]{String.valueOf(maHoatDong)});
+        db = dbHelper.getReadableDatabase();
+        int result =  db.delete("HOATDONG", "MAHD = ?", new String[]{String.valueOf(maHoatDong)});
+        db.close();
+        return result;
     }
 
     public boolean UpdateStatus(Integer id, boolean check){
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
+        db = dbHelper.getReadableDatabase();
         int statusValue = check ? 1 : 0;
         ContentValues values = new ContentValues();
         values.put("TTHOATDONG",statusValue);
         String[] dieukien = new  String[]{String.valueOf(id)};
-        long row = database.update("HOATDONG",values,"MAHD=?",dieukien);
+        long row = db.update("HOATDONG",values,"MAHD=?",dieukien);
+        db.close();
         return row != -1;
 
     }
@@ -61,32 +72,61 @@ public class HoatDongDAO {
     public List<HoatDong> layDanhSachHoatDongTheoNgay (String ngay){
         List<HoatDong> list = new ArrayList<>();
 
-        Cursor c =db.rawQuery("SELECT * FROM HOATDONG WHERE NGAY=?", new String[]{ngay});
-        if (c!=null&&c.getCount()>0){
-            c.moveToFirst();
-            do{
-                HoatDong hd = new HoatDong(
-                        c.getInt(0), c.getString(2), c.getString(3), c.getString(4), c.getString(5), c.getInt(6), c.getString(7)
-                );
-                list.add(hd);
-            } while (c.moveToNext());
-            c.close();
+        db = dbHelper.getReadableDatabase();
+
+        Cursor c = null;
+        try {
+            c = db.rawQuery("SELECT * FROM HOATDONG WHERE NGAY = ?", new String[]{ngay});
+            if (c != null && c.getCount() > 0) {
+                c.moveToFirst();
+                do {
+                    HoatDong hd = new HoatDong(
+                            c.getInt(0), c.getString(2), c.getString(3), c.getString(4),
+                            c.getString(5), c.getInt(6), c.getString(7)
+                    );
+                    list.add(hd);
+                } while (c.moveToNext());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null && db.isOpen()){
+
+            }
         }
+
         return list;
     }
     public List<HoatDong> layDanhSachHoatDong (){
+        db = dbHelper.getReadableDatabase();
         List<HoatDong> list = new ArrayList<>();
-        Cursor c =db.rawQuery("SELECT * FROM HOATDONG", null);
-        if (c!=null&&c.getCount()>0){
-            c.moveToFirst();
-            do{
-                HoatDong hd = new HoatDong(
-                        c.getInt(0), c.getString(2), c.getString(3), c.getString(4), c.getString(5), c.getInt(6), c.getString(7)
-                );
-                list.add(hd);
-            } while (c.moveToNext());
-            c.close();
+        Cursor c = null;
+        try {
+            c = db.rawQuery("SELECT * FROM HOATDONG", null);
+            if (c != null && c.getCount() > 0) {
+                c.moveToFirst();
+                do {
+                    HoatDong hd = new HoatDong(
+                            c.getInt(0), c.getString(2), c.getString(3), c.getString(4),
+                            c.getString(5), c.getInt(6), c.getString(7)
+                    );
+                    list.add(hd);
+                } while (c.moveToNext());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (c != null) {
+                c.close();
+            }
+            if (db != null && db.isOpen()) {
+                db.close();
+            }
         }
+
         return list;
     }
 }

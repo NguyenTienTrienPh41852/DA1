@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -87,14 +88,20 @@ public class fragment_QuanLyHocTap extends Fragment implements MonHocAdapter.OnI
         EditText edMaMonHoc = dialog.findViewById(R.id.ed_ma_mon);
         EditText edTenLop = dialog.findViewById(R.id.ed_ten_lop);
         Button btnSave = dialog.findViewById(R.id.btn_save);
-
+        TextView tvError = dialog.findViewById(R.id.tv_erro);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String tenMon = edTenMonHoc.getText().toString();
                 String maMon = edMaMonHoc.getText().toString();
                 String tenLop = edTenLop.getText().toString();
 
+                if (tenMon.isEmpty() || maMon.isEmpty() || tenLop.isEmpty()){
+                    Toast.makeText(getContext(), "Hãy nhập đầy đủ dữ liệu", Toast.LENGTH_SHORT).show();
+                    tvError.setText("Hãy nhập đầy đủ dữ liệu!");
+                    return;
+                }
                 MonHoc monHoc = new MonHoc(maMon,tenMon,tenLop);
                 monHocDAO = new MonHocDAO(getContext());
                 long kq = monHocDAO.AddMonHoc(monHoc);

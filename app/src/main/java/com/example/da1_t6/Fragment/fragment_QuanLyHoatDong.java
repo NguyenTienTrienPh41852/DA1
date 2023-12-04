@@ -1,12 +1,18 @@
 package com.example.da1_t6.Fragment;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -30,6 +36,7 @@ import com.example.da1_t6.Model.HoatDong;
 import com.example.da1_t6.R;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +47,8 @@ public class fragment_QuanLyHoatDong extends Fragment {
     HoatDongDAO hoatDongDAO;
     private Context mContext;
     TextView tvTienDo;
+    RecyclerView rcHoatDong;
+    List<HoatDong> listFilter = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,7 +64,7 @@ public class fragment_QuanLyHoatDong extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView rcHoatDong;
+
         ImageButton btnAddHoatDong;
         TextView tvNgay;
         ImageView imgNgayHoatDong;
@@ -76,27 +85,20 @@ public class fragment_QuanLyHoatDong extends Fragment {
 
         rcHoatDong.setAdapter(hoatDongAdapter);
 
-        btnAddHoatDong.setOnClickListener(v -> openDialogAdd());
+        btnAddHoatDong.setOnClickListener(v -> openDialogAdd(Gravity.CENTER));
 
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault());
         tvNgay.setText(sdf.format(c.getTime()));
 
 
         imgNgayHoatDong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePicker(tvNgay);
+                showDatePickerImg(tvNgay);
 
             }
         });
-//        tvNgay.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showDatePicker(tvNgay);
-//                showDataForDate(tvNgay.getText().toString());
-//            }
-//        });
         updateTienDo();
 
         hoatDongAdapter.setOnCheckedListener(new QuanLyHoatDongAdapter.OnCheckedListener() {
@@ -108,35 +110,51 @@ public class fragment_QuanLyHoatDong extends Fragment {
 
     }
     private void showDataForDate(String ngay){
-        listHD.clear();
-        listHD.addAll(hoatDongDAO.layDanhSachHoatDongTheoNgay(ngay));
-        updateTienDo();
+        listFilter.clear();
+        listFilter.addAll(hoatDongDAO.layDanhSachHoatDongTheoNgay(ngay));
+        hoatDongAdapter = new QuanLyHoatDongAdapter(getContext(),listFilter,hoatDongDAO);
+        rcHoatDong.setAdapter(hoatDongAdapter);
+        hoatDongAdapter.setOnCheckedListener(new QuanLyHoatDongAdapter.OnCheckedListener() {
+            @Override
+            public void onCheckedChange(boolean isChecked) {
+                updateTienDoTheoNgay();
+            }
+        });
+        updateTienDoTheoNgay();
         hoatDongAdapter.notifyDataSetChanged();
     }
 
-    private void openDialogAdd() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        LayoutInflater inflater = getLayoutInflater();
-        View v = inflater.inflate(R.layout.dialog_add_thoi_gian_bieu, null);
-        builder.setView(v);
+    private void openDialogAdd(int gravity) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_add_thoi_gian_bieu);
 
-        builder.setCancelable(true);
+        Window window = dialog.getWindow();
+        if (window == null){
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        AlertDialog dialog = builder.create();
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.gravity = gravity;
 
-        EditText edTenHoatDong = v.findViewById(R.id.ed_ten_hoat_dong);
-        EditText edMoTa = v.findViewById(R.id.ed_mo_ta);
-        TextView tvFromTime = v.findViewById(R.id.tv_from_time);
-        TextView tvToTime = v.findViewById(R.id.tv_to_time);
-        Button btnSave = v.findViewById(R.id.btn_save);
-        TextView tvNgayHoatDong = v.findViewById(R.id.tv_ngay_dialog_hoat_dong);
-        Spinner sp_status = v.findViewById(R.id.sp_status);
+        window.setAttributes(params);
+        dialog.setCancelable(true);
+
+        EditText edTenHoatDong = dialog.findViewById(R.id.ed_ten_hoat_dong);
+        EditText edMoTa = dialog.findViewById(R.id.ed_mo_ta);
+        TextView tvFromTime = dialog.findViewById(R.id.tv_from_time);
+        TextView tvToTime = dialog.findViewById(R.id.tv_to_time);
+        Button btnSave = dialog.findViewById(R.id.btn_save);
+        TextView tvNgayHoatDong = dialog.findViewById(R.id.tv_ngay_dialog_hoat_dong);
+        Spinner sp_status = dialog.findViewById(R.id.sp_status);
 
         tvFromTime.setOnClickListener(v1 -> showDialogTimePicker(tvFromTime));
         tvToTime.setOnClickListener(v1 -> showDialogTimePicker(tvToTime));
 
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy",Locale.getDefault());
         tvNgayHoatDong.setText(sdf.format(c.getTime()));
 
         tvNgayHoatDong.setOnClickListener(v1 -> showDatePicker(tvNgayHoatDong));
@@ -198,6 +216,28 @@ public class fragment_QuanLyHoatDong extends Fragment {
 
     }
 
+    private void showDatePickerImg(final TextView textView){
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                calendar.set(year, month,dayOfMonth);
+
+                String selected_ngay = sdf.format(calendar.getTime());
+
+                textView.setText(selected_ngay);
+
+                showDataForDate(selected_ngay);
+            }
+        },year, month, day);
+        datePickerDialog.show();
+
+    }
     private void showDatePicker(final TextView textView){
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -207,23 +247,31 @@ public class fragment_QuanLyHoatDong extends Fragment {
         DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                 calendar.set(year, month,dayOfMonth);
                 String selected_ngay = sdf.format(calendar.getTime());
                 textView.setText(selected_ngay);
-                showDataForDate(selected_ngay);
+
             }
         },year, month, day);
         datePickerDialog.show();
 
     }
     private void updateTienDo(){
-        int tienDoHoanThanh = hoatDongAdapter.getCountTienDoHoanThanh();
 
+        int tienDoHoanThanh = hoatDongAdapter.getCountTienDoHoanThanh();
         int itemHD = hoatDongAdapter.getItemCount();
         int progress = (int) ((float) tienDoHoanThanh / itemHD * 100);
 
-        tvTienDo.setText(progress+" %");
+        tvTienDo.setText("Tiến độ: "+progress+" %");
+    }
+    private void updateTienDoTheoNgay(){
+
+        int tienDoHoanThanh = hoatDongAdapter.getCountTienDoHoanThanhTheoNgay(listFilter);
+        int itemHD = listFilter.size();
+        int progress = (int) ((float) tienDoHoanThanh / itemHD * 100);
+
+        tvTienDo.setText("Tiến độ: "+progress+" %");
     }
 
 }

@@ -185,11 +185,12 @@
         android:layout_width="45dp"
         android:layout_height="43dp"
         android:layout_gravity="end"
+        android:layout_margin="15dp"
         android:src="@drawable/add"
+        android:padding="30dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="15dp"
-        android:padding="30dp"
+        android:background="@drawable/fixtron"
         />
 
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,21 +119,32 @@ public class fragment_ChiTietDiem extends Fragment {
             @Override
             public void onClick(View v) {
                 String tenDauDiem = edTenDauDiem.getText().toString();
-                double trongSo = Double.parseDouble(edTrongSo.getText().toString());
-                double diem = Double.parseDouble(edDiem.getText().toString());
-
-                BangDiem bangDiem = new BangDiem(tenDauDiem,trongSo,diem);
-                bangDiemDAO = new BangDiemDAO(getContext());
-                long kq = bangDiemDAO.AddDiem(bangDiem,IDmonHoc);
-                if (kq>0){
-                    listB.clear();
-                    listB.addAll(bangDiemDAO.layDanhSachBangDiemTheoMonHoc(IDmonHoc));
-                    bangDiemAdapter.notifyDataSetChanged();
-                    Toast.makeText(getContext(), "thanh cong", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                } else {
-                    Toast.makeText(getContext(), "Khong thanh cong", Toast.LENGTH_SHORT).show();
+                if (tenDauDiem.isEmpty()){
+                    Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+                try {
+                    double trongSo = Double.parseDouble(edTrongSo.getText().toString());
+                    double diem = Double.parseDouble(edDiem.getText().toString());
+
+                    BangDiem bangDiem = new BangDiem(tenDauDiem,trongSo,diem);
+                    bangDiemDAO = new BangDiemDAO(getContext());
+                    long kq = bangDiemDAO.AddDiem(bangDiem,IDmonHoc);
+                    if (kq>0){
+                        listB.clear();
+                        listB.addAll(bangDiemDAO.layDanhSachBangDiemTheoMonHoc(IDmonHoc));
+                        bangDiemAdapter.notifyDataSetChanged();
+                        Toast.makeText(getContext(), "thanh cong", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    } else {
+                        Toast.makeText(getContext(), "Khong thanh cong", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (NumberFormatException e){
+                    Toast.makeText(getContext(), "Vui lòng nhập số hợp lệ", Toast.LENGTH_SHORT).show();
+
+                    return;
+                }
+
 
             }
         });

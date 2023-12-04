@@ -184,6 +184,7 @@ public class fragment_QuanLyVi extends Fragment {
                 if (event.getAction() == MotionEvent.ACTION_UP){
 
                     openDialogMayTinh();
+
                     tvResultNummber.setText(edSoDu.getText().toString());
                     return true;
                 }
@@ -380,10 +381,11 @@ public class fragment_QuanLyVi extends Fragment {
         tvResultNummber.setText(numberBuilder.toString());
         isCalculator = true;
     }
-    private void appendResult(String value){
+    private String appendResult(String value){
         numberBuilder.append(value);
         tvResultNummber.setText(numberBuilder.toString());
         isCalculator = true;
+        return value;
     }
     private void onButtonClick(View view){
         if (view instanceof ImageButton){

@@ -47,7 +47,14 @@
         android:padding="13dp"
         android:layout_margin="13dp"
         />
-
+    <TextView
+        android:id="@+id/tv_erro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginStart="20dp"
+        android:textColor="@color/red"
+        />
     <Button
         android:id="@+id/btn_save"
         android:layout_width="130dp"

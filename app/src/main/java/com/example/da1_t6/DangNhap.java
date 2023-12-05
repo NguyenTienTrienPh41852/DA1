@@ -75,20 +75,7 @@ public class DangNhap extends AppCompatActivity {
                 i.putExtra("MAND", user);
                 startActivity(i);
             } else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                LayoutInflater inflater = getLayoutInflater();
-                View view = inflater.inflate(R.layout.dialog_saitkmk,null);
-                builder.setView(view);
-                Dialog dialog = builder.create();
-                dialog.show();
-
-                Button btn_ok = view.findViewById(R.id.btn_ok);
-                btn_ok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
+                Toast.makeText(this, "Tên đăng nhập hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
             }
         }
     }

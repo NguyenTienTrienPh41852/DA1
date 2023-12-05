@@ -136,6 +136,7 @@ public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdap
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_updatethunhap,null);
         builder.setView(view);
+        builder.setCancelable(true);
         Dialog dialog = builder.create();
         dialog.show();
 

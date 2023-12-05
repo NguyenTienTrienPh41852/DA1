@@ -47,6 +47,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -70,7 +71,9 @@ public class fragment_QuanLyChiTieu extends Fragment {
     private boolean isCalculator = false;
     TextView tvResultNummber;
     EditText ed_sotien;
+    ChiTieu chiTieu;
     AppCompatImageButton btnOK;
+    List<KhoanChi> listKC;
     private String kqTinhToan = null;
     private StringBuilder numberBuilder = new StringBuilder();
     @Override
@@ -85,6 +88,7 @@ public class fragment_QuanLyChiTieu extends Fragment {
         danhMucDAO = new DanhMucDAO(getContext());
         khoanChiDAO = new KhoanChiDAO(getContext());
         viTienDAO = new ViTienDAO(getContext());
+        chiTieu = new ChiTieu();
         loadData();
         fltAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +134,7 @@ public class fragment_QuanLyChiTieu extends Fragment {
         TextView tvNgay = view.findViewById(R.id.tv_add_ct_ngay);
         Spinner spn_loaivi = view.findViewById(R.id.spn_add_ct_loaivi);
         Button btn_save = view.findViewById(R.id.btn_ct_add);
+        listKC = new ArrayList<>();
 
         ed_sotien.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -147,12 +152,30 @@ public class fragment_QuanLyChiTieu extends Fragment {
         adapterSPDanhMuc spDanhMuc = new adapterSPDanhMuc(listDM,getContext());
         spn_danhmuc.setAdapter(spDanhMuc);
         final adapterSPKhoanChi[] spKhoanChi = new adapterSPKhoanChi[1];
+        int index_khoanchi = 0;
+        int finalIndex_khoanchi = index_khoanchi;
+        spn_khoanchi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //set lại mã khoản chi
+                chiTieu.setMaKC(listKC.get(i).getMaKC());
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         spn_danhmuc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                List<KhoanChi> listKC = khoanChiDAO.layDanhSachKhoanChiTheoDM(listDM.get(position).getMaDanhMuc()+"");
+                chiTieu.setMaDM(listDM.get(position).getMaDanhMuc());
+//                Log.e("TAG","maDM: "+listDM.get(position).getMaDanhMuc());
+                listKC.clear();
+                listKC.addAll(khoanChiDAO.layDanhSachKhoanChiTheoDM(chiTieu.getMaDM()+""));
                 spKhoanChi[0] = new adapterSPKhoanChi(listKC,getContext());
                 spn_khoanchi.setAdapter(spKhoanChi[0]);
+                spn_khoanchi.setSelection(finalIndex_khoanchi);
             }
 
             @Override
@@ -160,6 +183,9 @@ public class fragment_QuanLyChiTieu extends Fragment {
 
             }
         });
+
+
+
         Calendar c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         tvNgay.setText(sdf.format(c.getTime()));
@@ -199,13 +225,8 @@ public class fragment_QuanLyChiTieu extends Fragment {
                         ghiChu = String.valueOf(ed_ghichu.getText());
                     }
                     int soTien = Integer.parseInt(String.valueOf(ed_sotien.getText()));
-                    int danhmuc = spn_danhmuc.getSelectedItemPosition()+1;
-                    //               Log.e("TAG","dialog:"+danhmuc);
-                    int chiMuc = spn_khoanchi.getSelectedItemPosition()+1;
-                    //               Log.e("TAG","dialog2:"+chiMuc);
                     String ngay = tvNgay.getText().toString();
                     int loaiVi = spn_loaivi.getSelectedItemPosition()+1;
-                    ChiTieu chiTieu = new ChiTieu();
                     String tenVi = listVT.get(spn_loaivi.getSelectedItemPosition()).getTenVi();
                     ViTien viTien = viTienDAO.layViTienTheoTen(tenVi);
                     if (viTien != null) {
@@ -216,10 +237,8 @@ public class fragment_QuanLyChiTieu extends Fragment {
                         } else {
                             chiTieu.setSoTienChi(soTien);
                             chiTieu.setGhiChu(ghiChu);
-                            chiTieu.setMaKC(chiMuc);
                             chiTieu.setThoiGianChi(chuyenDoiNgayPhuHop(ngay));
                             chiTieu.setMaVi(loaiVi);
-                            chiTieu.setMaDM(danhmuc);
                             double soDuMoi = soDuHT - soTienChi;
                             viTien.setSoDuHienTai(soDuMoi);
                             boolean check = chiTieuDAO.themChiTieu(chiTieu);
@@ -281,7 +300,6 @@ public class fragment_QuanLyChiTieu extends Fragment {
         tvResultNummber = dialog.findViewById(R.id.tv_hienthiso);
 
         btnXoa.setOnClickListener(v1 -> deleteButton());
-
         btnSo0.setOnClickListener(v1 -> onNumberClick("0"));
         btnSo1.setOnClickListener(v1 -> onNumberClick("1"));
         btnSo2.setOnClickListener(v1 -> onNumberClick("2"));

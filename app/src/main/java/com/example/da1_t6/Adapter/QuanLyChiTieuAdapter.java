@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -156,6 +157,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_updatechitieu, null);
         builder.setView(view);
+        builder.setCancelable(true);
         Dialog dialog = builder.create();
         dialog.show();
 
@@ -184,7 +186,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
         int index_danhmuc = 0;
         for (DanhMuc itemDM : listDM) {
             if (itemDM.getMaDanhMuc() == chiTieu.getMaDM()) {
-//                Log.e("TAG", "dialogUpdateChiTieu: " + chiTieu.getMaDM());
+                Log.e("TAG", "dialogUpdateChiTieuDM: " + index_danhmuc);
                 break;
             }
             index_danhmuc++;
@@ -203,16 +205,24 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
 
             }
         });
-        int index_khoanchi = 0;
-        int finalIndex_khoanchi = index_khoanchi;
+        final int[] index_khoanchi = {0};
+        int finalIndex_khoanchi = index_khoanchi[0];
         spn_chondanhmuc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 chiTieu.setMaDM(listDM.get(position).getMaDanhMuc());
-                listKC = khoanChiDAO.layDanhSachKhoanChiTheoDM(listDM.get(position).getMaDanhMuc()+"");
+                listKC.clear();
+                listKC.addAll(khoanChiDAO.layDanhSachKhoanChiTheoDM(chiTieu.getMaDM() + ""));
+                spKhoanChi[0].notifyDataSetChanged();
                 spKhoanChi[0] = new adapterSPKhoanChi(listKC,context);
                 spn_chonkhoanchi.setAdapter(spKhoanChi[0]);
-                spn_chonkhoanchi.setSelection(finalIndex_khoanchi);
+                for (KhoanChi itemKC : listKC) {
+                    if (itemKC.getMaKC() == chiTieu.getMaKC()) {
+                        spn_chonkhoanchi.setSelection(index_khoanchi[0]);
+                        break;
+                    }
+                    index_khoanchi[0]++;
+                }
             }
 
             @Override
@@ -220,19 +230,13 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
 
             }
         });
-
         listKC = khoanChiDAO.layDanhSachKhoanChiTheoDM(chiTieu.getMaDM()+"");
         spKhoanChi[0] = new adapterSPKhoanChi(listKC, context);
         spn_chonkhoanchi.setAdapter(spKhoanChi[0]);
-        for (KhoanChi itemKC : listKC) {
-            if (itemKC.getMaKC() == chiTieu.getMaKC()) {
-                break;
-            }
-            index_khoanchi++;
-        }
-        if (index_khoanchi >= 0 && index_khoanchi < listKC.size()) {
-            spn_chonkhoanchi.setSelection(index_khoanchi);
-        }
+
+
+        int finalIndex_khoanchi1 = index_khoanchi[0];
+
 
         int indexVi = 0;
         for (ViTien vi : listVi){

@@ -108,6 +108,7 @@ public class fragment_QuanLyThuNhap extends Fragment {
         View view = inflater.inflate(R.layout.dialog_themthunhap,null);
         builder.setView(view);
         Dialog dialog = builder.create();
+        builder.setCancelable(true);
         dialog.show();
         TextInputLayout in_errSoTien = view.findViewById(R.id.in_addSoTien);
         ed_sotien = view.findViewById(R.id.add_tn_sotien);

@@ -62,7 +62,6 @@ public class DangNhap extends AppCompatActivity {
             } else {
                 in_User.setError(null);
             }
-
             if (pass.equals("")) {
                 in_Pass.setError("Không được để trống mật khẩu");
             } else {

@@ -11,11 +11,11 @@
     <ImageView
         android:layout_width="220dp"
         android:layout_height="216dp"
-        android:src="@drawable/calendar" />
+        android:src="@drawable/calendar"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="Đăng nhập"
         android:textColor="#29BE38"
         android:textSize="40sp"
         android:textStyle="bold"/>
@@ -33,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="#9E8B8A8A"
+            app:hintEnabled="false"
            >
         <EditText
             android:id="@+id/ed_dn_tentk"
@@ -58,6 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="#9E8B8A8A"
+            app:hintEnabled="false"
           >
         <EditText
             android:id="@+id/ed_dn_pass"
@@ -79,16 +81,15 @@
             android:text="Lưu tài khoản"
             android:textSize="15dp"
             tools:ignore="TextSizeCheck" />
+
         <Button
             android:id="@+id/btn_dangnhap"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:text="LOGIN"
-            android:textSize="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="62dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="#29BE38"
-            />
+            android:text="Đăng Nhập"
+            android:textSize="20dp" />
     </LinearLayout>
 </LinearLayout>

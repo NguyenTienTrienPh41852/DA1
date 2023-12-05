@@ -3,20 +3,27 @@ package com.example.da1_t6.Adapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -33,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Stack;
 
 public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAdapter.viewHolder>{
     Context context;
@@ -40,6 +48,7 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
     HoatDongDAO hoatDongDAO;
     private OnCheckedListener onCheckedListener;
     List<HoatDong> listFilter;
+
 
     public QuanLyHoatDongAdapter(Context context, List<HoatDong> listHD, HoatDongDAO hoatDongDAO) {
         this.context = context;
@@ -84,9 +93,9 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
         HoatDong hoatDong = listHD.get(position);
 
         holder.tvIdHoatDong.setText(hoatDong.getMaHoatDong()+"");
-        holder.tvTenHoatDong.setText("Hoạt động: "+hoatDong.getTenHoatDong());
+        holder.tvTenHoatDong.setText(hoatDong.getTenHoatDong());
         holder.tvMoTa.setText("Mô tả: "+hoatDong.getMoTa());
-        holder.tvThoiGian.setText("Thời gian: Từ "+hoatDong.getThoiGianBatDau()+" đến "+hoatDong.getThoiGianKetThuc());
+        holder.tvThoiGian.setText("Thời gian: "+hoatDong.getThoiGianBatDau()+" đến "+hoatDong.getThoiGianKetThuc());
         holder.tvNgayHoatDong.setText("Ngày: "+hoatDong.getNgay());
 
 
@@ -105,7 +114,7 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                openDialogEdit(hoatDong);
+                openDialogEdit(hoatDong, Gravity.CENTER);
                 return true;
             }
         });
@@ -162,23 +171,31 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
         }
     }
 
-    private void openDialogEdit(HoatDong hoatDong) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View v = inflater.inflate(R.layout.dialog_edit_thoi_gian_bieu,null);
-        builder.setView(v);
+    private void openDialogEdit(HoatDong hoatDong, int gravity) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_them_vi);
 
-        builder.setCancelable(true);
+        Window window = dialog.getWindow();
+        if (window == null){
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        AlertDialog dialog = builder.create();
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.gravity = gravity;
 
-        EditText edTenHoatDong = v.findViewById(R.id.ed_ten_hoat_dong);
-        EditText edMoTa = v.findViewById(R.id.ed_mo_ta);
-        TextView tvFromTime = v.findViewById(R.id.tv_from_time);
-        TextView tvToTime = v.findViewById(R.id.tv_to_time);
-        Button btnSave = v.findViewById(R.id.btn_save);
-        TextView tvNgayHoatDong = v.findViewById(R.id.tv_ngay_dialog_hoat_dong);
-        CheckBox cb_status = v.findViewById(R.id.cb_status);
+        window.setAttributes(params);
+        dialog.setCancelable(true);
+
+        EditText edTenHoatDong = dialog.findViewById(R.id.ed_ten_hoat_dong);
+        EditText edMoTa = dialog.findViewById(R.id.ed_mo_ta);
+        TextView tvFromTime = dialog.findViewById(R.id.tv_from_time);
+        TextView tvToTime = dialog.findViewById(R.id.tv_to_time);
+        Button btnSave = dialog.findViewById(R.id.btn_save);
+        TextView tvNgayHoatDong = dialog.findViewById(R.id.tv_ngay_dialog_hoat_dong);
+        CheckBox cb_status = dialog.findViewById(R.id.cb_status);
 
         edTenHoatDong.setText(hoatDong.getTenHoatDong());
         edMoTa.setText(hoatDong.getMoTa());

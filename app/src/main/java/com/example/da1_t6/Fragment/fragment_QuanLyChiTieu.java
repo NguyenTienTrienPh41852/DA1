@@ -1,8 +1,11 @@
 package com.example.da1_t6.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -15,10 +18,13 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -93,7 +99,7 @@ public class fragment_QuanLyChiTieu extends Fragment {
         fltAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogAddChiTieu();
+                dialogAddChiTieu(Gravity.CENTER);
             }
         });
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -116,24 +122,35 @@ public class fragment_QuanLyChiTieu extends Fragment {
         });
         return view;
     }
-    private void dialogAddChiTieu(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_themchitieu,null);
-        builder.setView(view);
-        builder.setCancelable(true);
-        Dialog dialog = builder.create();
-        dialog.show();
 
-        TextInputLayout in_errSoTien = view.findViewById(R.id.in_addSoTien);
-        ed_sotien = view.findViewById(R.id.add_ct_sotien);
-        EditText ed_ghichu = view.findViewById(R.id.add_ct_ghichu);
-        Spinner spn_danhmuc = view.findViewById(R.id.spn_add_ct_danhmuc);
-        Spinner spn_khoanchi = view.findViewById(R.id.spn_add_ct_khoanchi);
-        LinearLayout li_ngay = view.findViewById(R.id.add_ct_ngay);
-        TextView tvNgay = view.findViewById(R.id.tv_add_ct_ngay);
-        Spinner spn_loaivi = view.findViewById(R.id.spn_add_ct_loaivi);
-        Button btn_save = view.findViewById(R.id.btn_ct_add);
+
+    private void dialogAddChiTieu(int gravity){
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_themchitieu);
+
+        Window window = dialog.getWindow();
+        if (window == null){
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.gravity = gravity;
+
+        window.setAttributes(params);
+        dialog.setCancelable(true);
+        dialog.show();
+        TextInputLayout in_errSoTien = dialog.findViewById(R.id.in_addSoTien);
+        ed_sotien = dialog.findViewById(R.id.add_ct_sotien);
+        EditText ed_ghichu = dialog.findViewById(R.id.add_ct_ghichu);
+        Spinner spn_danhmuc = dialog.findViewById(R.id.spn_add_ct_danhmuc);
+        Spinner spn_khoanchi = dialog.findViewById(R.id.spn_add_ct_khoanchi);
+        LinearLayout li_ngay = dialog.findViewById(R.id.add_ct_ngay);
+        TextView tvNgay = dialog.findViewById(R.id.tv_add_ct_ngay);
+        Spinner spn_loaivi = dialog.findViewById(R.id.spn_add_ct_loaivi);
+        Button btn_save = dialog.findViewById(R.id.btn_ct_add);
         listKC = new ArrayList<>();
 
         ed_sotien.setOnTouchListener(new View.OnTouchListener() {

@@ -197,6 +197,12 @@ public class fragment_QuanLyVi extends Fragment {
                 String tenVi = edTenVi.getText().toString();
                 int soDuBanDau = Integer.parseInt(edSoDu.getText().toString());
                 int soDuHienTai = Integer.parseInt(edSoDu.getText().toString());
+
+                if (tenVi.isEmpty()){
+                    Toast.makeText(getContext(), "Vui lòng nhập đủ dữ liệu", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 viTienDAO = new ViTienDAO(getContext());
                 ViTien viTien = new ViTien(tenVi, soDuBanDau, soDuHienTai);
                 long kq = viTienDAO.themVi(viTien);

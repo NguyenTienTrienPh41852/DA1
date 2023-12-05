@@ -13,19 +13,21 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/tv_dialogred"
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:text="Thêm Chi Tiêu"
                 android:textSize="30dp"
+                android:padding="5dp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -40,7 +42,7 @@
                     <EditText
                         android:id="@+id/add_ct_sotien"
                         android:layout_width="match_parent"
-                        android:layout_height="68dp"
+                        android:layout_height="60dp"
                         android:background="@color/white"
                         android:hint="Số tiền"
                         android:textSize="30sp" />

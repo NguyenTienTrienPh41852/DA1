@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="#40E76E"
+    android:background="#51FF73"
     tools:context=".hello_screen">
 
-  <VideoView
-      android:id="@+id/video"
+  <com.google.android.exoplayer2.ui.PlayerView
+      android:id="@+id/playerView"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      tools:ignore="MissingConstraints" />
-</LinearLayout>
+      android:layout_gravity="center"
+      app:use_controller="false" />
+</RelativeLayout>

@@ -18,16 +18,30 @@
             android:text="id"
             android:textSize="1dp"
             />
-        <TextView
-            android:id="@+id/tv_ten_hoat_dong"
+        <LinearLayout
+            android:id="@+id/tenHoatDong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22dp"
-            android:layout_marginTop="5dp"
-            android:text="Mát sa"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginStart="10dp"/>
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hoạt động: "
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/tv_ten_hoat_dong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22dp"
+                android:text="Mát sa"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_mo_ta_hoat_dong"
@@ -35,7 +49,7 @@
             android:layout_height="wrap_content"
             android:textSize="16dp"
             android:text="Mô tả"
-            android:layout_below="@id/tv_ten_hoat_dong"
+            android:layout_below="@id/tenHoatDong"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"/>
 

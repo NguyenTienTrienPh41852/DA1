@@ -69,13 +69,13 @@ public class DangNhap extends AppCompatActivity {
             }
         } else {
             if (nguoiDungDAO.checkLogin(user, pass)) {
-                Toast.makeText(this, "Login thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                 rememberUser(user, pass, chkSave.isChecked());
                 Intent i = new Intent(DangNhap.this, MainActivity.class);
                 i.putExtra("MAND", user);
                 startActivity(i);
             } else {
-                Toast.makeText(this, "Tên đăng nhập hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Tên đăng nhập hoặc mật khẩu chính xác!", Toast.LENGTH_SHORT).show();
             }
         }
     }

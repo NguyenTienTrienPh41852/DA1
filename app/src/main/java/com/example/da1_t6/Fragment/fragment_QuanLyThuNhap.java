@@ -1,7 +1,6 @@
 package com.example.da1_t6.Fragment;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.Color;
@@ -14,9 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -113,7 +109,7 @@ public class fragment_QuanLyThuNhap extends Fragment {
     private void dialogAddThuNhap(int gravity){
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_themthunhap);
+        dialog.setContentView(R.layout.dialog_them_thu_nhap);
 
         Window window = dialog.getWindow();
         if (window == null){
@@ -238,7 +234,7 @@ public class fragment_QuanLyThuNhap extends Fragment {
     }
     public void openDialogMayTinh(){
         BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
-        View v = getLayoutInflater().inflate(R.layout.dialog_maytinh,null);
+        View v = getLayoutInflater().inflate(R.layout.dialog_may_tinh,null);
         dialog.setContentView(v);
 
         Button btnSo0 = dialog.findViewById(R.id.btn_so0);

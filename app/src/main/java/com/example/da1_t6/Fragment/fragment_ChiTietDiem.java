@@ -4,14 +4,12 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,18 +20,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.da1_t6.Adapter.BangDiemAdapter;
-import com.example.da1_t6.Adapter.MonHocAdapter;
 import com.example.da1_t6.DAO.BangDiemDAO;
 import com.example.da1_t6.Model.BangDiem;
-import com.example.da1_t6.Model.MonHoc;
 import com.example.da1_t6.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class fragment_ChiTietDiem extends Fragment {
@@ -95,7 +87,7 @@ public class fragment_ChiTietDiem extends Fragment {
     private void openDialogAddDiem(int gravity){
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_add_diem_mon_hoc);
+        dialog.setContentView(R.layout.dialog_them_diem_mon_hoc);
 
         Window window = dialog.getWindow();
         if (window == null){

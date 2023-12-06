@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -41,14 +40,12 @@ import com.example.da1_t6.DAO.ViTienDAO;
 import com.example.da1_t6.Model.ChiTieu;
 import com.example.da1_t6.Model.DanhMuc;
 import com.example.da1_t6.Model.KhoanChi;
-import com.example.da1_t6.Model.ThuNhap;
 import com.example.da1_t6.Model.ViTien;
 import com.example.da1_t6.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -88,7 +85,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_chitieu, parent, false);
+        View view = inflater.inflate(R.layout.item_chi_tieu, parent, false);
 
         return new ViewHolder(view);
     }
@@ -170,7 +167,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
     private void dialogUpdateChiTieu(ChiTieu chiTieu,int gravity) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_updatechitieu);
+        dialog.setContentView(R.layout.dialog_cap_nhat_chi_tieu);
 
         Window window = dialog.getWindow();
         if (window == null){
@@ -348,7 +345,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
     public void openDialogMayTinh(){
         BottomSheetDialog dialog = new BottomSheetDialog(context);
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View v = inflater.inflate(R.layout.dialog_maytinh,null);
+        View v = inflater.inflate(R.layout.dialog_may_tinh,null);
         dialog.setContentView(v);
 
         Button btnSo0 = dialog.findViewById(R.id.btn_so0);

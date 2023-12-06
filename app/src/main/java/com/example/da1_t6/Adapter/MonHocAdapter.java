@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,9 +24,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.da1_t6.DAO.BangDiemDAO;
-import com.example.da1_t6.DAO.HoatDongDAO;
 import com.example.da1_t6.DAO.MonHocDAO;
-import com.example.da1_t6.Model.HoatDong;
 import com.example.da1_t6.Model.MonHoc;
 import com.example.da1_t6.R;
 
@@ -165,7 +162,7 @@ public class MonHocAdapter extends RecyclerView.Adapter<MonHocAdapter.viewHolder
     private void openDialogEdit(MonHoc monHoc,int gravity) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_edit_mon_hoc);
+        dialog.setContentView(R.layout.dialog_cap_nhat_mon_hoc);
 
         Window window = dialog.getWindow();
         if (window == null){

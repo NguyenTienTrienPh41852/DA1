@@ -3,17 +3,14 @@ package com.example.da1_t6.Adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.da1_t6.DAO.IconDAO;
-import com.example.da1_t6.Model.Icon;
 import com.example.da1_t6.Model.KhoanChi;
 import com.example.da1_t6.R;
 
@@ -36,7 +33,7 @@ public class KhoanChiAdapter extends RecyclerView.Adapter<KhoanChiAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(((Activity)context).
-                getLayoutInflater().inflate(R.layout.item_lvkhoanchi, parent, false));
+                getLayoutInflater().inflate(R.layout.item_khoan_chi, parent, false));
     }
 
     @Override

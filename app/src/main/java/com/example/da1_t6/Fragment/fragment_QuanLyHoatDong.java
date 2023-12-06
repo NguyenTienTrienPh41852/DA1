@@ -25,7 +25,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -127,7 +126,7 @@ public class fragment_QuanLyHoatDong extends Fragment {
     private void openDialogAdd(int gravity) {
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_add_thoi_gian_bieu);
+        dialog.setContentView(R.layout.dialog_them_hoat_dong);
 
         Window window = dialog.getWindow();
         if (window == null){

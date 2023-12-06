@@ -1,6 +1,5 @@
 package com.example.da1_t6.Adapter;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -16,12 +15,10 @@ import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.da1_t6.DAO.BangDiemDAO;
-import com.example.da1_t6.DAO.MonHocDAO;
 import com.example.da1_t6.Model.BangDiem;
 import com.example.da1_t6.R;
 
@@ -90,7 +87,7 @@ public class BangDiemAdapter extends BaseAdapter {
     private void openDialogEdit(BangDiem bangDiem,int gravity){
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_edit_diem_mon_hoc);
+        dialog.setContentView(R.layout.dialog_cap_nhat_diem_mon_hoc);
 
         Window window = dialog.getWindow();
         if (window == null){

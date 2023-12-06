@@ -6,11 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.da1_t6.DAO.IconDAO;
-import com.example.da1_t6.Model.DanhMuc;
 import com.example.da1_t6.Model.KhoanChi;
 import com.example.da1_t6.R;
 
@@ -44,7 +42,7 @@ public class adapterSPKhoanChi extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = ((Activity)context).getLayoutInflater().inflate(R.layout.item_lvkhoanchi,parent,false);
+        convertView = ((Activity)context).getLayoutInflater().inflate(R.layout.item_khoan_chi,parent,false);
         TextView tvDanhMuc = convertView.findViewById(R.id.tv_lvkhoanchi);
         tvDanhMuc.setText(listDM.get(position).getTenKC());
         CircleImageView icon = convertView.findViewById(R.id.icon);

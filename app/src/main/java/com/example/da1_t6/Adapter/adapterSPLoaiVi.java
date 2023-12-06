@@ -14,17 +14,17 @@ import com.example.da1_t6.R;
 import java.util.List;
 
 public class adapterSPLoaiVi extends BaseAdapter {
-    List<ViTien> listDM;
+    List<ViTien> listVi;
     Context context;
 
     public adapterSPLoaiVi(List<ViTien> listDM, Context context) {
-        this.listDM = listDM;
+        this.listVi = listDM;
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return listDM.size();
+        return listVi.size();
     }
 
     @Override
@@ -39,11 +39,9 @@ public class adapterSPLoaiVi extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = ((Activity)context).getLayoutInflater().inflate(R.layout.item_lvkhoanchi,parent,false);
-        TextView tvDanhMuc = convertView.findViewById(R.id.tv_lvkhoanchi);
-
-        tvDanhMuc.setText(listDM.get(position).getTenVi());
-
+        convertView = ((Activity)context).getLayoutInflater().inflate(R.layout.item_chon_loai_vi,parent,false);
+        TextView tvDanhMuc = convertView.findViewById(R.id.tv_chonLoaiVi);
+        tvDanhMuc.setText(listVi.get(position).getTenVi());
         return convertView;
     }
 }

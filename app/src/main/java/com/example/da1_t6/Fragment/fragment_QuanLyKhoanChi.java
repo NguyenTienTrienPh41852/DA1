@@ -178,8 +178,6 @@ public class fragment_QuanLyKhoanChi extends Fragment {
                   }
               });
 
-
-
                 luuKhoanChi.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

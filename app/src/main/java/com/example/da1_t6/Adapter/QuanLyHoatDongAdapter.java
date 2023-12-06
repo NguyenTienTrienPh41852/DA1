@@ -95,7 +95,7 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
         holder.tvIdHoatDong.setText(hoatDong.getMaHoatDong()+"");
         holder.tvTenHoatDong.setText(hoatDong.getTenHoatDong());
         holder.tvMoTa.setText("Mô tả: "+hoatDong.getMoTa());
-        holder.tvThoiGian.setText("Thời gian: "+hoatDong.getThoiGianBatDau()+" đến "+hoatDong.getThoiGianKetThuc());
+        holder.tvThoiGian.setText("Thời gian: Từ "+hoatDong.getThoiGianBatDau()+" đến "+hoatDong.getThoiGianKetThuc());
         holder.tvNgayHoatDong.setText("Ngày: "+hoatDong.getNgay());
 
 

@@ -7,11 +7,11 @@
 
     <!-- Nội dung của dialog -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bgr_dialog"
+        android:layout_gravity="center_horizontal"
         android:orientation="vertical">
-
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,30 +19,36 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/tv_dialog"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:text="Update Thu Nhập"
+                android:text="Cập Nhật Thu Nhập"
                 android:textSize="30dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:padding="10dp"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:textColorHint="@color/gray"
+                    android:id="@+id/in_addSoTien">
                 <EditText
                     android:id="@+id/ud_tn_sotien"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="68dp"
                     android:textSize="30sp"
-                    android:padding="10dp"
                     android:background="@color/white"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:hint="Số tiền"
                     />
+                </com.google.android.material.textfield.TextInputLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -52,24 +58,15 @@
                     android:textSize="23dp"
                     android:layout_marginTop="11dp"
                     android:textStyle="bold"/>
-                <LinearLayout
+                <EditText
+                    android:id="@+id/ud_tn_tengiaodich"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
+                    android:textSize="25sp"
                     android:background="@color/white"
-                    android:layout_margin="10dp"
-                    android:layout_marginHorizontal="10dp"
-                    >
-                    <EditText
-                        android:id="@+id/ud_tn_tengiaodich"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:textSize="25sp"
-                        android:background="@color/white"
-                        android:layout_marginRight="10dp"
-                        android:hint="Tên giao dịch"
-                        android:padding="10dp"
-                        />
-                </LinearLayout>
+                   android:layout_margin="10dp"
+                    android:hint="Tên giao dịch"
+                    />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/ud_tn_ngay"
@@ -79,7 +76,6 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/bgr_dialogred"
                 android:orientation="horizontal">
-
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -94,7 +90,7 @@
                     android:layout_gravity="center"
                     android:textStyle="bold"/>
                 <TextView
-                    android:id="@+id/tv_add_ct_ngay"
+                    android:id="@+id/ud_hienThi_ngay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
@@ -122,8 +118,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:layout_margin="10dp"
-                    android:layout_marginHorizontal="10dp"
-                    >
+                    android:layout_marginHorizontal="10dp">
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -137,23 +132,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="104dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
                 android:background="@color/white"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:hint="Ghi chú"
                 android:textSize="20sp"/>
-            <Button
-                android:layout_width="170dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginRight="10dp"
-                android:backgroundTint="@color/green"
-                android:textSize="17dp"
-                android:id="@+id/btn_tn_update"/>
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/btnCancelUdTn"
+                    android:layout_width="140dp"
+                    android:layout_height="45dp"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="#29BE38"
+                    android:text="Hủy"
+                    android:textColor="@color/white" />
+                <Button
+                    android:id="@+id/btn_tn_update"
+                    android:layout_width="140dp"
+                    android:layout_height="45dp"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="#29BE38"
+                    android:text="Lưu"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
         </LinearLayout>
         <!-- Thêm các phần tử khác nếu cần -->
     </LinearLayout>

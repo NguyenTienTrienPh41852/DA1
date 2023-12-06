@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -133,7 +132,7 @@ public class QuanLyViAdapter extends RecyclerView.Adapter<QuanLyViAdapter.viewHo
 
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_edit_vi);
+        dialog.setContentView(R.layout.dialog_cap_nhat_vi);
 
         Window window = dialog.getWindow();
         if (window == null){
@@ -151,7 +150,6 @@ public class QuanLyViAdapter extends RecyclerView.Adapter<QuanLyViAdapter.viewHo
         EditText edTenVi = dialog.findViewById(R.id.ed_ten_vi);
         edSoDu = dialog.findViewById(R.id.ed_so_du);
         Button btnSave = dialog.findViewById(R.id.btn_save);
-        Spinner spChonIcon = dialog.findViewById(R.id.sp_chon_icon);
 
         edTenVi.setText(viTien.getTenVi()+"");
         edSoDu.setText(viTien.getSoDuHienTai()+"");
@@ -244,7 +242,7 @@ public class QuanLyViAdapter extends RecyclerView.Adapter<QuanLyViAdapter.viewHo
     public void openDialogMayTinh(){
         BottomSheetDialog dialog = new BottomSheetDialog(context);
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View v = inflater.inflate(R.layout.dialog_maytinh,null);
+        View v = inflater.inflate(R.layout.dialog_may_tinh,null);
         dialog.setContentView(v);
 
         Button btnSo0 = dialog.findViewById(R.id.btn_so0);

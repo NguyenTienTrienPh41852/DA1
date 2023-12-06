@@ -31,7 +31,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.da1_t6.DAO.KhoanChiDAO;
 import com.example.da1_t6.DAO.ThongKeDAO;
 import com.example.da1_t6.DAO.ThuNhapDAO;
 import com.example.da1_t6.DAO.ViTienDAO;
@@ -40,7 +39,6 @@ import com.example.da1_t6.Model.ViTien;
 import com.example.da1_t6.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -72,10 +70,8 @@ public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdap
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_thunhap,parent,false);
-
+        View view = inflater.inflate(R.layout.item_thu_nhap,parent,false);
         return new ViewHolder(view);
-
     }
 
     @Override
@@ -152,7 +148,7 @@ public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdap
     private void dialogUpdateThuNhap(ThuNhap thuNhap,int gravity){
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_updatethunhap);
+        dialog.setContentView(R.layout.dialog_cap_nhat_thu_nhap);
 
         Window window = dialog.getWindow();
         if (window == null){
@@ -172,10 +168,17 @@ public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdap
         EditText ed_ghichu = dialog.findViewById(R.id.ud_tn_ghichu);
         EditText ed_tenGD = dialog.findViewById(R.id.ud_tn_tengiaodich);
         LinearLayout li_ngay = dialog.findViewById(R.id.ud_tn_ngay);
-        TextView tv_ngay = dialog.findViewById(R.id.tv_add_ct_ngay);
+        TextView tv_ngay = dialog.findViewById(R.id.ud_hienThi_ngay);
         Spinner spn_loaivi = dialog.findViewById(R.id.spn_ud_tn_loaivi);
         Button btn_save = dialog.findViewById(R.id.btn_tn_update);
+        Button btn_huy = dialog.findViewById(R.id.btnCancelUdTn);
 
+        btn_huy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
         ed_sotien.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -194,8 +197,6 @@ public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdap
         ed_ghichu.setText(thuNhap.getGhiChu());
         ed_tenGD.setText(thuNhap.getTenKhoanThu());
         tv_ngay.setText(thuNhap.getThoiGianThu());
-
-
 
         li_ngay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,7 +272,7 @@ public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdap
     public void openDialogMayTinh(){
         BottomSheetDialog dialog = new BottomSheetDialog(context);
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View v = inflater.inflate(R.layout.dialog_maytinh,null);
+        View v = inflater.inflate(R.layout.dialog_may_tinh,null);
         dialog.setContentView(v);
 
         Button btnSo0 = dialog.findViewById(R.id.btn_so0);

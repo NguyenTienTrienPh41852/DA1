@@ -38,11 +38,9 @@ public class adapterSPDanhMuc extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = ((Activity)context).getLayoutInflater().inflate(R.layout.item_lvkhoanchi,parent,false);
-        TextView tvDanhMuc = convertView.findViewById(R.id.tv_lvkhoanchi);
-
+        convertView = ((Activity)context).getLayoutInflater().inflate(R.layout.item_chon_loai_vi,parent,false);
+        TextView tvDanhMuc = convertView.findViewById(R.id.tv_chonLoaiVi);
         tvDanhMuc.setText(listDM.get(position).getTenDanhmuc());
-
         return convertView;
     }
 }

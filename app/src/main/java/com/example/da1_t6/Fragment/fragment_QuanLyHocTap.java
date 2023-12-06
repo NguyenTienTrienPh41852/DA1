@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,7 +67,7 @@ public class fragment_QuanLyHocTap extends Fragment implements MonHocAdapter.OnI
     private void openDialogAddMonHoc(int gravity){
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_add_mon_hoc);
+        dialog.setContentView(R.layout.dialog_them_mon_hoc);
 
         Window window = dialog.getWindow();
         if (window == null){

@@ -10,55 +10,69 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Update khoản chi"
-        android:background="@drawable/tv_dialogred"
+        android:text="Chỉnh sửa ví"
+        android:background="@drawable/tv_dialog"
         android:gravity="center"
         android:textSize="23dp"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:padding="16dp"
-        android:layout_marginBottom="10dp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Chọn danh mục: "
-        android:layout_marginLeft="20dp"
-        android:textSize="25dp"
         />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_marginTop="18dp"
         android:layout_margin="20dp"
-        android:orientation="vertical"
+        android:padding="10dp"
         >
-        <Spinner
-            android:id="@+id/ud_kc_sp_chon_danhmuc"
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/img"
+            />
+        <EditText
+            android:id="@+id/ed_ten_vi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:hint="Tên ví"
+
             />
     </LinearLayout>
-    <EditText
-        android:id="@+id/ed_ud_tenkhoanchi"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/edit_text"
-        android:hint="Tên khoản chi"
-        android:padding="13dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
+        android:orientation="horizontal"
+        android:layout_marginTop="18dp"
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        >
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/img_1"
+            />
+        <EditText
+            android:id="@+id/ed_so_du"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Số dư ban đầu"
+            />
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/btn_save"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#EA867E"
+        android:backgroundTint="#29BE38"
         android:layout_gravity="center_horizontal"
         android:text="Save"
-        android:layout_marginTop="20dp"
         android:textStyle="bold"
         android:textSize="17dp"
         android:paddingTop="10dp"

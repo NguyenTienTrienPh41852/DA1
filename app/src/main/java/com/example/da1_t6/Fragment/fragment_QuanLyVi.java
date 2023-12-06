@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +42,6 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class fragment_QuanLyVi extends Fragment {
     LinearLayout linear_item_vi;
@@ -112,7 +110,11 @@ public class fragment_QuanLyVi extends Fragment {
 
         ChiTieuDAO chiTieuDAO = new ChiTieuDAO(getContext());
         double tongChiTieu = chiTieuDAO.getTongChiTieu();
-        tvTongChiTieuThang.setText(formatTienViet(tongChiTieu));
+        if (tongChiTieu==0){
+            tvTongChiTieuThang.setText(formatTienViet(tongChiTieu));
+        } else {
+            tvTongChiTieuThang.setText("-" +formatTienViet(tongChiTieu));
+        }
 
         ThuNhapDAO thuNhapDAO = new ThuNhapDAO(getContext());
         double tongThuNhap = thuNhapDAO.getTongThuNhap();
@@ -176,7 +178,6 @@ public class fragment_QuanLyVi extends Fragment {
         EditText edTenVi = dialog.findViewById(R.id.ed_ten_vi);
         edSoDu = dialog.findViewById(R.id.ed_so_du);
         Button btnSave = dialog.findViewById(R.id.btn_save);
-        Spinner spChonIcon = dialog.findViewById(R.id.sp_chon_icon);
 
         edSoDu.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -278,7 +279,7 @@ public class fragment_QuanLyVi extends Fragment {
     }
     public void openDialogMayTinh(){
         BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
-        View v = getLayoutInflater().inflate(R.layout.dialog_maytinh,null);
+        View v = getLayoutInflater().inflate(R.layout.dialog_may_tinh,null);
         dialog.setContentView(v);
 
         Button btnSo0 = dialog.findViewById(R.id.btn_so0);

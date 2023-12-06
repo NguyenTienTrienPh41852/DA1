@@ -105,7 +105,7 @@ public class fragment_QuanLyThuNhap extends Fragment {
         return view;
     }
 
-
+    @SuppressLint("ClickableViewAccessibility")
     private void dialogAddThuNhap(int gravity){
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -134,12 +134,10 @@ public class fragment_QuanLyThuNhap extends Fragment {
         Spinner spn_loaivi = dialog.findViewById(R.id.spn_add_tn_loaivi);
         Button btn_save = dialog.findViewById(R.id.btn_tn_add);
         ed_sotien.setOnTouchListener(new View.OnTouchListener() {
-
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP){
                     openDialogMayTinh();
-                    tvResultNummber.setText(ed_sotien.getText().toString());
                     return true;
                 }
                 return false;
@@ -330,7 +328,7 @@ public class fragment_QuanLyThuNhap extends Fragment {
                     if (ed_sotien != null){
                         ed_sotien.setText(kqTinhToan);
                         dialog.dismiss();
-
+                        clearResult();
                     }
                 }
             }

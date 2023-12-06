@@ -205,7 +205,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
 
                     openDialogMayTinh();
 
-                    tvResultNummber.setText(ed_sotien.getText().toString());
+
                     return true;
                 }
                 return false;
@@ -441,6 +441,7 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
                     if (ed_sotien != null){
                         ed_sotien.setText(kqTinhToan);
                         dialog.dismiss();
+                        clearResult();
                     }
                 }
             }

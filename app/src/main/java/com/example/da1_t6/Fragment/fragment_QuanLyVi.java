@@ -186,7 +186,7 @@ public class fragment_QuanLyVi extends Fragment {
 
                     openDialogMayTinh();
 
-                    tvResultNummber.setText(edSoDu.getText().toString());
+
                     return true;
                 }
                 return false;
@@ -375,6 +375,7 @@ public class fragment_QuanLyVi extends Fragment {
                     if (edSoDu != null){
                         edSoDu.setText(kqTinhToan);
                         dialog.dismiss();
+                        clearResult();
                     }
                 }
             }

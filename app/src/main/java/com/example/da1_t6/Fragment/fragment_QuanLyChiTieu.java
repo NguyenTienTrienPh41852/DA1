@@ -152,7 +152,7 @@ public class fragment_QuanLyChiTieu extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP){
                     openDialogMayTinh();
-                    tvResultNummber.setText(ed_sotien.getText().toString());
+
                     return true;
                 }
                 return false;
@@ -376,6 +376,7 @@ public class fragment_QuanLyChiTieu extends Fragment {
                     if (ed_sotien != null){
                         ed_sotien.setText(kqTinhToan);
                         dialog.dismiss();
+                        clearResult();
                     }
                 }
             }

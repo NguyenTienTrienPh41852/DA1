@@ -186,7 +186,7 @@ public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdap
 
                     openDialogMayTinh();
 
-                    tvResultNummber.setText(ed_sotien.getText().toString());
+
                     return true;
                 }
                 return false;
@@ -368,6 +368,7 @@ public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdap
                     if (ed_sotien != null){
                         ed_sotien.setText(kqTinhToan);
                         dialog.dismiss();
+                        clearResult();
                     }
                 }
             }

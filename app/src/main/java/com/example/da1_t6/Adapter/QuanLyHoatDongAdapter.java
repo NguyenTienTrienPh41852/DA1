@@ -174,7 +174,7 @@ public class QuanLyHoatDongAdapter extends RecyclerView.Adapter<QuanLyHoatDongAd
     private void openDialogEdit(HoatDong hoatDong, int gravity) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_them_vi);
+        dialog.setContentView(R.layout.dialog_cap_nhat_hoat_dong);
 
         Window window = dialog.getWindow();
         if (window == null){

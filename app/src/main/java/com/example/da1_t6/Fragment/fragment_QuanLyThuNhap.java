@@ -105,7 +105,7 @@ public class fragment_QuanLyThuNhap extends Fragment {
         return view;
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+
     private void dialogAddThuNhap(int gravity){
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -330,6 +330,7 @@ public class fragment_QuanLyThuNhap extends Fragment {
                     if (ed_sotien != null){
                         ed_sotien.setText(kqTinhToan);
                         dialog.dismiss();
+
                     }
                 }
             }
@@ -457,6 +458,7 @@ public class fragment_QuanLyThuNhap extends Fragment {
             }
 
             kqTinhToan = tvResultNummber.getText().toString();
+
         } catch (NumberFormatException e) {
             clearResult();
         } catch (ArithmeticException e) {

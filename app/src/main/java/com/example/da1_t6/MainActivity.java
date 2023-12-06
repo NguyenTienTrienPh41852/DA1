@@ -23,9 +23,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -108,16 +111,37 @@ public class MainActivity extends AppCompatActivity {
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                LayoutInflater inflater = getLayoutInflater();
-                View view1 = inflater.inflate(R.layout.dialog_sua_thong_tin,null);
-                builder.setView(view1);
-                Dialog dialog = builder.create();
+
+                final Dialog dialog = new Dialog(context);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_sua_thong_tin);
+
+                Window window = dialog.getWindow();
+                if (window == null){
+                    return;
+                }
+                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                WindowManager.LayoutParams params = window.getAttributes();
+                params.gravity = Gravity.CENTER;
+
+                window.setAttributes(params);
+                dialog.setCancelable(true);
+
+//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                LayoutInflater inflater = getLayoutInflater();
+//                View view1 = inflater.inflate(R.layout.dialog_sua_thong_tin,null);
+//                builder.setView(view1);
+//                Dialog dialog = builder.create();
+
                 dialog.show();
-                EditText txtTenHienThi = view1.findViewById(R.id.txtTenHienThi);
-                anhDaiDien = view1.findViewById(R.id.avatarImageViewCNTT);
-                Button btnHuy = view1.findViewById(R.id.btnHuyCNTT);
-                Button btnLuu = view1.findViewById(R.id.btnSaveCNTT);
+
+                EditText txtTenHienThi = dialog.findViewById(R.id.txtTenHienThi);
+                anhDaiDien = dialog.findViewById(R.id.avatarImageViewCNTT);
+                Button btnHuy = dialog.findViewById(R.id.btnHuyCNTT);
+                Button btnLuu = dialog.findViewById(R.id.btnSaveCNTT);
+
                 NguoiDung nguoiDung = list.get(0);
                 txtTenHienThi.setText(nguoiDung.getHoTen());
                 anhDaiDien.setImageURI(list.get(0).hienthi(MainActivity.this));

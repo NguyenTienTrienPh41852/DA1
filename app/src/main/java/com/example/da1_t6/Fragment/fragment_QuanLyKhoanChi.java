@@ -2,6 +2,8 @@ package com.example.da1_t6.Fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,9 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -120,16 +125,28 @@ public class fragment_QuanLyKhoanChi extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                LayoutInflater inflater = getLayoutInflater();
-                View v = inflater.inflate(R.layout.dialog_them_khoan_chi, null);
-                builder.setView(v);
-                builder.setCancelable(true);
-                AlertDialog dialog = builder.create();
-                EditText tenKhoanChi = v.findViewById(R.id.ed_ten_khoan_chi);
-                Spinner spDanhMuc = v.findViewById(R.id.sp_chon_danh_muc);
-                 imgIcon = v.findViewById(R.id.img_icon);
-                Button luuKhoanChi = v.findViewById(R.id.btn_luu_khoan_chi);
+                final Dialog dialog = new Dialog(getContext());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_them_khoan_chi);
+
+                Window window = dialog.getWindow();
+                if (window == null){
+                    return;
+                }
+                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                WindowManager.LayoutParams params = window.getAttributes();
+                params.gravity = Gravity.CENTER;
+
+                window.setAttributes(params);
+                dialog.setCancelable(true);
+
+
+                EditText tenKhoanChi = dialog.findViewById(R.id.ed_ten_khoan_chi);
+                Spinner spDanhMuc = dialog.findViewById(R.id.sp_chon_danh_muc);
+                 imgIcon = dialog.findViewById(R.id.img_icon);
+                Button luuKhoanChi = dialog.findViewById(R.id.btn_luu_khoan_chi);
                 khoanChi = new KhoanChi();
                 danhMucDAO = new DanhMucDAO(requireContext());
                 danhMucList = danhMucDAO.layDanhSachDanhMuc();

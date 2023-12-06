@@ -5,10 +5,15 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -87,7 +92,7 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
                         switch (i) {
                             case 0:
                                 // Xử lý sự kiện chỉnh sửa khoản chi tại vị trí position
-                                showEditKhoanChiDialog(khoanChi);
+                                showEditKhoanChiDialog(khoanChi, Gravity.CENTER);
                                 break;
                             case 1:
                                 // Xử lý sự kiện xóa khoản chi tại vị trí position
@@ -130,20 +135,31 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
         holder.listViewKhoanChi.setLayoutManager(linearLayoutManager);
     }
     // Hiển thị dialog chỉnh sửa khoản chi
-    private void showEditKhoanChiDialog(KhoanChi khoanChi) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View v = inflater.inflate(R.layout.dialog_them_khoan_chi,null);
-        builder.setView(v);
-        builder.setCancelable(true);
+    private void showEditKhoanChiDialog(KhoanChi khoanChi,int gravity) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_them_khoan_chi);
 
-        AlertDialog dialog = builder.create();
-        TextView tvTittle = v.findViewById(R.id.txtTittle);
-        EditText tenKhoanChi = v.findViewById(R.id.ed_ten_khoan_chi);
-        Spinner spDanhMuc = v.findViewById(R.id.sp_chon_danh_muc);
-        Button luuKhoanChi = v.findViewById(R.id.btn_luu_khoan_chi);
+        Window window = dialog.getWindow();
+        if (window == null){
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams params = window.getAttributes();
+        params.gravity = gravity;
+
+        window.setAttributes(params);
+        dialog.setCancelable(true);
+
+
+        TextView tvTittle = dialog.findViewById(R.id.txtTittle);
+        EditText tenKhoanChi = dialog.findViewById(R.id.ed_ten_khoan_chi);
+        Spinner spDanhMuc = dialog.findViewById(R.id.sp_chon_danh_muc);
+        Button luuKhoanChi = dialog.findViewById(R.id.btn_luu_khoan_chi);
         iconDAO = new IconDAO(context);
-        imgIcon = v.findViewById(R.id.img_icon);
+        imgIcon = dialog.findViewById(R.id.img_icon);
         imgIcon.setImageResource(iconDAO.icon(khoanChi.getMaIcon()).getIcon());
         spDanhMuc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

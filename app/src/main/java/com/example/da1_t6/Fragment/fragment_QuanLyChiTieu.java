@@ -151,6 +151,7 @@ public class fragment_QuanLyChiTieu extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP){
+                    numberBuilder.delete(0,numberBuilder.length());
                     openDialogMayTinh();
 
                     return true;
@@ -376,7 +377,7 @@ public class fragment_QuanLyChiTieu extends Fragment {
                     if (ed_sotien != null){
                         ed_sotien.setText(kqTinhToan);
                         dialog.dismiss();
-                        clearResult();
+
                     }
                 }
             }

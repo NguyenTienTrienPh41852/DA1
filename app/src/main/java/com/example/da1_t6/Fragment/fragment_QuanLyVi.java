@@ -183,7 +183,7 @@ public class fragment_QuanLyVi extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP){
-
+                    numberBuilder.delete(0,numberBuilder.length());
                     openDialogMayTinh();
 
 

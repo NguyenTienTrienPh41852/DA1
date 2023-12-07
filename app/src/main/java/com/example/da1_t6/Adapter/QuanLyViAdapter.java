@@ -161,7 +161,7 @@ public class QuanLyViAdapter extends RecyclerView.Adapter<QuanLyViAdapter.viewHo
             public boolean onTouch(View v, MotionEvent event) {
 
                 if (event.getAction() == MotionEvent.ACTION_UP){
-
+                    numberBuilder.delete(0,numberBuilder.length());
                     openDialogMayTinh();
 
 
@@ -338,7 +338,7 @@ public class QuanLyViAdapter extends RecyclerView.Adapter<QuanLyViAdapter.viewHo
                     if (edSoDu != null){
                         edSoDu.setText(kqTinhToan);
                         dialog.dismiss();
-                        clearResult();
+
                     }
                 }
             }

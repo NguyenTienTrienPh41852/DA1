@@ -140,7 +140,7 @@
             <Button
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:text="Save"
+                android:text="Lưu thu nhập"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"

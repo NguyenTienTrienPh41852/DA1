@@ -249,8 +249,10 @@ public class QuanLyThuNhapAdapter extends RecyclerView.Adapter<QuanLyThuNhapAdap
                 thuNhap.setTenKhoanThu(ed_tenGD.getText().toString());
                 thuNhap.setMaVi(spn_loaivi.getSelectedItemPosition()+1);
                 thuNhap.setThoiGianThu(tv_ngay.getText().toString());
+                double soTienMoi = Double.parseDouble(ed_sotien.getText().toString());
+
                 if (thuNhapDAO.capNhatThuNhap(thuNhap)){
-                    Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Cập nhật thu nhập thành công", Toast.LENGTH_SHORT).show();
                     list.clear();
                     list.addAll(thuNhapDAO.layDanhSachThuNhap());
                     notifyDataSetChanged();

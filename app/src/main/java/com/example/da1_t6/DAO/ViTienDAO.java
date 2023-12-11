@@ -76,6 +76,17 @@ public class ViTienDAO {
         return result > 0;
     }
 
+    public boolean traLaiTienVi(ViTien viTien, double soTienTra) {
+        double soDuHienTai = viTien.getSoDuHienTai();
+        double soDuMoi = soDuHienTai + soTienTra; // Cộng số tiền trả lại vào số dư hiện tại của ví
+
+        // Thực hiện cập nhật số dư mới vào cơ sở dữ liệu
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("SODUHT", soDuMoi);
+        int result = db.update("VITIEN", contentValues, "TENVI = ?", new String[]{viTien.getTenVi()});
+        return result > 0;
+    }
+
     public double getTongSoDu(){
         String sql = "SELECT SUM(SODUHT) FROM VITIEN";
         Cursor c = db.rawQuery(sql,null);

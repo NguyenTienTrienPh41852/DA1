@@ -70,6 +70,8 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
     TextView tvResultNummber;
     private String kqTinhToan = null;
     AppCompatImageButton btnOK;
+    double soTienChiHienTai;
+    String ghiChu, tenViHienTai;
 
     public QuanLyChiTieuAdapter(Context context, List<ChiTieu> list, ChiTieuDAO chiTieuDAO) {
         this.context = context;
@@ -191,9 +193,12 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
         TextView tvNgay = dialog.findViewById(R.id.tv_add_ct_ngay);
         Spinner spn_loaivi = dialog.findViewById(R.id.spn_ud_ct_loaivi);
         Button btn_save = dialog.findViewById(R.id.btn_ct_update);
+        Button btn_cancel = dialog.findViewById(R.id.btn_ct_cancel);
 
         ed_sotien.setText(String.valueOf(chiTieu.getSoTienChi()));
         ed_ghichu.setText(chiTieu.getGhiChu());
+        soTienChiHienTai = chiTieu.getSoTienChi();
+        tenViHienTai = chiTieu.getTenVi();
         List<DanhMuc> listDM = danhMucDAO.layDanhSachDanhMuc();
         List<ViTien> listVi = viTienDAO.layDanhSachViTien();
 
@@ -223,7 +228,6 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
         int index_danhmuc = 0;
         for (DanhMuc itemDM : listDM) {
             if (itemDM.getMaDanhMuc() == chiTieu.getMaDM()) {
-                Log.e("TAG", "dialogUpdateChiTieuDM: " + index_danhmuc);
                 break;
             }
             index_danhmuc++;
@@ -319,22 +323,58 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // set tiền chi và ghi chú và cập nhật lên databse
-                chiTieu.setSoTienChi(Double.parseDouble(ed_sotien.getText().toString()));
-                chiTieu.setGhiChu(ed_ghichu.getText().toString());
-                if (chiTieuDAO.capNhatChiTieu(chiTieu)){
-                    Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
-                    list.clear();
-                    list.addAll(chiTieuDAO.layDanhSachChiTieu());
-                    notifyDataSetChanged();
-                    dialog.dismiss();
-                }else {
-                    Toast.makeText(context, "Lỗi", Toast.LENGTH_SHORT).show();
+                if (ed_sotien.getText().toString().isEmpty()){
+                    Toast.makeText(context, "Vui lòng nhập số tiền chi!", Toast.LENGTH_SHORT).show();
+                } else if (tvNgay.getText().toString().isEmpty()){
+                    Toast.makeText(context, "Vui lòng chọn ngày chi tiêu!", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (ed_ghichu.getText().toString().isEmpty()){
+                        ghiChu = "Không";
+                    } else {
+                        ghiChu = String.valueOf(ed_ghichu.getText());
+                    }
+                    double soTien = Double.parseDouble(String.valueOf(ed_sotien.getText()));
+                    String ngay = tvNgay.getText().toString();
+                    int loaiVi = spn_loaivi.getSelectedItemPosition()+1;
+                    String tenVi = listVT.get(spn_loaivi.getSelectedItemPosition()).getTenVi();
+                    ViTien viTienDuocChon = viTienDAO.layViTienTheoTen(tenVi);
+                    ViTien viTienHienTai = viTienDAO.layViTienTheoTen(tenViHienTai);
+                    boolean updateResult = viTienDAO.traLaiTienVi(viTienHienTai, soTienChiHienTai);
+                    if (updateResult) {
+                        double soTienChi = soTien;
+                        double soDuHT = viTienDuocChon.getSoDuHienTai();
+                        if (soTienChi > soDuHT){
+                            Toast.makeText(context, "Số dư trong ví không đủ để thanh toán!", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            chiTieu.setSoTienChi(soTien);
+                            chiTieu.setGhiChu(ghiChu);
+                            chiTieu.setThoiGianChi(chuyenDoiNgayPhuHop(ngay));
+                            chiTieu.setMaVi(loaiVi);
+                            double soDuMoi = soDuHT - soTienChi;
+                            viTienDuocChon.setSoDuHienTai(soDuMoi);
+                            boolean check = chiTieuDAO.capNhatChiTieu(chiTieu);
+                            if (check){
+                                viTienDAO.capNhatSoDuViTien(viTienDuocChon);
+                                loadData();
+                                Toast.makeText(context, "Cập nhật chi tiêu thành công", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            } else {
+                                Toast.makeText(context, "Cập nhật chi tiêu thất bại!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    } else {
+                        Toast.makeText(context, "Trả tiền ví thất bại!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
             }
         });
-
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 
     private void loadData() {
@@ -580,5 +620,12 @@ public class QuanLyChiTieuAdapter extends RecyclerView.Adapter<QuanLyChiTieuAdap
             clearResult();
         }
 
+    }
+    private String chuyenDoiNgayPhuHop(String ngayXuatStr) {
+        String[] ngayThangNam = ngayXuatStr.split("-");
+        String nam = ngayThangNam[2];
+        String thang = ngayThangNam[1];
+        String ngay = ngayThangNam[0];
+        return nam + "-" + thang + "-" + ngay;
     }
 }

@@ -25,7 +25,7 @@ android:layout_height="match_parent">
             android:layout_marginBottom="10dp"
             android:background="@drawable/tv_dialogred"
             android:gravity="center"
-            android:text="Update Chi Tiêu"
+            android:text="Cập Nhật Chi Tiêu"
             android:textColor="@color/white"
             android:textSize="30dp"
             android:textStyle="bold" />
@@ -161,18 +161,29 @@ android:layout_height="match_parent">
             android:layout_marginRight="10dp"
             android:hint="Ghi chú"
             android:textSize="20sp"/>
-        <Button
-            android:layout_width="170dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="10dp"
-            android:backgroundTint="@color/red"
-            android:textSize="17dp"
-            android:id="@+id/btn_ct_update"/>
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btn_ct_cancel"
+                android:layout_width="140dp"
+                android:layout_height="45dp"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/red"
+                android:text="Hủy"
+                android:textColor="@color/white" />
+            <Button
+                android:id="@+id/btn_ct_update"
+                android:layout_width="140dp"
+                android:layout_height="45dp"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/red"
+                android:text="Lưu"
+                android:textColor="@color/white" />
+        </LinearLayout>
     </LinearLayout>
     <!-- Thêm các phần tử khác nếu cần -->
 </LinearLayout>
